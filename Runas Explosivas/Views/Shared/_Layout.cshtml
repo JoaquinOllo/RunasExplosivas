@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="page-header z-depth-1 inverted">
+        <h1 class="fuenteRE">Runas Explosivas <span class="@ViewBag.HeaderGlyph"></span><small class="subtitulo hidden-xs">@ViewBag.HeaderText </small></h1>
+        <div class="avisos">
+            <small></small>
+        </div>
+    </div>
+
+
+
+    @RenderBody()
+
+
+    <nav class="navbar  navbar-default navbar-fixed-bottom inverted-secondary z-depth-2">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- BRAND Y BOTONES.MEDIA -->
+
+                <a class="navbar-brand fuenteRE black-font" id="logoRE" href="@Url.Action("Index", "Home")">R.E.</a>
+                <a href="#"><span class="fa-sub fa-lg fa fa-facebook-square"></span></a>
+                <a href="#"><span class="fa-sub fa-lg fa fa-youtube-play"></span></a>
+            </div>
+
+            <!-- LINKS DE BARRA INFERIOR -->
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav black-font">
+                    <li class="@(ViewBag.Title == "Blog" ? "active" : string.Empty)"><a href="@Url.Action("Blog", "Home")">Blog <span class="glyphicon glyphicon-pencil"></span></a></li>
+                    <li class="@(ViewBag.Title == "Podcast" ? "active" : string.Empty)"><a href="@Url.Action("Podcast", "Home")">Podcast <span class="glyphicon glyphicon-headphones"></span></a></li>
+                    <li class="@(ViewBag.Title == "Editorial" ? "active" : string.Empty)"><a href="@Url.Action("Editorial", "Home")">Editorial Rúnica <span class="glyphicon glyphicon-book"></span></a></li>
+                    <li class="dropup">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recursos <span class="glyphicon glyphicon-wrench"> </span><span class="caret"></span></a>
+                        <ul class="dropdown-menu    black-font">
+                            <li><a href="#">Diario del GM</a></li>
+                            <li><a href="#">Generador de tiradas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/general.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid bottom-pad">
+    @RenderBody()
+
+
+    <!-- BARRA LATERAL PARA BÚSQUEDAS, LOGIN Y SELECCIÓN DE TAGS -->
+
+    <div id="barra-lateral" class="col-md-2 col-xs-1 z-depth-2 inverted-light">
+        <span class="icono-expandir-barra glyphicon glyphicon-plus visible-xs visible-sm" id="boton-expandir-barra"></span>
+        <div id="barra-lateral-contenido">
+
+            <!-- WIDGET DEFAULT-->
+
+            <div id="barra-lateral-widget-default">
+                widget default
+            </div>
+
+            <!-- WIDGET DE CARRITO DE COMPRAS -->
+
+            <div class="barra-lateral-widget" id="carrito-compras">
+                <h5>Carrito de compras</h5>
+            </div>
+
+            <!-- WIDGET DE INICIO DE SESIÓN-->
+
+            <div class="barra-lateral-widget" id="inicio-sesion">
+                <form id="form-inicio-sesion">
+                    <h4>Iniciar sesión</h4>
+                    <div class="form-group">
+                        <label for="inputEmail" class="sr-only">Dirección de email</label>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputContraseña" class="sr-only">Contraseña</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="*******" required>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Mantener sesión iniciada
+                        </label>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+                </form>
+                <button class="btn btn-lg btn-info btn-block" data-target="#registro" id="boton-registro" type="submit">Registrate!</button>
+            </div>
+
+            <!-- WIDGET DE REGISTRO DE USUARIO NUEVO -->
+
+            <div class="barra-lateral-widget" id="registro">
+                <form id="form-registro">
+                    <h4>Usuario nuevo</h4>
+                    <div class="form-group">
+                        <label for="inputEmail" class="sr-only">Dirección de email</label>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputContraseña" class="sr-only">Contraseña</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="*******" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputContraseña" class="sr-only">Repetir contraseña</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="*******" required>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value=""> I'm not a robot
+                        </label>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrate!</button>
+                </form>
+
+            </div>
+
+            <!-- WIDGET DE BÚSQUEDA-->
+
+            <div class="barra-lateral-widget" id="busqueda">
+                <form id="form-busqueda">
+
+                    <div class="form-group">
+                        <label for="input-busqueda">Buscar artículos:</label>
+                        <input type="text" class="form-control" id="input-busqueda">
+                    </div>
+                    <h5>Buscar por...</h5>
+                    <div class="form-group">
+                        <div class="radio">
+                            <label><input type="radio" name="optradio">título</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio">autor</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio">tags</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-info" type="submit" value="Buscar">
+                    </div>
+                </form>
+            </div>
+
+        </div> <!-- fin de div barra-lateral-contenido -->
+    </div> <!-- fin de div barra lateral-->
+    <!-- BOTONERA DE LOGIN Y BÚSQUEDA -->
+
+    <div id="botonera">
+        <button id="boton-login" class="@ViewBag.BtnUsuario btn @ViewBag.Btn btn-primary z-depth-3" data-target="#inicio-sesion" type="submit"><span class="glyphicon glyphicon-user"></span></button>
+        <button id="boton-compras" class="@ViewBag.BtnCarrito btn @ViewBag.Btn btn-primary z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+        <button id="boton-busqueda" class="@ViewBag.BtnBuscar btn @ViewBag.Btn btn-info z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
+</div> <!-- fin de container-fluid -->

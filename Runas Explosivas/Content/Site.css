@@ -1,0 +1,383 @@
+﻿/* CSS CON SELECTORES GENERALES */
+
+body {
+    /*overflow-x: hidden;*/
+    background-color: #E5E5E5;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+a {
+    color: #000000;
+    transition: font-size 0.3s;
+}
+
+    a:hover {
+        color: #000000;
+        text-decoration: none;
+        font-size: 105%;
+    }
+
+    a:active {
+        text-decoration: none;
+    }
+
+.bottom-pad { /* Agrega padding al body para que la navbar inferior no tape el contenido de la página */
+    padding-bottom: 50px;
+}
+
+.main {
+    padding: 15px;
+    background-color: #c6c6c6;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+@media only screen and (min-width: 768PX) {
+    .main {
+    margin-left: 15%;
+    margin-right: 15%;
+    }
+}
+
+/* CSS DE PAGE HEADER */
+
+.page-header {
+    height: 108px;
+    letter-spacing: 3px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 3px;
+    text-align: center;
+    border-style: none;
+}
+
+    .page-header small {
+        display: inline-block;
+    }
+
+    .page-header h1 {
+        margin-top: 0px;
+        font-size: 4em;
+    }
+
+@media only screen and (max-width: 768px) {
+    .page-header > h1 {
+        font-size: 3em;
+        margin-top: 0px;
+    }
+}
+
+/* CSS de AVISOS EN HEADER */
+
+.avisos {
+    font-style: italic;
+}
+
+/* CSS PARA ARTICULOS */
+
+.articulo {
+    padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+    .articulo {
+        padding: 20px;
+    }
+}
+
+.articulo h3 {
+    margin-top: 10px;
+}
+
+.articulo > h3 > a {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.articulo p {
+    text-align: justify;
+}
+
+.articulo > img {
+    width: inherit;
+}
+
+#destacado {
+    padding-bottom: 5px;
+}
+
+/* CSS DE TAGS QUE ACOMPAÑAN CADA ARTÍCULO */
+
+.tag-text {
+    border-radius: 10px;
+    font-size: 0.5em;
+    margin-left: 5px;
+    padding: 3px;
+    font-style: italic;
+    font-family: Verdana, Geneva, sans-serif;
+    display: none;
+}
+
+.tag-icon {
+    padding-right: 5px;
+}
+
+/* MANEJO DE COLORES */
+
+.inverted { /* cambia color de fondo y de fuente para header, navbar y otros elementos */
+    background-color: #2B2B2B;
+    background: -webkit-linear-gradient(#2B2B2B, #383838); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#2B2B2B, #383838); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#2B2B2B, #383838); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#2B2B2B, #383838); /* Standard syntax */
+    color: #D6D6D6;
+}
+
+.inverted-secondary { /* cambia color de fondo y de fuente para header, navbar y otros elementos */
+    background-color: #ef6c00;
+    color: #000000;
+    border-style: none;
+}
+
+.inverted-light {
+    background-color: #545454;
+    color: #ffffff;
+}
+
+.black-font,
+.black-font > li > a,
+.black-font > a { /*Color de fuente negro para fondos claros*/
+    color: #000000 !important;
+}
+
+.fuenteRE { /* Fuente central de la página*/
+    font-family: 'Amatic SC', cursive;
+}
+
+hr.inverted {
+    border-color: #2B2B2B;
+    border-width: 6px;
+}
+
+/* CSS DE NAVBAR */
+
+#logoRE {
+    font-size: 4em;
+    transition: font-size 0.7s ease;
+}
+
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+    color: #000000;
+}
+
+.fa-sub { /*clase específica para íconos de facebook y youtube de la página */
+    padding-top: 20px;
+    padding-right: 3px;
+    color: #000000;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #000000;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #2b2b2b;
+}
+
+/* CSS de BARRA LATERAL */
+
+#barra-lateral {
+    bottom: 89px;
+    right: 0px;
+    height: 67vh;
+    border-radius: 5px 0px 0px 15px;
+    position: fixed;
+    transition: width 0.5s ease, box-shadow 1s ease;
+}
+
+@media only screen and (min-width: 768px) {
+    #barra-lateral {
+        height: 72vh;
+    }
+}
+
+.icono-expandir-barra {
+    font-size: 1.5em;
+    right: 8px;
+    top: 3px;
+    color: #ff9d3f;
+}
+
+#barra-lateral-contenido {
+    padding-top: 5px;
+}
+
+.barra-lateral-widget {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    #barra-lateral-widget-default {
+        display: none;
+    }
+}
+
+
+
+/* CSS de BOTONES DE LOGIN Y BÚSQUEDA */
+
+#botonera {
+    position: fixed;
+    bottom: 65px;
+    right: 15px;
+    border-radius: 15px;
+}
+
+/* SHADOWS FOR MATERIAL DESIGN 
+
+HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
+
+.z-depth-1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.35);
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+    .z-depth-1.hover,
+    .z-depth-1:hover,
+    .z-depth-1.focus,
+    .z-depth-1:focus {
+        box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.34);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+.z-depth-2 {
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.34);
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+    .z-depth-2.hover,
+    .z-depth-2:hover,
+    .z-depth-2.focus,
+    .z-depth-2:focus {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.33);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .z-depth-2.active,
+    .z-depth-2:active,
+    .z-depth-2.active:hover,
+    .z-depth-2:active:hover,
+    .z-depth-2.active:focus {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.35);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+.z-depth-3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.33);
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+    .z-depth-3.hover,
+    .z-depth-3:hover,
+    .z-depth-3.focus,
+    .z-depth-3:focus {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.32);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .z-depth-3.active,
+    .z-depth-3:active,
+    .z-depth-3.active:hover,
+    .z-depth-3:active:hover,
+    .z-depth-3.active:focus {
+        box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.34);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+.z-depth-4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.32);
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+    .z-depth-4.hover,
+    .z-depth-4:hover,
+    .z-depth-4.focus,
+    .z-depth-4:focus {
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.31);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .z-depth-4.active,
+    .z-depth-4:active,
+    .z-depth-4.active:hover,
+    .z-depth-4:active:hover,
+    .z-depth-4.active:focus {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.33);
+        transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+
+.z-depth-5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.31);
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+    .z-depth-5.active,
+    .z-depth-5:active,
+    .z-depth-5.active:hover,
+    .z-depth-5:active:hover,
+    .z-depth-5.active:focus {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.32);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+/* NUEVOS COLORES PARA BOTONES */
+
+.btn-primary {
+    background-color: #ef6c00;
+    color: #000000;
+    border-color: #d84a02;
+}
+
+    .btn-primary:active,
+    .btn-primary.active {
+        background-color: #d15e00;
+        color: #000000;
+        border-color: #b55100;
+    }
+
+        .btn-primary:focus,
+        .btn-primary.focus,
+        .btn-primary.active:hover,
+        .btn-primary:active:hover,
+        .btn-primary:hover,
+        .btn-primary.hover,
+        .btn-primary.active:focus {
+            color: #000000;
+            background-color: #a04800;
+            border-color: #914100;
+        }
+
+.btn-info {
+    background-color: #ff9d3f;
+    color: #000000;
+    border-color: #ef6c00;
+}
+
+    .btn-info:active,
+    .btn-info.active {
+        background-color: #7F4E1F;
+        color: #000000;
+        border-color: #5E3A17;
+    }
+
+        .btn-info:focus,
+        .btn-info.focus,
+        .btn-info.active:hover,
+        .btn-info:active:hover,
+        .btn-info:hover,
+        .btn-info.hover,
+        .btn-info.active:focus {
+            color: #000000;
+            background-color: #BF762F;
+            border-color: #5E3A17;
+        }
