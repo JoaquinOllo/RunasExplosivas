@@ -22,24 +22,31 @@ function manipularBarra(text, mostrarDefault=true){
 	};
 };
 
-function botonera(boton){
-	var target = $(boton).data("target");
+function botonera(botonID){
+    var target = $(botonID).data("target");
+    var child = $(botonID).data("child");
 
-	if ($(boton).hasClass("active") == false) {
-		$(boton).addClass("active").siblings().removeClass("active");
+	if ($(botonID).hasClass("active") == false) {
+        $(botonID).addClass("active").siblings().removeClass("active");
 		if (isBarraExpandida()) {
 			$("#barra-lateral-contenido").children().fadeOut(200);
-			$(target).delay(200).fadeIn(300);
+            $(target).delay(200).fadeIn(300);
 		} else {
 			manipularBarra("expandir", false);
 			$(target).fadeIn(300);
-		};
+        };
 	} else {
 		manipularBarra("contraer");		
 		$("#barra-lateral-contenido").children().fadeOut(200);
-		$(boton).parent().children().removeClass("active");
-	};
+        $(botonID).parent().children().removeClass("active");
+    };
 };
+
+function activarBoton(boton) {
+    $(boton).on("click", function () {
+        botonera(boton);
+    });
+}
 
 /* FUNCION IN DE PYTHON */
 
@@ -273,10 +280,6 @@ $(document).ready(function(){
 
  	$("#boton-busqueda").on("click", function(){
     	botonera("#boton-busqueda");
-    });
-
-    $("#boton-registro").on("click", function () {
-        botonera("#boton-registro");
     });
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 

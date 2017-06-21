@@ -68,7 +68,7 @@
                             <input type="checkbox" value=""> I'm not a robot
                         </label>
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrate!</button>
+                    <button class="btn btn-lg boton-lateral btn-primary btn-block" type="submit">Registrate!</button>
                 </form>
 
             </div>
@@ -105,8 +105,8 @@
     <!-- BOTONERA DE LOGIN Y BÚSQUEDA -->
 
     <div id="botonera">
-        <button id="boton-login" class="@ViewBag.BtnUsuario btn @ViewBag.Btn btn-primary z-depth-3" data-target="#inicio-sesion" type="submit"><span class="glyphicon glyphicon-user"></span></button>
-        <button id="boton-compras" class="@ViewBag.BtnCarrito btn @ViewBag.Btn btn-primary z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
-        <button id="boton-busqueda" class="@ViewBag.BtnBuscar btn @ViewBag.Btn btn-info z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        <button id="boton-login" class="@ViewBag.BtnUsuario btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-child="#boton-registro" data-target="#inicio-sesion" type="submit"><span class="glyphicon glyphicon-user"></span></button>
+        <button id="boton-compras" class="@ViewBag.BtnCarrito btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+        <button id="boton-busqueda" class="@ViewBag.BtnBuscar btn @ViewBag.Btn btn-info boton-lateral z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
     </div>
 </div> <!-- fin de container-fluid -->
