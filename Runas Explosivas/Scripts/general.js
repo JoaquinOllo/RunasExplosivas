@@ -25,8 +25,8 @@ function manipularBarra(text, mostrarDefault=true){
 function botonera(botonID){
     var target = $(botonID).data("target");
     var child = $(botonID).data("child");
-
 	if ($(botonID).hasClass("active") == false) {
+
         $(botonID).addClass("active").siblings().removeClass("active");
 		if (isBarraExpandida()) {
 			$("#barra-lateral-contenido").children().fadeOut(200);
@@ -42,9 +42,15 @@ function botonera(botonID){
     };
 };
 
+/**
+ * / FUNCIÓN ENCARGADA DE ACTIVAR EL EVENT LISTENER PARA LOS BOTONES QUE INTERACTÚAN CON LA BARRA LATERAL
+ * @param {any} boton PASAR ID DE BOTÓN CON # ANTECEDIENDO
+ */
+
 function activarBoton(boton) {
     $(boton).on("click", function () {
         botonera(boton);
+        $(boton).removeClass("active");
     });
 }
 
@@ -270,7 +276,7 @@ $(document).ready(function(){
 
 /* EVENT LISTENER PARA CLICK DE LOS BOTONES INFERIORES */
 
-	$("#boton-compras").on("click", function(){
+	/*$("#boton-compras").on("click", function(){
     	botonera("#boton-compras");
     });
 
@@ -281,6 +287,16 @@ $(document).ready(function(){
  	$("#boton-busqueda").on("click", function(){
     	botonera("#boton-busqueda");
     });
+
+    $("#boton-registro").on("click", function () {
+        botonera("#boton-registro");
+    });*/
+
+    $(".boton-lateral").on("click", function () {
+        activarBoton($(this));
+    });
+
+    
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 
 
