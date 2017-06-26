@@ -8,24 +8,25 @@ function isBarraExpandida(){
 	} else {
 		return false;
 	}
-}
+};
 
 function manipularBarra(text, mostrarDefault=true){
-    if (text === "expandir") {
-        $("#barra-lateral").removeClass("col-xs-1").addClass("col-xs-7", "active");
-        $("#boton-expandir-barra").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-        if (mostrarDefault) { $("#barra-lateral-widget-default").fadeIn();}
-    } else if (text === "contraer") {
-        $("#barra-lateral-contenido").children().fadeOut();
-        $("#barra-lateral").removeClass("col-xs-7", "active").addClass("col-xs-1");
-        $("#boton-expandir-barra").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-    }
-}
+	if (text == "expandir") {
+		$("#barra-lateral").removeClass("col-xs-1").addClass("col-xs-7", "active");
+		$("#boton-expandir-barra").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+		if (mostrarDefault) {$("#barra-lateral-widget-default").fadeIn()};
+	} else if (text == "contraer") {
+		$("#barra-lateral-contenido").children().fadeOut();
+    	$("#barra-lateral").removeClass("col-xs-7", "active").addClass("col-xs-1");
+    	$("#boton-expandir-barra").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+	};
+};
 
 function botonera(botonID){
     var target = $(botonID).data("target");
+    var child = $(botonID).data("child");
 
-    if ($(botonID).hasClass("active") === false) {
+	if ($(botonID).hasClass("active") == false) {
         $(botonID).addClass("active").siblings().removeClass("active");
 		if (isBarraExpandida()) {
 			$("#barra-lateral-contenido").children().fadeOut(200);
@@ -33,24 +34,19 @@ function botonera(botonID){
 		} else {
 			manipularBarra("expandir", false);
 			$(target).fadeIn(300);
-        }
+        };
 	} else {
 		manipularBarra("contraer");		
 		$("#barra-lateral-contenido").children().fadeOut(200);
         $(botonID).parent().children().removeClass("active");
-    }
+    };
+};
+
+function activarBoton(boton) {
+    $(boton).on("click", function () {
+        botonera(boton);
+    });
 }
-
-/**
- * / FUNCIÓN ENCARGADA DE ACTIVAR EL EVENT LISTENER PARA LOS BOTONES QUE INTERACTÚAN CON LA BARRA LATERAL
- * @param {any} boton PASAR ID DE BOTÓN CON # ANTECEDIENDO
- */
-
-//function activarBoton(boton) {
-//    $(boton).on("click", function () {
-//        botonera(boton);
-//    });
-//}
 
 /* FUNCION IN DE PYTHON */
 
@@ -58,10 +54,10 @@ function isInArray(obj, list) {
     for (var i = 0; i < list.length; i++) {
         if (list[i] === obj) {
             return true;
-        }
-    }
+        };
+    };
     return false;
-}
+};
 
   /*getPreviewText (){
   	var textArray = this.texto.split(" ");
@@ -73,21 +69,21 @@ function isInArray(obj, list) {
 /* CLASE Y CARGADO MANUAL DE TAGS */
 
 var Tag = class Tag {
-    constructor(nombre, glyphicon = '', prioridad = false) {
-        this.nombre = nombre;
-        this.glyphicon = glyphicon ? "glyphicon glyphicon-" + glyphicon : glyphicon;
-        this.prioridad = prioridad;
-        this.glyphHTML = glyphicon ? '</a><span data-toggle="tooltip" title="' + this.nombre + '" class="tag-icon ' + this.glyphicon + '"></span>' : "";
-    }
-}
+	constructor(nombre, glyphicon='', prioridad=false) {
+		this.nombre = nombre;
+		this.glyphicon = (glyphicon) ? "glyphicon glyphicon-" + glyphicon: glyphicon;
+	    this.prioridad = prioridad;
+	    this.glyphHTML = (glyphicon) ? '</a><span data-toggle="tooltip" title="' + this.nombre + '" class="tag-icon ' + this.glyphicon + '"></span>': "";
+  	};
+};
 
 function allGlyphHTML (tagList) {
 	var finalHTML = "";
 	for (var i = 0; i < tagList.length; i++){
 		finalHTML = finalHTML + tagList[i].glyphHTML;
-	}
+	};
 	return finalHTML;
-}
+};
 
 var tagBlog = new Tag (
 	"blog",
@@ -150,8 +146,8 @@ var Articulo = class Articulo {
     this.texto = texto;
     this.imagen = imagen;
     this.link = link;
-  }
-}
+  };
+};
 
 var articulo1 = new Articulo(
 	"PE nº66: Aplicando Resolución de Conflictos a tu Mesa",
@@ -234,18 +230,17 @@ $(document).ready(function(){
 /* BUCLE PARA AGREGAR ARTICULOS AL DOM */
 
     for (var i = 0; i < articulos.length; i++) {
-        if (i === 0) {
-            $("#destacado").prepend(
-                '<h3><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h3>' +
-                '<div class="col-md-10">' +
-                '<p>' + articulos[i].texto + '</p>' +
-                '</div>');
-        }
-        $("#display-articulos-secundarios").append('<div class="col-md-6 articulo">' +
-            '<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
-            '<p class="hidden-xs">' + articulos[i].texto + '</p>'
-        );
-        /*if (isInArray("podcast", articulos[i].tags)) {
+    	if (i === 0) {
+    		$("#destacado").prepend(
+    			'<h3><a href="#">'+ articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) +'</h3>' +
+					'<div class="col-md-10">' +
+						'<p>' + articulos[i].texto + '</p>' +
+					'</div>')};
+		$("#display-articulos-secundarios").append('<div class="col-md-6 articulo">' +
+			'<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
+			'<p class="hidden-xs">'+ articulos[i].texto +'</p>'
+			);
+    	/*if (isInArray("podcast", articulos[i].tags)) {
     		$("#destacado").append(
 					'<div class="col-xs-2">' +
 						'<div class="btn-group">' + 
@@ -260,35 +255,36 @@ $(document).ready(function(){
 						'</div>' +
 					'</div>	')
     	};*/
-    }
+
+    };
 
 /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
 
-    $("#boton-expandir-barra").click(function () {
-        if (!isBarraExpandida()) {
-            manipularBarra("expandir");
-        } else {
-            manipularBarra("contraer");
-        }
+    $("#boton-expandir-barra").click(function(){
+    	if (!isBarraExpandida()) {
+    		manipularBarra("expandir");
+    	} else {
+			manipularBarra("contraer");
+    	};
     });
 
 /* EVENT LISTENER PARA CLICK DE LOS BOTONES INFERIORES */
 
-    $("#boton-compras").on("click", function () {
-        botonera("#boton-compras");
+	$("#boton-compras").on("click", function(){
+    	botonera("#boton-compras");
     });
 
-    $("#boton-login").on("click", function () {
-        botonera("#boton-login");
+    $("#boton-login").on("click", function(){
+    	botonera("#boton-login");
     });
 
-    $("#boton-busqueda").on("click", function () {
-        botonera("#boton-busqueda");
+ 	$("#boton-busqueda").on("click", function(){
+    	botonera("#boton-busqueda");
     });
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 
 
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
+	  $('[data-toggle="tooltip"]').tooltip()
+	});
 });
