@@ -4,9 +4,9 @@ var avisos = "";
 
 function isBarraExpandida(){
 	if ($("#barra-lateral").width() > 100) {
-		return true;
+		return true
 	} else {
-		return false;
+		return false
 	}
 };
 
@@ -14,7 +14,7 @@ function manipularBarra(text, mostrarDefault=true){
 	if (text == "expandir") {
 		$("#barra-lateral").removeClass("col-xs-1").addClass("col-xs-7", "active");
 		$("#boton-expandir-barra").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-		if (mostrarDefault) {$("#barra-lateral-widget-default").fadeIn()};
+		if (mostrarDefault) {$("#barra-lateral-widget-default").fadeIn()}
 	} else if (text == "contraer") {
 		$("#barra-lateral-contenido").children().fadeOut();
     	$("#barra-lateral").removeClass("col-xs-7", "active").addClass("col-xs-1");
@@ -58,13 +58,6 @@ function isInArray(obj, list) {
     };
     return false;
 };
-
-  /*getPreviewText (){
-  	var textArray = this.texto.split(" ");
-  	if (textArray.length > 45) {
-  		
-  	};
-  };*/
 
 /* CLASE Y CARGADO MANUAL DE TAGS */
 
@@ -135,6 +128,35 @@ var tagMazoMuchasCosas = new Tag (
 
 var listaTags = [tagBlog, tagPodcast, tagNoticia, tagResenha, tagCuentacuentos, tagRolerosofia, tagRolerodromo];
 
+/* CLASE Y CARGA MANUAL DE Y ARTÍCULOS DE TIENDA */
+
+var ArticuloTienda = class ArticuloTienda {
+    constructor(titulo, autor, tags, tipoProducto, fecha, texto, imagen, precio, stock) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.tags = tags;
+        this.tipoProducto = tipoProducto;
+        this.fecha = fecha; /*REVISAR, SACAR DE PARÁMETRO DEL CONSTRUCTOR Y BUSCAR CÓMO OBTENER FECHA*/
+        this.texto = texto;
+        this.imagen = imagen;
+        this.precio = precio;
+        this.stock = stock;
+    };
+};
+
+var producto1 = new ArticuloTienda();
+var producto2 = new ArticuloTienda();
+var producto3 = new ArticuloTienda();
+var producto4 = new ArticuloTienda();
+var producto5 = new ArticuloTienda();
+var producto6 = new ArticuloTienda();
+var producto7 = new ArticuloTienda();
+var producto8 = new ArticuloTienda();
+var producto9 = new ArticuloTienda();
+
+var articulos = [producto1, producto2, producto3, producto4, producto5, producto6, producto7, producto8, producto9];
+
+
 /* CLASE Y CARGA MANUAL DE Y ARTÍCULOS */
 
 var Articulo = class Articulo {
@@ -146,7 +168,8 @@ var Articulo = class Articulo {
     this.texto = texto;
     this.imagen = imagen;
     this.link = link;
-  };
+    this.PreviewText = texto.slice(0, 201) + "...";
+    };
 };
 
 var articulo1 = new Articulo(
@@ -234,12 +257,14 @@ $(document).ready(function(){
     		$("#destacado").prepend(
     			'<h3><a href="#">'+ articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) +'</h3>' +
 					'<div class="col-md-10">' +
-						'<p>' + articulos[i].texto + '</p>' +
-					'</div>')};
-		$("#display-articulos-secundarios").append('<div class="col-md-6 articulo">' +
+						'<p>' + articulos[i].PreviewText + '</p>' +
+                '</div>')
+        } else {
+		    $("#display-articulos-secundarios").append('<div class="col-md-6 articulo">' +
 			'<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
-			'<p class="hidden-xs">'+ articulos[i].texto +'</p>'
+			'<p class="hidden-xs">'+ articulos[i].PreviewText +'</p>'
 			);
+        }
     	/*if (isInArray("podcast", articulos[i].tags)) {
     		$("#destacado").append(
 					'<div class="col-xs-2">' +

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,5 +29,39 @@ namespace Runas_Explosivas.Controllers
         {
             return View();
         }
+
+        public ActionResult Contacto()
+        {
+            return View();
+        }
+
+        public ActionResult Mensaje(string nombre, string email, string mensaje, string SendTo)
+        {
+            SmtpClient clienteSmtp = new SmtpClient();
+            clienteSmtp.Host = "smtp.gmail.com";
+            clienteSmtp.Port = 587;
+            clienteSmtp.Credentials = new NetworkCredential("joaquinollo@gmail.com", "qwe11ny23aZ");
+            clienteSmtp.EnableSsl = true;
+
+
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("joaquinollo@gmail.com", "Joaquin Ollo");
+            mail.To.Add("joaquinollo@gmail.com");
+            mail.Subject = "Te contactaron del blog";
+            mail.Body = nombre + " (" + email + ") te contactó desde la aplicación, y te dejó el sig. mensaje: " + mensaje;
+            clienteSmtp.Send(mail);
+
+            //mail para el usuario
+            MailMessage mensajeParaUsuario = new MailMessage();
+            mensajeParaUsuario.From = new MailAddress("joaquinollo@gmail.com", "Joaquin Ollo");
+            mensajeParaUsuario.To.Add(email);
+            mensajeParaUsuario.Subject="Gracias por contactarte con el Blog!";
+            mensajeParaUsuario.Body= "Gracias por contactarte con el staff de Runas Explosivas! Tu mensaje será respondido a la brevedad.";
+
+            clienteSmtp.Send(mensajeParaUsuario);
+            return View("Index");
+        }
+
+
     }
 }
