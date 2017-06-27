@@ -14,7 +14,7 @@ a {
     a:hover {
         color: #000000;
         text-decoration: none;
-        font-size: 105%;
+        font-size: 103%;
     }
 
     a:active {
@@ -79,11 +79,16 @@ a {
 
 .articulo {
     padding: 10px;
+    transition: width 1.5s, height 1s;
 }
 
 @media only screen and (min-width: 768px) {
     .articulo {
         padding: 20px;
+    }
+    #display-articulos-secundarios > .articulo {
+        height: 25vh;
+        overflow: hidden;
     }
 }
 
@@ -105,19 +110,12 @@ a {
 }
 
 #destacado {
-    padding-bottom: 5px;
+    min-height: 40vh;
 }
 
 /* CSS DE TAGS QUE ACOMPAÑAN CADA ARTÍCULO */
-
 .tag-text {
-    border-radius: 10px;
-    font-size: 0.5em;
-    margin-left: 5px;
-    padding: 3px;
-    font-style: italic;
-    font-family: Verdana, Geneva, sans-serif;
-    display: none;
+    border-radius: 10px; font-size: 0.5em; margin-left: 5px; padding: 3px; font-style: italic; font-family: Verdana, Geneva, sans-serif; display: none;
 }
 
 .tag-icon {

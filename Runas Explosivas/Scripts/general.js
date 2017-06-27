@@ -131,7 +131,8 @@ var listaTags = [tagBlog, tagPodcast, tagNoticia, tagResenha, tagCuentacuentos, 
 /* CLASE Y CARGA MANUAL DE Y ARTÍCULOS DE TIENDA */
 
 var ArticuloTienda = class ArticuloTienda {
-    constructor(titulo, autor, tags, tipoProducto, fecha, texto, imagen, precio, stock) {
+    constructor(ID, titulo, autor, tags, tipoProducto, fecha, texto, imagen, precio, stock) {
+        this.ID = ID;
         this.titulo = titulo;
         this.autor = autor;
         this.tags = tags;
@@ -160,7 +161,8 @@ var articulos = [producto1, producto2, producto3, producto4, producto5, producto
 /* CLASE Y CARGA MANUAL DE Y ARTÍCULOS */
 
 var Articulo = class Articulo {
-  constructor(titulo, autor, tags, fecha, texto, imagen=false, link=false) {
+  constructor(ID, titulo, autor, tags, fecha, texto, imagen=false, link=false) {
+    this.ID = ID;
     this.titulo = titulo;
     this.autor = autor;
     this.tags = tags; 
@@ -170,9 +172,13 @@ var Articulo = class Articulo {
     this.link = link;
     this.PreviewText = texto.slice(0, 201) + "...";
     };
+    getPreviewText(characters) {
+        return this.texto.slice(0, characters) + "...";
+    };
 };
 
 var articulo1 = new Articulo(
+    1,
 	"PE nº66: Aplicando Resolución de Conflictos a tu Mesa",
 	"Juan Manuel Avila",
 	[tagPodcast],
@@ -181,6 +187,7 @@ var articulo1 = new Articulo(
 	);
 
 var articulo2 = new Articulo(
+    2,
 	"PE nº65 - Las Grandes Tres, parte 3: ¿Qué hacen personajes y jugadores?",
 	"Juan Manuel Avila",
 	[tagPodcast],
@@ -189,6 +196,7 @@ var articulo2 = new Articulo(
 	);
 
 var articulo3 = new Articulo(
+    3,
 	"Reseña: Princes of the Apocalypse D&D",
 	"Ezequiel",
 	[tagBlog, tagResenha],
@@ -197,6 +205,7 @@ var articulo3 = new Articulo(
 	);
 
 var articulo4 = new Articulo(
+    4,
 	"Murder Hobos & Fantasy Rockstars",
 	"Duamn Figueroa",
 	[tagBlog, tagRolerosofia],
@@ -205,6 +214,7 @@ var articulo4 = new Articulo(
 	);
 
 var articulo5 = new Articulo(
+    5,
 	"Información Asimétrica",
 	"Duamn Figueroa",
 	[tagBlog, tagRolerodromo],
@@ -213,6 +223,7 @@ var articulo5 = new Articulo(
 	);
 
 var articulo6 = new Articulo(
+    6,
 	"Gaceta Rúnica: ¡Muchos juegos y mecenazgos nuevos!",
 	"Juan Manuel Avila",
 	[tagBlog, tagNoticia],
@@ -221,6 +232,7 @@ var articulo6 = new Articulo(
 	);
 
 var articulo7 = new Articulo(
+    7,
 	"Desierto y pantano",
 	"Joaquín Ollo",
 	[tagBlog, tagCuentacuentos],
@@ -229,6 +241,7 @@ var articulo7 = new Articulo(
 	);
 
 var articulo8 = new Articulo(
+    8,
 	"Mundos virtuales",
 	"Joaquín Ollo",
 	[tagBlog, tagMazoMuchasCosas],
@@ -237,6 +250,7 @@ var articulo8 = new Articulo(
 	);
 
 var articulo9 = new Articulo(
+    9,
 	"El ascenso del gólem",
 	"Joaquín Ollo",
 	[tagBlog, tagCuentacuentos],
@@ -254,15 +268,16 @@ $(document).ready(function(){
 
     for (var i = 0; i < articulos.length; i++) {
     	if (i === 0) {
-    		$("#destacado").prepend(
-    			'<h3><a href="#">'+ articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) +'</h3>' +
-					'<div class="col-md-10">' +
-						'<p>' + articulos[i].PreviewText + '</p>' +
-                '</div>')
+            $("#destacado").prepend(
+                '<h3><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h3>' +
+                '<div class="col-md-10">' +
+                '<p>' + articulos[i].getPreviewText(300) + '</p>' +
+                '</div>').data("ID", articulos[i].ID);
         } else {
-		    $("#display-articulos-secundarios").append('<div class="col-md-6 articulo">' +
-			'<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
-			'<p class="hidden-xs">'+ articulos[i].PreviewText +'</p>'
+            $("#display-articulos-secundarios").append(
+                '<div class="col-md-6 articulo" data-ID="' + articulos[i].ID + '">' +
+			    '<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
+			    '<p class="hidden-xs">'+ articulos[i].getPreviewText(200) +'</p>'
 			);
         }
     	/*if (isInArray("podcast", articulos[i].tags)) {
@@ -282,6 +297,15 @@ $(document).ready(function(){
     	};*/
 
     };
+
+/* EVENT LISTENER PARA BOTONES DE LOS ARTÍCULOS AL HACER CLIC */
+
+    $("#display-articulos .articulo a").on("click", function () {
+        $("#display-articulos-secundarios").fadeOut();
+        $("#destacado").fadeOut();
+        var thisArticulo = $(this).parents(".articulo");
+
+    });
 
 /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
 
