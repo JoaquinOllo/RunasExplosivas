@@ -35,6 +35,11 @@ namespace Runas_Explosivas.Controllers
             return View();
         }
 
+        public ActionResult ArticuloPrueba()
+        {
+            return View();
+        }
+
         public ActionResult Mensaje(string nombre, string email, string mensaje, string SendTo)
         {
             SmtpClient clienteSmtp = new SmtpClient();

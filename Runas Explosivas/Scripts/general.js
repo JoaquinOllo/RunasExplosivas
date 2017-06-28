@@ -2,31 +2,45 @@ var avisos = "";
 
 /* FUNCIONES DE MANIPULACIÓN DE BARRA LATERAL */
 
+
+/**
+ * / Función de retorno booleano para revisar si la barra lateral está o no expandida. Sin parámetros.
+ */
 function isBarraExpandida(){
 	if ($("#barra-lateral").width() > 100) {
-		return true
+        return true;
 	} else {
-		return false
+        return false;
 	}
-};
+}
 
+/**
+ * / Función que maneja expansión y contracción de barra lateral, mostrando contenido de manera optativa, y eliminándolo al contraerla
+ * @param {any} text Únicos parámetros reconocidos son "expandir" o "contraer".
+ * @param {any} mostrarDefault Parámetro booleano para indicar si se muestra o no el contenido default de la barra lateral.
+ */
 function manipularBarra(text, mostrarDefault=true){
-	if (text == "expandir") {
+	if (text === "expandir") {
 		$("#barra-lateral").removeClass("col-xs-1").addClass("col-xs-7", "active");
 		$("#boton-expandir-barra").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-		if (mostrarDefault) {$("#barra-lateral-widget-default").fadeIn()}
-	} else if (text == "contraer") {
-		$("#barra-lateral-contenido").children().fadeOut();
-    	$("#barra-lateral").removeClass("col-xs-7", "active").addClass("col-xs-1");
-    	$("#boton-expandir-barra").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-	};
-};
+        if (mostrarDefault) { $("#barra-lateral-widget-default").fadeIn();}
+	} else if (text === "contraer") {
+        $("#barra-lateral-contenido").children().fadeOut();
+        $("#barra-lateral").removeClass("col-xs-7", "active").addClass("col-xs-1");
+        $("#boton-expandir-barra").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+	}
+}
 
+
+/**
+ * /Función que permite a los botones de la barra lateral mostrar las distintas secciones, u ocultarlas.
+ * @param {any} botonID String que debe ser el ID del botón clickeado, antecedido por '#'
+ */
 function botonera(botonID){
     var target = $(botonID).data("target");
     var child = $(botonID).data("child");
 
-	if ($(botonID).hasClass("active") == false) {
+	if ($(botonID).hasClass("active") === false) {
         $(botonID).addClass("active").siblings().removeClass("active");
 		if (isBarraExpandida()) {
 			$("#barra-lateral-contenido").children().fadeOut(200);
@@ -34,14 +48,18 @@ function botonera(botonID){
 		} else {
 			manipularBarra("expandir", false);
 			$(target).fadeIn(300);
-        };
+        }
 	} else {
 		manipularBarra("contraer");		
 		$("#barra-lateral-contenido").children().fadeOut(200);
         $(botonID).parent().children().removeClass("active");
-    };
-};
+    }
+}
 
+/**
+ * /Función en suspenso que activa el event listener de los botones
+ * @param {String} boton string que es el ID del botón, con '#' antecediendo
+ */
 function activarBoton(boton) {
     $(boton).on("click", function () {
         botonera(boton);
@@ -50,33 +68,66 @@ function activarBoton(boton) {
 
 /* FUNCION IN DE PYTHON */
 
+/**
+ * / Función In de Python, para rastrear en un array un objeto
+ * @param {any} obj Objeto a buscar en el array
+ * @param {Array} list Array en el que se busca el objeto
+ * @returns {boolean} true si el objeto está en la lista, false si no es así
+ */
 function isInArray(obj, list) {
     for (var i = 0; i < list.length; i++) {
         if (list[i] === obj) {
             return true;
-        };
-    };
+        }
+    }
     return false;
-};
+}
+
+/* FUNCIÓN PARA BUSCAR ARTÍCULOS POR ID*/
+
+/**
+ * / Función para buscar un objeto de clase Articulo dentro de un array.
+ * @param {any} id ID del artículo buscado
+ * @param {any} array Lista en la que se busca el artículo
+ * @returns Devuelve un objeto de la clase Articulo que tiene dicho ID
+ */
+function buscarArticuloPorId(id, array) {
+    for (var i = 0; i < array.length; i++){
+        if (Number(id) === array[i].ID) {
+            return array[i];
+        }
+    }
+}
 
 /* CLASE Y CARGADO MANUAL DE TAGS */
 
+/**
+ * / Clase para alojar los tags, glyphicon asociado y su html
+ * @param {string} nombre Nombre, usado en el title del toottip
+ * @param {string} glyphicon Glyphicon usado, vacío por defecto
+ * @param {boolean} prioridad Si prioridad es false, los tags no se muestran en las páginas de inicio, sólo al abrir el artículo
+ */
 var Tag = class Tag {
 	constructor(nombre, glyphicon='', prioridad=false) {
 		this.nombre = nombre;
 		this.glyphicon = (glyphicon) ? "glyphicon glyphicon-" + glyphicon: glyphicon;
 	    this.prioridad = prioridad;
 	    this.glyphHTML = (glyphicon) ? '</a><span data-toggle="tooltip" title="' + this.nombre + '" class="tag-icon ' + this.glyphicon + '"></span>': "";
-  	};
-};
+  	}
+}
 
+/**
+ * / Función que devuelve el html de los span con los glyphicons de los tags de cada objeto de la clase Artículo
+ * @param {any} tagList Lista de objetos de la clase tag de un artículo
+ * @returns {String} Devuelve el html de los span con glyphicons para el append.
+ */
 function allGlyphHTML (tagList) {
 	var finalHTML = "";
 	for (var i = 0; i < tagList.length; i++){
 		finalHTML = finalHTML + tagList[i].glyphHTML;
-	};
+	}
 	return finalHTML;
-};
+}
 
 var tagBlog = new Tag (
 	"blog",
@@ -130,8 +181,21 @@ var listaTags = [tagBlog, tagPodcast, tagNoticia, tagResenha, tagCuentacuentos, 
 
 /* CLASE Y CARGA MANUAL DE Y ARTÍCULOS DE TIENDA */
 
+/**
+ * / Clase usada por todos los artículos de la tienda
+ * @param {Number} ID Identificador único numérico (int)
+ * @param {String} titulo Título del artículo
+ * @param {String} autor Autor del artículo. Vacío si el texto no tiene autor
+ * @param {Tag} tags Lista de objetos de clase Tag
+ * @param {string} tipoProducto Digital, Hardcover, Softcover, etc.
+ * @param {Date} fecha Fecha de publicación
+ * @param {string} texto Texto descriptivo
+ * @param {string} imagen Imagen descriptiva del producto
+ * @param {Float32Array} precio En caso de precio 0, producto de descarga gratuita
+ * @param {Number} stock Cantidad de productos disponibles. No se usa si el producto es digital
+ */
 var ArticuloTienda = class ArticuloTienda {
-    constructor(ID, titulo, autor, tags, tipoProducto, fecha, texto, imagen, precio, stock) {
+    constructor(ID, titulo, autor="", tags, tipoProducto, fecha, texto, imagen, precio, stock) {
         this.ID = ID;
         this.titulo = titulo;
         this.autor = autor;
@@ -142,8 +206,8 @@ var ArticuloTienda = class ArticuloTienda {
         this.imagen = imagen;
         this.precio = precio;
         this.stock = stock;
-    };
-};
+    }
+}
 
 var producto1 = new ArticuloTienda();
 var producto2 = new ArticuloTienda();
@@ -171,11 +235,11 @@ var Articulo = class Articulo {
     this.imagen = imagen;
     this.link = link;
     this.PreviewText = texto.slice(0, 201) + "...";
-    };
+    }
     getPreviewText(characters) {
         return this.texto.slice(0, characters) + "...";
-    };
-};
+    }
+}
 
 var articulo1 = new Articulo(
     1,
@@ -272,10 +336,10 @@ $(document).ready(function(){
                 '<h3><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h3>' +
                 '<div class="col-md-10">' +
                 '<p>' + articulos[i].getPreviewText(300) + '</p>' +
-                '</div>').data("ID", articulos[i].ID);
+                '</div>').data("id", articulos[i].ID);
         } else {
             $("#display-articulos-secundarios").append(
-                '<div class="col-md-6 articulo" data-ID="' + articulos[i].ID + '">' +
+                '<div class="col-md-6 articulo" data-id="' + articulos[i].ID + '">' +
 			    '<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
 			    '<p class="hidden-xs">'+ articulos[i].getPreviewText(200) +'</p>'
 			);
@@ -296,15 +360,18 @@ $(document).ready(function(){
 					'</div>	')
     	};*/
 
-    };
+    }
 
 /* EVENT LISTENER PARA BOTONES DE LOS ARTÍCULOS AL HACER CLIC */
 
     $("#display-articulos .articulo a").on("click", function () {
         $("#display-articulos-secundarios").fadeOut();
-        $("#destacado").fadeOut();
-        var thisArticulo = $(this).parents(".articulo");
+        $("#destacado").fadeOut(100);
+        var thisArticuloID = $(this).parents(".articulo").data("id");
+        var thisArticulo = buscarArticuloPorId(thisArticuloID, articulos);
+        $("#display-articulos").append(
 
+        );
     });
 
 /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
@@ -314,7 +381,7 @@ $(document).ready(function(){
     		manipularBarra("expandir");
     	} else {
 			manipularBarra("contraer");
-    	};
+    	}
     });
 
 /* EVENT LISTENER PARA CLICK DE LOS BOTONES INFERIORES */
@@ -334,6 +401,6 @@ $(document).ready(function(){
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 
 
     $(function () {
-	  $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
 	});
 });
