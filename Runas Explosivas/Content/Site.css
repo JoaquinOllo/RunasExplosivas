@@ -113,6 +113,33 @@ a {
     min-height: 40vh;
 }
 
+/* CSS de páginas individuales de artículos*/
+
+.cuerpo-articulo, 
+.cuerpo-articulo > p{
+    text-align: justify;
+    text-indent: 30px;
+    padding-bottom: 10px;
+}
+
+.cuerpo-articulo > p::first-letter {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.alineado-derecho {
+    text-align: right;
+}
+
+.articulo-info {
+    color: #545454;
+    font-style: italic;
+    letter-spacing: 3px;
+    font-size: 110%;
+    font-variant: small-caps;
+    font-weight: bold,
+}
+
 /* CSS DE TAGS QUE ACOMPAÑAN CADA ARTÍCULO */
 .tag-text {
     border-radius: 10px; font-size: 0.5em; margin-left: 5px; padding: 3px; font-style: italic; font-family: Verdana, Geneva, sans-serif; display: none;
