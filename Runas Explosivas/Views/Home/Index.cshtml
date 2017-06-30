@@ -6,24 +6,27 @@
 }
 
 <!-- DISPLAY ARTÍCULOS.PRINCIPAL -->
-<div id="display-articulos" class="main">
-    <div class="row articulo" id="destacado">
+<div class="container-fluid bottom-pad">
+    <div class="main z-depth-1 row">
+        <div id="display-articulos">
+            <div class="row articulo" id="destacado">
 
+            </div>
+            <hr class="inverted z-depth-1">
+
+            <!-- DISPLAY ARTÍCULOS.SECUNDARIOS -->
+
+            <div class="row" id="display-articulos-secundarios">
+
+            </div> <!-- fin de row -->
+        </div> <!-- fin de display articulos -->
+        @* SUPLANTAR AGREGADO DINÁMICO DE JS POR AGREGADO DE ARTÍCULOS EN LA VISTA
+            @foreach (Articulo articulo in ViewBag.Articulos)
+            {
+                <h3><a href="#"> + articulos[i].titulo +  </a> + allGlyphHTML(articulos[i].tags) + </h3> +
+                <div class="col-md-10"> +
+                <p> + articulos[i].getPreviewText(300) + </p> +
+                </div>).data("id", articulos[i].ID)
+            }*@
     </div>
-    <hr class="inverted z-depth-1">
-
-    <!-- DISPLAY ARTÍCULOS.SECUNDARIOS -->
-
-    <div class="row" id="display-articulos-secundarios">
-
-    </div> <!-- fin de row -->
-</div> <!-- fin de display articulos -->
-
-@* SUPLANTAR AGREGADO DINÁMICO DE JS POR AGREGADO DE ARTÍCULOS EN LA VISTA
-    @foreach (Articulo articulo in ViewBag.Articulos)
-    { 
-        <h3><a href="#"> + articulos[i].titulo +  </a> + allGlyphHTML(articulos[i].tags) + </h3> +
-        <div class="col-md-10"> +
-        <p> + articulos[i].getPreviewText(300) + </p> +
-        </div>).data("id", articulos[i].ID)
-    }*@
+</div>
