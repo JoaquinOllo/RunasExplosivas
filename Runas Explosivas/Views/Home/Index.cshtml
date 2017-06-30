@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Runas_Explosivas.Models;
+@{
     ViewBag.Title = "Runas Explosivas";
     ViewBag.HeaderText = "Tu lugar de referencia sobre juegos de rol en Argentina";
     ViewBag.HeaderGlyph = "";
@@ -17,3 +18,12 @@
 
     </div> <!-- fin de row -->
 </div> <!-- fin de display articulos -->
+
+@* SUPLANTAR AGREGADO DINÁMICO DE JS POR AGREGADO DE ARTÍCULOS EN LA VISTA
+    @foreach (Articulo articulo in ViewBag.Articulos)
+    { 
+        <h3><a href="#"> + articulos[i].titulo +  </a> + allGlyphHTML(articulos[i].tags) + </h3> +
+        <div class="col-md-10"> +
+        <p> + articulos[i].getPreviewText(300) + </p> +
+        </div>).data("id", articulos[i].ID)
+    }*@

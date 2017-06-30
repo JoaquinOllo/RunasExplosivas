@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Runas_Explosivas.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,17 @@ namespace Runas_Explosivas.Controllers
     {
         public ActionResult Index()
         {
+            List<Articulo> articulos = new List<Articulo>();
+
+            Articulo articulo1 = new Articulo();
+            articulo1.Titulo = "hola";
+            articulo1.Texto = "aló";
+            articulos.Add(articulo1);
+
+            ViewBag.Articulos = articulos;
+
+            // transferir artículos del JS a este método.
+            // Carga temporal de artículos manual en método Index del controlador Home. Migrar a futuro a base de datos.
             return View();
         }
 
