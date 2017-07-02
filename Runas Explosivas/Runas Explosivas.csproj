@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Articulo.cs" />
+    <Compile Include="Models\ArticuloTienda.cs" />
     <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Usuario.cs" />

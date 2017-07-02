@@ -15,11 +15,6 @@ namespace Runas_Explosivas.Controllers
         {
             List<Articulo> articulos = new List<Articulo>();
 
-            Articulo articulo1 = new Articulo();
-            articulo1.Titulo = "hola";
-            articulo1.Texto = "aló";
-            articulos.Add(articulo1);
-
             ViewBag.Articulos = articulos;
 
             // transferir artículos del JS a este método.
