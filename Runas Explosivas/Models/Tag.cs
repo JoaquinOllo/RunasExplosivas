@@ -19,5 +19,9 @@ namespace Runas_Explosivas.Models
             Prioridad = newprioridad;
             GlyphHTML = newglyphicon != "" ? "/a><span data-toggle=\"tooltip\" title=\"" + newnombre + "\" class=\"tag-icon " + newglyphicon + "\"></span>" : "";
         }
+
+        public Tag()
+        {
+        }
     }
 }

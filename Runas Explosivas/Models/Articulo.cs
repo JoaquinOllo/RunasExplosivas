@@ -5,7 +5,6 @@ using System.Web;
 
 namespace Runas_Explosivas.Models
 {
-
     /// <summary>
     /// Representa a la entidad Artículo del blog
     /// </summary>
@@ -39,4 +38,5 @@ namespace Runas_Explosivas.Models
 
         }
     }
+
 }

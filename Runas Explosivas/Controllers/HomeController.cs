@@ -13,9 +13,86 @@ namespace Runas_Explosivas.Controllers
     {
         public ActionResult Index()
         {
-            List<Articulo> articulos = new List<Articulo>();
+            /// DECLARACIÓN DE USUARIO PRUEBA1
 
-            ViewBag.Articulos = articulos;
+            Usuario RunasExplosivas = new Usuario();
+            RunasExplosivas.Mail = "RunasExplosivas@gmail.com";
+            RunasExplosivas.Nombre = "Staff de Runas Explosivas";
+            RunasExplosivas.Password = "RunEx";
+
+            /// DECLARACIÓN DE LISTA DE USUARIOS PRUEBA
+
+            List<Usuario> StaffRunas = new List<Usuario>();
+            StaffRunas.Add(RunasExplosivas);
+
+            /// DECLARACIÓN DE TAGS
+
+            Tag TagBlog = new Tag();
+            TagBlog.Nombre = ".blog";
+            TagBlog.Glyphicon = "pencil";
+            TagBlog.Prioridad = true;
+
+            Tag TagPodcast = new Tag();
+            TagBlog.Nombre = ".podcast";
+            TagBlog.Glyphicon = "headphones";
+            TagBlog.Prioridad = true;
+
+            Tag TagEditorial = new Tag();
+            TagBlog.Nombre = ".editorial";
+            TagBlog.Glyphicon = "book";
+            TagBlog.Prioridad = true;
+
+            Tag TagNoticia = new Tag()
+            {
+                Nombre = ".noticia",
+                Glyphicon = "info-sign",
+                Prioridad = true
+            };
+
+            Tag TagResena = new Tag()
+            {
+                Nombre = ".reseña",
+                Glyphicon = "flag",
+                Prioridad = true
+            };
+
+            Tag TagCuentacuentos = new Tag()
+            {
+                Nombre = ".cuentacuentos",
+                Glyphicon = "file",
+                Prioridad = true
+            };
+
+            Tag TagRolerosofia = new Tag()
+            {
+                Nombre = ".rolerosofía",
+                Glyphicon = "eye-open",
+                Prioridad = true
+            };
+
+            Tag TagRolerodromo = new Tag()
+            {
+                Nombre = ".roleródromo",
+                Glyphicon = "flash",
+                Prioridad = true
+            };
+
+            /// DECLARACIÓN DE ARTÍCULOS
+
+
+
+
+            Articulo articulo1 = new Articulo(
+                1, 
+                "La tumba del rey Salomón", 
+                StaffRunas, 
+                new DateTime(2008, 5, 1, 8, 30, 52), 
+                "asdfaefasdfaefaef", 
+                "", 
+                ""
+                );
+
+            ViewBag.Articulos = new List<Articulo>();
 
             // transferir artículos del JS a este método.
             // Carga temporal de artículos manual en método Index del controlador Home. Migrar a futuro a base de datos.
