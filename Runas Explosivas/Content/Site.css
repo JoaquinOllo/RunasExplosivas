@@ -26,7 +26,7 @@ a {
 }
 
 .main {
-    padding: 15px;
+    padding: 15px 30px 15px 15px;
     background-color: #c6c6c6;
     margin-left: 2%;
     margin-right: 2%;
@@ -140,6 +140,41 @@ a {
     font-weight: bold,
 }
 
+/* CSS DE LA SECCIÓN DE COMENTARIOS A ARTÍCULOS*/
+
+#lista-comentarios{
+    /*display: none;*/
+}
+
+#lista-comentarios > ul{
+    padding-left: 10px;
+}
+
+.comentario{
+    list-style-type: none;
+    margin: 0;
+}
+
+.comentario-nested-0 {
+    border-left: 5px solid #545454;
+    padding: 2px 2px 2px 5px;
+}
+
+.comentario-nested-1 {
+    border-left: 8px solid #6b6b6b;
+    padding: 2px 2px 2px 12px;
+}
+.comentario-nested-2 {
+    border-left: 10px solid #828282;
+    padding: 2px 2px 2px 20px;
+}
+.comentario-nested-3 {
+    border-left: 12px solid #999999;
+    padding: 2px 2px 2px 28px;
+}
+
+/* CSS DE BOTÓN DE COMENTARIOS */
+
 /* CSS DE TAGS QUE ACOMPAÑAN CADA ARTÍCULO */
 .tag-text {
     border-radius: 10px; font-size: 0.5em; margin-left: 5px; padding: 3px; font-style: italic; font-family: Verdana, Geneva, sans-serif; display: none;
@@ -171,6 +206,15 @@ a {
     color: #ffffff;
 }
 
+.inverted-extra-light {
+    background-color: #a0a0a0;
+    border-style: none;
+}
+
+.dark-gray {
+    color: #545454;
+}
+
 .black-font,
 .black-font > li > a,
 .black-font > a { /*Color de fuente negro para fondos claros*/
@@ -184,6 +228,8 @@ a {
 hr.inverted {
     border-color: #2B2B2B;
     border-width: 6px;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 /* CSS DE NAVBAR */
