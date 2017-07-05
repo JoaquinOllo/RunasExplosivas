@@ -10,7 +10,7 @@ namespace Runas_Explosivas.Models
         public int ID { get; set; }
         public string Nombre { get; set; }
         public List<Usuario> Autor { get; set; }
-        public List<Tag> Tags { get; set; }
+        public List<Tags> Tags { get; set; }
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
         public string Tipo { get; set; }

@@ -12,8 +12,8 @@ namespace Runas_Explosivas.Models
     {
         public int ID { get; set; }
         public string Titulo { get; set; }
-        public List<Usuario> Autor { get; set; }
-        public List<Tag> Tags { get; set; }
+        public Usuario Autor { get; set; }
+        public List<Tags> Tags { get; set; }
         public DateTime Fecha { get; set; }
         public string Texto { get; set; }
         public string Link { get; set; }
@@ -26,7 +26,7 @@ namespace Runas_Explosivas.Models
             return Texto.Substring(0, characters) + "...";
         }
 
-        public Articulo (int nID, string nTitulo, List<Usuario> nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen)
+        public Articulo (int nID, string nTitulo, Usuario nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen, Tags nTags1)
         {
             ID = nID;
             Titulo = nTitulo;
@@ -35,7 +35,7 @@ namespace Runas_Explosivas.Models
             Texto = nTexto;
             Link = nLink;
             Imagen = nImagen;
-
+            Tags.Add(nTags1);
         }
     }
 
