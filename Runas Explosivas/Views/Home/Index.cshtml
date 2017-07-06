@@ -9,24 +9,38 @@
 <div class="container-fluid bottom-pad">
     <div class="main z-depth-1 row">
         <div id="display-articulos">
-            <div class="row articulo" id="destacado">
-
+            <div class="row articulo" data-id="@ViewBag.Articulos[0].ID" id="destacado">
+                <h3> @Html.ActionLink(
+                linkText: (string) ViewBag.Articulos[0].Titulo,
+                actionName: "Articulo",
+                controllerName: "Home",
+                routeValues: new
+                {
+                    blogPostId = (int)ViewBag.Articulos[0].ID
+                },
+                htmlAttributes: null
+                ) 
+                @ViewBag.Articulos[0].Tags.Glyphicon</h3>
+                <div class="col-md-10">
+                    <p>@ViewBag.Articulos[0].GetPreviewText(300)</p>
+                </div>
             </div>
             <hr class="inverted z-depth-1">
-
+            @*<a href="@Url.Action("Articulo","Home")">@ViewBag.Articulos[0].Titulo </a>*@
             <!-- DISPLAY ARTÍCULOS.SECUNDARIOS -->
 
             <div class="row" id="display-articulos-secundarios">
-
-            </div> <!-- fin de row -->
-        </div> <!-- fin de display articulos -->
-        @* SUPLANTAR AGREGADO DINÁMICO DE JS POR AGREGADO DE ARTÍCULOS EN LA VISTA
-            @foreach (Articulo articulo in ViewBag.Articulos)
-            {
-                <h3><a href="#"> + articulos[i].titulo +  </a> + allGlyphHTML(articulos[i].tags) + </h3> +
-                <div class="col-md-10"> +
-                <p> + articulos[i].getPreviewText(300) + </p> +
-                </div>).data("id", articulos[i].ID)
-            }*@
+                @foreach (Articulo articulo in ViewBag.Articulos)
+                {
+                    if (articulo.ID != ViewBag.Articulos[0].ID)
+                    {
+                        <div class="col-md-6 articulo" data-id="@articulo.ID">
+                        <h4><a href="#">@articulo.Titulo</a> @articulo.AllGlyphHTML() </h4>
+                        <p class="hidden-xs">@articulo.GetPreviewText(200)</p>
+                        </div> <!-- fin de row -->
+                    }
+                }
+            </div> <!-- fin de display articulos -->
+        </div>
     </div>
 </div>

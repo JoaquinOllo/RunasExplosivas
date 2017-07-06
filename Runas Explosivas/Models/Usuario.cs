@@ -9,10 +9,5 @@ namespace Runas_Explosivas.Models
         public string Password { get; set; }
         public string Nombre { get; set; }
         public string Imagen { get; set; }
-
-        public static implicit operator List<object>(Usuario v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

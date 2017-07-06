@@ -13,7 +13,7 @@ namespace Runas_Explosivas.Models
         public int ID { get; set; }
         public string Titulo { get; set; }
         public Usuario Autor { get; set; }
-        public List<Tags> Tags { get; set; }
+        public Tags Tags { get; set; }
         public DateTime Fecha { get; set; }
         public string Texto { get; set; }
         public string Link { get; set; }
@@ -23,10 +23,14 @@ namespace Runas_Explosivas.Models
 
         public string GetPreviewText(int characters)
         {
+            if (characters >= Texto.Length)
+            {
+                characters = Texto.Length;
+            }
             return Texto.Substring(0, characters) + "...";
         }
 
-        public Articulo (int nID, string nTitulo, Usuario nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen, Tags nTags1)
+        public Articulo (int nID, string nTitulo, Usuario nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen, Tags nTags)
         {
             ID = nID;
             Titulo = nTitulo;
@@ -35,7 +39,16 @@ namespace Runas_Explosivas.Models
             Texto = nTexto;
             Link = nLink;
             Imagen = nImagen;
-            Tags.Add(nTags1);
+            Tags = nTags;
+        }
+        /// <summary>
+        /// Método para obtener HTML de Glyphicons
+        /// </summary>
+        /// <param name="Tag">Parámetro Tag de clase Tags</param>
+        /// <returns>Devuelve string con el HTML del glyphicon</returns>
+        public string AllGlyphHTML()
+        {
+            return Tags.GlyphHTML;
         }
     }
 

@@ -195,7 +195,9 @@
     <Content Include="Views\Home\Editorial.cshtml" />
     <Content Include="Views\Shared\_Barra Lateral.cshtml" />
     <Content Include="Views\Home\Contacto.cshtml" />
-    <Content Include="Views\Home\ArticuloPrueba.cshtml" />
+    <Content Include="Views\Home\Articulo.cshtml">
+      <BrowseToURL>~/Home/Articulo</BrowseToURL>
+    </Content>
     <Content Include="Views\Home\PruebasVarias.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace Runas_Explosivas.Models
             Nombre = newnombre;
             Glyphicon = newglyphicon != "" ? "glyphicon glyphicon-" + newglyphicon : "";
             Prioridad = newprioridad;
-            GlyphHTML = newglyphicon != "" ? "/a><span data-toggle=\"tooltip\" title=\"" + newnombre + "\" class=\"tag-icon " + newglyphicon + "\"></span>" : "";
+            GlyphHTML = newglyphicon != "" ? $"<span data-toggle=\"tooltip\" title=\"{newnombre}\" class=\"tag-icon {newglyphicon}\"></span>" : "";
         }
 
         public Tags()
