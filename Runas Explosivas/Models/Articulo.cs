@@ -46,7 +46,7 @@ namespace Runas_Explosivas.Models
         /// </summary>
         /// <param name="Tag">Parámetro Tag de clase Tags</param>
         /// <returns>Devuelve string con el HTML del glyphicon</returns>
-        public string AllGlyphHTML()
+        public HtmlString AllGlyphHTML()
         {
             return Tags.GlyphHTML;
         }

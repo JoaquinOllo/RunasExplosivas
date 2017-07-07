@@ -360,7 +360,7 @@ $(document).ready(function(){
 					'</div>	')
     	};*/
 
-    }
+    ////}
 
 /* EVENT LISTENER PARA BOTONES DE LOS ARTÍCULOS AL HACER CLIC */
 

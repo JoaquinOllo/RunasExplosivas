@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net;
 
 namespace Runas_Explosivas.Models
 {
@@ -10,18 +11,16 @@ namespace Runas_Explosivas.Models
         public string Nombre { get; set; }
         public string Glyphicon { get; set; }
         public bool Prioridad { get; set; }
-        public string GlyphHTML { get; set; }
+        public HtmlString GlyphHTML { get; set; }
+        public string Placeholder { get; set; }
 
         public Tags (string newnombre, string newglyphicon, bool newprioridad)
         {
             Nombre = newnombre;
-            Glyphicon = newglyphicon != "" ? "glyphicon glyphicon-" + newglyphicon : "";
+            Glyphicon = newglyphicon != "" ? $"glyphicon glyphicon-{newglyphicon}" : "";
             Prioridad = newprioridad;
-            GlyphHTML = newglyphicon != "" ? $"<span data-toggle=\"tooltip\" title=\"{newnombre}\" class=\"tag-icon {newglyphicon}\"></span>" : "";
-        }
-
-        public Tags()
-        {
+            Placeholder = newglyphicon != "" ? $"<span data-toggle=\"tooltip\" title=\"{newnombre}\" class=\"tag-icon {Glyphicon}\"></span>" : " ";
+            GlyphHTML = new HtmlString(Placeholder);
         }
     }
 }

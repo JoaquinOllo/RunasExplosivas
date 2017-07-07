@@ -20,7 +20,8 @@
                 },
                 htmlAttributes: null
                 ) 
-                @ViewBag.Articulos[0].Tags.Glyphicon</h3>
+                @ViewBag.Articulos[0].AllGlyphHTML()
+                </h3>
                 <div class="col-md-10">
                     <p>@ViewBag.Articulos[0].GetPreviewText(300)</p>
                 </div>
@@ -35,12 +36,22 @@
                     if (articulo.ID != ViewBag.Articulos[0].ID)
                     {
                         <div class="col-md-6 articulo" data-id="@articulo.ID">
-                        <h4><a href="#">@articulo.Titulo</a> @articulo.AllGlyphHTML() </h4>
+                        <h4>@Html.ActionLink(
+                            linkText: (string)articulo.Titulo,
+                            actionName: "Articulo",
+                            controllerName: "Home",
+                            routeValues: new
+                            {
+                                blogPostId = (int)articulo.ID
+                            },
+                            htmlAttributes: null
+                            ) 
+                            @articulo.AllGlyphHTML() </h4>
                         <p class="hidden-xs">@articulo.GetPreviewText(200)</p>
                         </div> <!-- fin de row -->
                     }
                 }
-            </div> <!-- fin de display articulos -->
-        </div>
+            </div> 
+        </div> <!-- fin de display articulos -->
     </div>
 </div>
