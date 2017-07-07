@@ -13,13 +13,14 @@ namespace Runas_Explosivas.Models
         public int ID { get; set; }
         public string Titulo { get; set; }
         public Usuario Autor { get; set; }
-        public Tags Tags { get; set; }
+        public List<Tags> Tags { get; set; }
         public DateTime Fecha { get; set; }
         public string Texto { get; set; }
         public string Link { get; set; }
         public string Imagen { get; set; }
         public string PreviewText { get; set; }
         public List<Comentario> Comentarios { get; set; }
+        public string AllTags { get; }
 
         public string GetPreviewText(int characters)
         {
@@ -30,7 +31,7 @@ namespace Runas_Explosivas.Models
             return Texto.Substring(0, characters) + "...";
         }
 
-        public Articulo (int nID, string nTitulo, Usuario nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen, Tags nTags)
+        public Articulo (int nID, string nTitulo, Usuario nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen, params Tags[] nTags)
         {
             ID = nID;
             Titulo = nTitulo;
@@ -39,7 +40,12 @@ namespace Runas_Explosivas.Models
             Texto = nTexto;
             Link = nLink;
             Imagen = nImagen;
-            Tags = nTags;
+            Tags = new List<Tags>();
+            foreach (Tags tag in nTags)
+            {
+                Tags.Add(tag);
+                AllTags = AllTags + tag.Nombre;
+            }
         }
         /// <summary>
         /// Método para obtener HTML de Glyphicons
@@ -48,8 +54,36 @@ namespace Runas_Explosivas.Models
         /// <returns>Devuelve string con el HTML del glyphicon</returns>
         public HtmlString AllGlyphHTML()
         {
-            return Tags.GlyphHTML;
+            String CadenaGlyphs = "";
+            HtmlString CadenaGlyphsHTML = new HtmlString("");
+            foreach (Tags tag in Tags)
+            {
+                CadenaGlyphs = CadenaGlyphs + tag.GlyphHTML.ToString();
+            }
+            CadenaGlyphsHTML = new HtmlString (CadenaGlyphs);
+            return CadenaGlyphsHTML;
         }
-    }
 
+        public bool SearchTag (string ValorABuscar)
+        {
+            foreach (Tags tag in Tags)
+            {
+                if (tag.Nombre == ValorABuscar)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //public string AllTags ()
+        //{
+        //    string TagString = "";
+        //    foreach (Tags tag in Tags)
+        //    {
+        //        TagString = TagString + tag.Nombre;
+        //    }
+        //    return TagString;
+        //}
+    }
 }

@@ -76,7 +76,7 @@ namespace Runas_Explosivas.Controllers
                 "¡Otro Miércoles de #PodcastExplosivo! Hoy vamos a hablar sobre cómo aplicar lo que aprendimos de juegos con resoluciones de conflicto no binarias a otros juegos más tradicionales. Ideas new school para juegos con raíces en los 80'/90'.",
                 "https://www.youtube.com/watch?v=y-GIvQAsn6w", 
                 "",
-                TagPodcast
+                new Tags[] { TagPodcast }
                 );
 
             Articulo articulo2 = new Articulo(
@@ -87,7 +87,7 @@ namespace Runas_Explosivas.Controllers
                 "¡Primer (nuevo) Miércoles del #PodcastExplosivo! Hoy vamos a terminar un tema vital para cualquier tipo de diseño rolero: la tercera y última parte de las Grandes Tres preguntas que todo diseñador debería hacerse en algún momento antes de publicar.",
                 "https://www.youtube.com/watch?v=sBlWx6Z28Pw",
                 "",
-                TagPodcast
+                new Tags[] { TagPodcast }
                 );
 
             Articulo articulo3 = new Articulo(
@@ -98,7 +98,7 @@ namespace Runas_Explosivas.Controllers
                 "seawefaefdfadfaefaefaefsdfasd",
                 "",
                 "",
-                TagBlog
+                new Tags[] { TagBlog, TagResena }
                 );
 
             Articulo articulo4 = new Articulo(
@@ -270,7 +270,7 @@ namespace Runas_Explosivas.Controllers
                 "seawefaefdfadfaefaefaefsdfasd",
                 "",
                 "",
-                TagBlog
+                new Tags[] { TagBlog, TagResena }
                 );
 
             Articulo articulo4 = new Articulo(
@@ -354,7 +354,7 @@ namespace Runas_Explosivas.Controllers
 
             foreach (Articulo articulo in Articulos)
             {
-                if (articulo.Tags.Nombre == TagPodcast.Nombre)
+                if (articulo.SearchTag(TagPodcast.Nombre)  /*articulo.Tags.Nombre == TagPodcast.Nombre*/)
                 {
                     ArticulosFiltradosPodcast.Add(articulo);
                 }
@@ -450,7 +450,7 @@ namespace Runas_Explosivas.Controllers
                 "seawefaefdfadfaefaefaefsdfasd",
                 "",
                 "",
-                TagBlog
+                new Tags[] { TagBlog, TagResena }
                 );
 
             Articulo articulo4 = new Articulo(
@@ -534,7 +534,7 @@ namespace Runas_Explosivas.Controllers
 
             foreach (Articulo articulo in Articulos)
             {
-                if (articulo.Tags.Nombre == TagBlog.Nombre)
+                if (articulo.SearchTag(TagBlog.Nombre)  /*articulo.Tags.Nombre == TagBlog.Nombre*/)
                 {
                     ArticulosFiltradosBlog.Add(articulo);
                 }
@@ -635,7 +635,7 @@ namespace Runas_Explosivas.Controllers
                 "seawefaefdfadfaefaefaefsdfasd",
                 "",
                 "",
-                TagBlog
+                new Tags[] { TagBlog, TagResena }
                 );
 
             Articulo articulo4 = new Articulo(
@@ -720,28 +720,24 @@ namespace Runas_Explosivas.Controllers
                 if (blogpostID == articulo.ID)
                 {
                     ViewBag.Articulo = articulo;
-                    switch (articulo.Tags.Nombre) // CAMBIAR ESTO CUANDO SE IMPLEMENTE LISTA DE TAGS NUEVAMENTE
+                    if (articulo.SearchTag(TagBlog.Nombre))
                     {
-                        case ".blog":
-                            ViewBag.Title = "Blog";
-                            ViewBag.Btn = "btn-lg";
-                            ViewBag.BtnUsuario = "";
-                            ViewBag.BtnBuscar = "";
-                            ViewBag.BtnCarrito = "hide";
-                            ViewBag.HeaderText = ".blog";
-                            ViewBag.HeaderGlyph = "glyphicon glyphicon-pencil";
-                            break;
-                        case ".podcast":
-                            ViewBag.Title = "Podcast";
-                            ViewBag.Btn = "btn-lg";
-                            ViewBag.BtnUsuario = "";
-                            ViewBag.BtnBuscar = "";
-                            ViewBag.BtnCarrito = "hide";
-                            ViewBag.HeaderText = ".podcast";
-                            ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
-                            break;
-                        default:
-                            break;
+                        ViewBag.Title = "Blog";
+                        ViewBag.Btn = "btn-lg";
+                        ViewBag.BtnUsuario = "";
+                        ViewBag.BtnBuscar = "";
+                        ViewBag.BtnCarrito = "hide";
+                        ViewBag.HeaderText = ".blog";
+                        ViewBag.HeaderGlyph = "glyphicon glyphicon-pencil";
+                    } else if (articulo.SearchTag(TagPodcast.Nombre))
+                    {
+                        ViewBag.Title = "Podcast";
+                        ViewBag.Btn = "btn-lg";
+                        ViewBag.BtnUsuario = "";
+                        ViewBag.BtnBuscar = "";
+                        ViewBag.BtnCarrito = "hide";
+                        ViewBag.HeaderText = ".podcast";
+                        ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
                     }
                     ViewBag.Title = ViewBag.Title + ": " + articulo.Titulo;
                     break;
@@ -761,7 +757,7 @@ namespace Runas_Explosivas.Controllers
             SmtpClient clienteSmtp = new SmtpClient();
             clienteSmtp.Host = "smtp.gmail.com";
             clienteSmtp.Port = 587;
-            clienteSmtp.Credentials = new NetworkCredential("joaquinollo@gmail.com", "qwe11ny23aZ");
+            clienteSmtp.Credentials = new NetworkCredential("joaquinollo@gmail.com", "");
             clienteSmtp.EnableSsl = true;
 
 
