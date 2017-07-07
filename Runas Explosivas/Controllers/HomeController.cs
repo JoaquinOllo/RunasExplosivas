@@ -350,7 +350,17 @@ namespace Runas_Explosivas.Controllers
             Articulos.Add(articulo8);
             Articulos.Add(articulo9);
 
-            ViewBag.Articulos = Articulos;
+            List<Articulo> ArticulosFiltradosPodcast = new List<Articulo>();
+
+            foreach (Articulo articulo in Articulos)
+            {
+                if (articulo.Tags.Nombre == TagPodcast.Nombre)
+                {
+                    ArticulosFiltradosPodcast.Add(articulo);
+                }
+            }
+
+            ViewBag.Articulos = ArticulosFiltradosPodcast;
 
             return View();
         }
@@ -520,7 +530,17 @@ namespace Runas_Explosivas.Controllers
             Articulos.Add(articulo8);
             Articulos.Add(articulo9);
 
-            ViewBag.Articulos = Articulos;
+            List<Articulo> ArticulosFiltradosBlog = new List<Articulo>();
+
+            foreach (Articulo articulo in Articulos)
+            {
+                if (articulo.Tags.Nombre == TagBlog.Nombre)
+                {
+                    ArticulosFiltradosBlog.Add(articulo);
+                }
+            }
+
+            ViewBag.Articulos = ArticulosFiltradosBlog;
 
             return View();
         }
