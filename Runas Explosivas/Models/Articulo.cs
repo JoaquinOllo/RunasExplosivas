@@ -75,15 +75,5 @@ namespace Runas_Explosivas.Models
             }
             return false;
         }
-
-        //public string AllTags ()
-        //{
-        //    string TagString = "";
-        //    foreach (Tags tag in Tags)
-        //    {
-        //        TagString = TagString + tag.Nombre;
-        //    }
-        //    return TagString;
-        //}
     }
 }

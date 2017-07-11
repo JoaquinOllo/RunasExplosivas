@@ -173,7 +173,13 @@ a {
     padding: 2px 2px 2px 28px;
 }
 
-/* CSS DE BOTÓN DE COMENTARIOS */
+/* CSS DE BOTÓN DE SCROLLDOWN DE EDITORIAL */
+
+#boton-scrolldown{
+    position: absolute;
+    top: 500px;
+    left: 85px;
+}
 
 /* CSS DE TAGS QUE ACOMPAÑAN CADA ARTÍCULO */
 .tag-text {

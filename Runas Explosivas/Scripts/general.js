@@ -364,15 +364,15 @@ $(document).ready(function(){
 
 /* EVENT LISTENER PARA BOTONES DE LOS ARTÍCULOS AL HACER CLIC */
 
-    $("#display-articulos .articulo a").on("click", function () {
-        $("#display-articulos-secundarios").fadeOut();
-        $("#destacado").fadeOut(100);
-        var thisArticuloID = $(this).parents(".articulo").data("id");
-        var thisArticulo = buscarArticuloPorId(thisArticuloID, articulos);
-        $("#display-articulos").append(
+    //$("#display-articulos .articulo a").on("click", function () {
+    //    $("#display-articulos-secundarios").fadeOut();
+    //    $("#destacado").fadeOut(100);
+    //    var thisArticuloID = $(this).parents(".articulo").data("id");
+    //    var thisArticulo = buscarArticuloPorId(thisArticuloID, articulos);
+    //    $("#display-articulos").append(
 
-        );
-    });
+    //    );
+    //});
 
 /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
 
@@ -383,6 +383,14 @@ $(document).ready(function(){
 			manipularBarra("contraer");
     	}
     });
+
+/* LLAMADO A EVENT LISTENER PARA SCROLLDOWN DE BOTON-SCROLLDOWN DE EDITORIAL */
+
+    $("#boton-scrolldown").on("click", function () {
+        var posicionDeTienda = $("#display-tienda").offset().top;
+        $("html, body").animate({ scrollTop: (posicionDeTienda - 50) }, 200);
+    });
+
 
 /* EVENT LISTENER PARA CLICK DE LOS BOTONES INFERIORES */
 
