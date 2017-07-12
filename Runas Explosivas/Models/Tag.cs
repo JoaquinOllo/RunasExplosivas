@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Net;
+using System.ComponentModel.DataAnnotations;
 
 namespace Runas_Explosivas.Models
 {
     public class Tags
     {
+        [Key]
         public string Nombre { get; set; }
         public string Glyphicon { get; set; }
         public bool Prioridad { get; set; }
