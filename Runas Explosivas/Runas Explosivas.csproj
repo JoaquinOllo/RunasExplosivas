@@ -147,7 +147,9 @@
     </Compile>
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\ArticuloTienda.cs" />
+    <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\Comentario.cs" />
+    <Compile Include="Models\Resenha.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Categoria\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

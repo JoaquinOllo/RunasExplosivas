@@ -19,7 +19,6 @@ namespace Runas_Explosivas.Models
         public string Link { get; set; }
         public string Imagen { get; set; }
         public string PreviewText { get; set; }
-        public List<Comentario> Comentarios { get; set; }
         public string AllTags { get; }
 
         public string GetPreviewText(int characters)
