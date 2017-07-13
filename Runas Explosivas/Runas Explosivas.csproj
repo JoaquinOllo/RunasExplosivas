@@ -154,9 +154,7 @@
     </Compile>
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
-    <Compile Include="Models\Comentario.cs" />
-    <Compile Include="Models\ComentarioArticulo.cs" />
-    <Compile Include="Models\Entrada.cs" />
+    <Compile Include="Models\ComentarioEnArticulo.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Resenha.cs" />
     <Compile Include="Models\RunasContext.cs" />

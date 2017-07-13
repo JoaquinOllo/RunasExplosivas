@@ -167,6 +167,7 @@ namespace Runas_Explosivas.Controllers
             //    TagBlog
             //    );
 
+
             List<Articulo> Articulos = new List<Articulo>();
             Articulos.Add(articulo1);
             Articulos.Add(articulo2);

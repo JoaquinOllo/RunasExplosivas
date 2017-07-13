@@ -11,11 +11,56 @@ namespace Runas_Explosivas.Models
     /// Representa a la entidad Artículo del blog
     /// </summary>
     [Table("Articulos")]
-    public class Articulo : Entrada
+    public class Articulo
     {
-        public List<Tag> Tags { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        public string Titulo { get; set; }
+        public virtual ICollection<Usuario> Autores { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Link { get; set; }
+        public string Texto { get; set; }
+        public string Imagen { get; set; }
 
-        public override string AllTags
+        /// <summary>
+        /// Método para obtener los primeros caracteres de un texto de artículo, para mostrar en páginas de inicio
+        /// </summary>
+        /// <param name="characters">Parámetro para especificar cantidad de caracteres del preview</param>
+        /// <returns>Devuelve un string con los primeros caracteres del texto.</returns>
+        public string GetPreviewText(int characters)
+        {
+            if (characters >= Texto.Length)
+            {
+                characters = Texto.Length;
+            }
+            return Texto.Substring(0, characters) + "...";
+        }
+
+        public string GetAllAutores()
+        {
+
+            string CadenaDeAutores = "";
+            if (Autores.Count > 1)
+            {
+                CadenaDeAutores = "Autores: ";
+            }
+            else
+            {
+                CadenaDeAutores = "Autor: ";
+            }
+            foreach (Usuario Autor in Autores)
+            {
+                CadenaDeAutores = CadenaDeAutores + Autor.Nombre;
+            }
+
+            return CadenaDeAutores;
+        }
+
+        public virtual ICollection<Tag> Tags { get; set; }
+
+        [NotMapped]
+        public string AllTags
         {
             get
             {
@@ -26,14 +71,9 @@ namespace Runas_Explosivas.Models
                 }
                 return _AllTags;
             }
-            set
-            {
-                string _AllTags = string.Empty;
-                _AllTags = value;
-            }
         }
 
-        public Articulo (string nTitulo, List<Usuario> nAutores, DateTime nFecha, string nTexto, string nLink, string nImagen, List<Tag> nTags)
+        public Articulo (string nTitulo, ICollection<Usuario> nAutores, DateTime nFecha, string nTexto, string nLink, string nImagen, ICollection<Tag> nTags)
         {
             Titulo = nTitulo;
             Autores = nAutores;
@@ -42,17 +82,17 @@ namespace Runas_Explosivas.Models
             Link = nLink;
             Imagen = nImagen;
             Tags = nTags;
-            //Tags = new List<Tag>();
-            //foreach (Tag tag in nTags)
-            //{
-            //    Tags.Add(tag);
-            //}
         }
+
+        public Articulo()
+        {
+        }
+
         /// <summary>
         /// Método para obtener HTML de Glyphicons
         /// </summary>
         /// <returns>Devuelve htmlstring con el HTML del glyphicon</returns>
-        public override HtmlString AllGlyphHTML()
+        public HtmlString AllGlyphHTML()
         {
             String CadenaGlyphs = "";
             HtmlString CadenaGlyphsHTML = new HtmlString("");
@@ -63,12 +103,13 @@ namespace Runas_Explosivas.Models
             CadenaGlyphsHTML = new HtmlString (CadenaGlyphs);
             return CadenaGlyphsHTML;
         }
-/// <summary>
-/// Método para buscar un Tag en la lista de Tags.
-/// </summary>
-/// <param name="ValorABuscar">Parámetro que debe coincidir con el atributo Nombre del Tag que se esté buscando.</param>
-/// <returns>Devuelve Booleano true si el Tag es encontrado en la lista, False en caso contrario.</returns>
-        public override bool SearchTag (string ValorABuscar)
+
+        /// <summary>
+        /// Método para buscar un Tag en la lista de Tags.
+        /// </summary>
+        /// <param name="ValorABuscar">Parámetro que debe coincidir con el atributo Nombre del Tag que se esté buscando.</param>
+        /// <returns>Devuelve Booleano true si el Tag es encontrado en la lista, False en caso contrario.</returns>
+        public bool SearchTag (string ValorABuscar)
         {
             foreach (Tag tag in Tags)
             {

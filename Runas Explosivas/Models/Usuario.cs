@@ -16,5 +16,9 @@ namespace Runas_Explosivas.Models
         public string Descripcion { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsColaborador { get; set; }
+
+        public virtual ICollection<Articulo> Articulos { get; set; }
+        public virtual ICollection<Producto> Productos { get; set; }
+
     }
 }
