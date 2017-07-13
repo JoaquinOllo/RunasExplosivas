@@ -148,13 +148,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Articulo.cs" />
-    <Compile Include="Models\ArticuloTienda.cs" />
-    <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Comentario.cs" />
+    <Compile Include="Models\ComentarioArticulo.cs" />
+    <Compile Include="Models\Entrada.cs" />
+    <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Resenha.cs" />
     <Compile Include="Models\RunasContext.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -212,6 +215,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Categoria\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -10,60 +10,53 @@ namespace Runas_Explosivas.Models
     /// <summary>
     /// Representa a la entidad Artículo del blog
     /// </summary>
-    public class Articulo
+    [Table("Articulos")]
+    public class Articulo : Entrada
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-        public string Titulo { get; set; }
-        public Usuario Autor { get; set; }
-        public List<Tags> Tags { get; set; }
-        public DateTime Fecha { get; set; }
-        public string Texto { get; set; }
-        public string Link { get; set; }
-        public string Imagen { get; set; }
-        public string PreviewText { get; set; }
-        public string AllTags { get; }
-/// <summary>
-/// Método para obtener los primeros caracteres de un texto de artículo, para mostrar en páginas de inicio
-/// </summary>
-/// <param name="characters">Parámetro para especificar cantidad de caracteres del preview</param>
-/// <returns>Devuelve un string con los primeros caracteres del texto.</returns>
-        public string GetPreviewText(int characters)
+        public List<Tag> Tags { get; set; }
+
+        public override string AllTags
         {
-            if (characters >= Texto.Length)
+            get
             {
-                characters = Texto.Length;
+                string _AllTags = string.Empty;
+                foreach (Tag tag in Tags)
+                {
+                    _AllTags = _AllTags + "." + tag.Nombre;
+                }
+                return _AllTags;
             }
-            return Texto.Substring(0, characters) + "...";
+            set
+            {
+                string _AllTags = string.Empty;
+                _AllTags = value;
+            }
         }
 
-        public Articulo (int nID, string nTitulo, Usuario nAutor, DateTime nFecha, string nTexto, string nLink, string nImagen, params Tags[] nTags)
+        public Articulo (string nTitulo, List<Usuario> nAutores, DateTime nFecha, string nTexto, string nLink, string nImagen, List<Tag> nTags)
         {
-            ID = nID;
             Titulo = nTitulo;
-            Autor = nAutor;
+            Autores = nAutores;
             Fecha = nFecha;
             Texto = nTexto;
             Link = nLink;
             Imagen = nImagen;
-            Tags = new List<Tags>();
-            foreach (Tags tag in nTags)
-            {
-                Tags.Add(tag);
-                AllTags = AllTags + tag.Nombre;
-            }
+            Tags = nTags;
+            //Tags = new List<Tag>();
+            //foreach (Tag tag in nTags)
+            //{
+            //    Tags.Add(tag);
+            //}
         }
         /// <summary>
         /// Método para obtener HTML de Glyphicons
         /// </summary>
-        /// <param name="Tag">Parámetro Tag de clase Tags</param>
-        /// <returns>Devuelve string con el HTML del glyphicon</returns>
-        public HtmlString AllGlyphHTML()
+        /// <returns>Devuelve htmlstring con el HTML del glyphicon</returns>
+        public override HtmlString AllGlyphHTML()
         {
             String CadenaGlyphs = "";
             HtmlString CadenaGlyphsHTML = new HtmlString("");
-            foreach (Tags tag in Tags)
+            foreach (Tag tag in Tags)
             {
                 CadenaGlyphs = CadenaGlyphs + tag.GlyphHTML.ToString();
             }
@@ -75,9 +68,9 @@ namespace Runas_Explosivas.Models
 /// </summary>
 /// <param name="ValorABuscar">Parámetro que debe coincidir con el atributo Nombre del Tag que se esté buscando.</param>
 /// <returns>Devuelve Booleano true si el Tag es encontrado en la lista, False en caso contrario.</returns>
-        public bool SearchTag (string ValorABuscar)
+        public override bool SearchTag (string ValorABuscar)
         {
-            foreach (Tags tag in Tags)
+            foreach (Tag tag in Tags)
             {
                 if (tag.Nombre == ValorABuscar)
                 {

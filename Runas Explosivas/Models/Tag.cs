@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Runas_Explosivas.Models
 {
-    public class Tags
+    public class Tag
     {
         [Key]
         public string Nombre { get; set; }
@@ -16,7 +16,7 @@ namespace Runas_Explosivas.Models
         public HtmlString GlyphHTML { get; set; }
         public string Placeholder { get; set; }
 
-        public Tags (string newnombre, string newglyphicon, bool newprioridad)
+        public Tag (string newnombre, string newglyphicon, bool newprioridad)
         {
             Nombre = newnombre;
             Glyphicon = newglyphicon != "" ? $"glyphicon glyphicon-{newglyphicon}" : "";

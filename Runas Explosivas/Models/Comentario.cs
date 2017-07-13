@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Runas_Explosivas.Models
 {
-    public class Comentario
+    public abstract class Comentario
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,6 +16,5 @@ namespace Runas_Explosivas.Models
         public DateTime Fecha { get; set; }
         public string Texto { get; set; }
         public Comentario RespuestaA { get; set; }
-        public Articulo Articulo { get; set; }
     }
 }
