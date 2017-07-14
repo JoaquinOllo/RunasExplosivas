@@ -24,12 +24,13 @@ namespace Runas_Explosivas.Models
             }
         }
 
-        public Tag (string newnombre, string newglyphicon, bool newprioridad)
+        public Tag (string newnombre, string newglyphicon = "", bool newprioridad = false)
         {
             Nombre = newnombre;
             Glyphicon = newglyphicon != "" ? $"glyphicon glyphicon-{newglyphicon}" : "";
             Prioridad = newprioridad;
         }
+        public Tag() { }
 
         public virtual ICollection<Articulo> Articulos { get; set; }
     }
