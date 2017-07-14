@@ -13,34 +13,32 @@ namespace Runas_Explosivas.Controllers
     {
         public ActionResult Index()
         {
-            RunasContext db = new Models.RunasContext();
-            List<Articulo> Articulos = new List<Articulo> (db.Articulos.AsQueryable().OrderByDescending(u => u.Fecha).Take(20));
-            List<Tag> Tags = db.Tags.ToList();
-            List<Usuario> Autores = db.Usuarios.ToList();
-            ViewBag.Articulos = Articulos;
-            return View();
+            using (RunasContext db = new Models.RunasContext())
+            {
+                List<Articulo> Articulos = db.Articulos.Include("Tags").AsQueryable().OrderByDescending(u => u.Fecha).Take(20).ToList();
+                ViewBag.Articulos = Articulos;
+                return View();
+            }
         }
 
         public ActionResult Podcast()
         {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                List<Articulo> ArticulosFiltradosPodcast = db.Articulos.Include("Tags").Where(a => a.SearchTag("podcast")).AsQueryable().OrderByDescending(u => u.Fecha).Take(20).ToList();
+                //Tag TagPodcast = db.Tags.Find("podcast");
+                //List<Articulo> ArticulosFiltradosPodcast = new List<Articulo>();
 
-            RunasContext db = new Models.RunasContext();
-            List<Articulo> Articulos = new List<Articulo>(db.Articulos.AsQueryable().OrderByDescending(u => u.Fecha).Take(20));
-            List<Tag> Tags = db.Tags.ToList();
-            List<Usuario> Autores = db.Usuarios.ToList();
-            ViewBag.Articulos = Articulos;
-            return View();
-            //List<Articulo> ArticulosFiltradosPodcast = new List<Articulo>();
+                //foreach (Articulo articulo in Articulos)
+                //{
+                //    if (articulo.SearchTag(TagPodcast.Nombre))
+                //    {
+                //        ArticulosFiltradosPodcast.Add(articulo);
+                //    }
+                //}
 
-            //foreach (Articulo articulo in Articulos)
-            //{
-            //    if (articulo.SearchTag(TagPodcast.Nombre)  /*articulo.Tags.Nombre == TagPodcast.Nombre*/)
-            //    {
-            //        ArticulosFiltradosPodcast.Add(articulo);
-            //    }
-            //}
-
-            //ViewBag.Articulos = ArticulosFiltradosPodcast;
+                ViewBag.Articulos = ArticulosFiltradosPodcast;
+            }
 
             return View();
         }
