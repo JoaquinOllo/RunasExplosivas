@@ -156,6 +156,10 @@
     <Compile Include="Migrations\201707141256140_InitialCreate.Designer.cs">
       <DependentUpon>201707141256140_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707160442583_AtributosEnModelo.cs" />
+    <Compile Include="Migrations\201707160442583_AtributosEnModelo.Designer.cs">
+      <DependentUpon>201707160442583_AtributosEnModelo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -238,6 +242,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707141256140_InitialCreate.resx">
       <DependentUpon>201707141256140_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707160442583_AtributosEnModelo.resx">
+      <DependentUpon>201707160442583_AtributosEnModelo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

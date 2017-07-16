@@ -1,0 +1,154 @@
+namespace Runas_Explosivas.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class AtributosEnModelo : DbMigration
+    {
+        public override void Up()
+        {
+            DropForeignKey("dbo.ComentariosEnArticulos", "ArticuloComentado_ID", "dbo.Articulos");
+            DropForeignKey("dbo.ComentariosEnArticulos", "Autor_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.Resenhas", "Autor_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.Resenhas", "ProductoResenhado_ID", "dbo.Productos");
+            DropForeignKey("dbo.UsuarioArticuloes", "Usuario_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.ProductoUsuarios", "Usuario_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.CategoriaProductoes", "Categoria_Nombre", "dbo.Categorias");
+            DropForeignKey("dbo.TagArticuloes", "Tag_Nombre", "dbo.Tags");
+            DropIndex("dbo.ComentariosEnArticulos", new[] { "ArticuloComentado_ID" });
+            DropIndex("dbo.ComentariosEnArticulos", new[] { "Autor_Mail" });
+            DropIndex("dbo.Resenhas", new[] { "Autor_Mail" });
+            DropIndex("dbo.Resenhas", new[] { "ProductoResenhado_ID" });
+            DropIndex("dbo.UsuarioArticuloes", new[] { "Usuario_Mail" });
+            DropIndex("dbo.ProductoUsuarios", new[] { "Usuario_Mail" });
+            DropIndex("dbo.CategoriaProductoes", new[] { "Categoria_Nombre" });
+            DropIndex("dbo.TagArticuloes", new[] { "Tag_Nombre" });
+            DropPrimaryKey("dbo.Usuarios");
+            DropPrimaryKey("dbo.Categorias");
+            DropPrimaryKey("dbo.Tags");
+            DropPrimaryKey("dbo.UsuarioArticuloes");
+            DropPrimaryKey("dbo.TagArticuloes");
+            DropPrimaryKey("dbo.ProductoUsuarios");
+            DropPrimaryKey("dbo.CategoriaProductoes");
+            AlterColumn("dbo.Articulos", "Titulo", c => c.String(nullable: false, maxLength: 100));
+            AlterColumn("dbo.Articulos", "Texto", c => c.String(nullable: false));
+            AlterColumn("dbo.Usuarios", "Mail", c => c.String(nullable: false, maxLength: 100));
+            AlterColumn("dbo.Usuarios", "Password", c => c.String(nullable: false, maxLength: 20));
+            AlterColumn("dbo.Usuarios", "Nombre", c => c.String(nullable: false, maxLength: 150));
+            AlterColumn("dbo.Usuarios", "Descripcion", c => c.String(maxLength: 250));
+            AlterColumn("dbo.Productos", "Titulo", c => c.String(nullable: false, maxLength: 50));
+            AlterColumn("dbo.Productos", "Texto", c => c.String(nullable: false));
+            AlterColumn("dbo.Productos", "Imagen", c => c.String(nullable: false));
+            AlterColumn("dbo.Categorias", "Nombre", c => c.String(nullable: false, maxLength: 50));
+            AlterColumn("dbo.Categorias", "Glyphicon", c => c.String(maxLength: 50));
+            AlterColumn("dbo.Tags", "Nombre", c => c.String(nullable: false, maxLength: 50));
+            AlterColumn("dbo.Tags", "Glyphicon", c => c.String(maxLength: 100));
+            AlterColumn("dbo.ComentariosEnArticulos", "Texto", c => c.String(nullable: false));
+            AlterColumn("dbo.ComentariosEnArticulos", "ArticuloComentado_ID", c => c.Int(nullable: false));
+            AlterColumn("dbo.ComentariosEnArticulos", "Autor_Mail", c => c.String(nullable: false, maxLength: 100));
+            AlterColumn("dbo.Resenhas", "Texto", c => c.String(nullable: false));
+            AlterColumn("dbo.Resenhas", "Autor_Mail", c => c.String(nullable: false, maxLength: 100));
+            AlterColumn("dbo.Resenhas", "ProductoResenhado_ID", c => c.Int(nullable: false));
+            AlterColumn("dbo.UsuarioArticuloes", "Usuario_Mail", c => c.String(nullable: false, maxLength: 100));
+            AlterColumn("dbo.TagArticuloes", "Tag_Nombre", c => c.String(nullable: false, maxLength: 50));
+            AlterColumn("dbo.ProductoUsuarios", "Usuario_Mail", c => c.String(nullable: false, maxLength: 100));
+            AlterColumn("dbo.CategoriaProductoes", "Categoria_Nombre", c => c.String(nullable: false, maxLength: 50));
+            AddPrimaryKey("dbo.Usuarios", "Mail");
+            AddPrimaryKey("dbo.Categorias", "Nombre");
+            AddPrimaryKey("dbo.Tags", "Nombre");
+            AddPrimaryKey("dbo.UsuarioArticuloes", new[] { "Usuario_Mail", "Articulo_ID" });
+            AddPrimaryKey("dbo.TagArticuloes", new[] { "Tag_Nombre", "Articulo_ID" });
+            AddPrimaryKey("dbo.ProductoUsuarios", new[] { "Producto_ID", "Usuario_Mail" });
+            AddPrimaryKey("dbo.CategoriaProductoes", new[] { "Categoria_Nombre", "Producto_ID" });
+            CreateIndex("dbo.ComentariosEnArticulos", "ArticuloComentado_ID");
+            CreateIndex("dbo.ComentariosEnArticulos", "Autor_Mail");
+            CreateIndex("dbo.Resenhas", "Autor_Mail");
+            CreateIndex("dbo.Resenhas", "ProductoResenhado_ID");
+            CreateIndex("dbo.UsuarioArticuloes", "Usuario_Mail");
+            CreateIndex("dbo.ProductoUsuarios", "Usuario_Mail");
+            CreateIndex("dbo.CategoriaProductoes", "Categoria_Nombre");
+            CreateIndex("dbo.TagArticuloes", "Tag_Nombre");
+            AddForeignKey("dbo.ComentariosEnArticulos", "ArticuloComentado_ID", "dbo.Articulos", "ID", cascadeDelete: true);
+            AddForeignKey("dbo.ComentariosEnArticulos", "Autor_Mail", "dbo.Usuarios", "Mail", cascadeDelete: true);
+            AddForeignKey("dbo.Resenhas", "Autor_Mail", "dbo.Usuarios", "Mail", cascadeDelete: true);
+            AddForeignKey("dbo.Resenhas", "ProductoResenhado_ID", "dbo.Productos", "ID", cascadeDelete: true);
+            AddForeignKey("dbo.UsuarioArticuloes", "Usuario_Mail", "dbo.Usuarios", "Mail", cascadeDelete: true);
+            AddForeignKey("dbo.ProductoUsuarios", "Usuario_Mail", "dbo.Usuarios", "Mail", cascadeDelete: true);
+            AddForeignKey("dbo.CategoriaProductoes", "Categoria_Nombre", "dbo.Categorias", "Nombre", cascadeDelete: true);
+            AddForeignKey("dbo.TagArticuloes", "Tag_Nombre", "dbo.Tags", "Nombre", cascadeDelete: true);
+        }
+        
+        public override void Down()
+        {
+            DropForeignKey("dbo.TagArticuloes", "Tag_Nombre", "dbo.Tags");
+            DropForeignKey("dbo.CategoriaProductoes", "Categoria_Nombre", "dbo.Categorias");
+            DropForeignKey("dbo.ProductoUsuarios", "Usuario_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.UsuarioArticuloes", "Usuario_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.Resenhas", "ProductoResenhado_ID", "dbo.Productos");
+            DropForeignKey("dbo.Resenhas", "Autor_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.ComentariosEnArticulos", "Autor_Mail", "dbo.Usuarios");
+            DropForeignKey("dbo.ComentariosEnArticulos", "ArticuloComentado_ID", "dbo.Articulos");
+            DropIndex("dbo.TagArticuloes", new[] { "Tag_Nombre" });
+            DropIndex("dbo.CategoriaProductoes", new[] { "Categoria_Nombre" });
+            DropIndex("dbo.ProductoUsuarios", new[] { "Usuario_Mail" });
+            DropIndex("dbo.UsuarioArticuloes", new[] { "Usuario_Mail" });
+            DropIndex("dbo.Resenhas", new[] { "ProductoResenhado_ID" });
+            DropIndex("dbo.Resenhas", new[] { "Autor_Mail" });
+            DropIndex("dbo.ComentariosEnArticulos", new[] { "Autor_Mail" });
+            DropIndex("dbo.ComentariosEnArticulos", new[] { "ArticuloComentado_ID" });
+            DropPrimaryKey("dbo.CategoriaProductoes");
+            DropPrimaryKey("dbo.ProductoUsuarios");
+            DropPrimaryKey("dbo.TagArticuloes");
+            DropPrimaryKey("dbo.UsuarioArticuloes");
+            DropPrimaryKey("dbo.Tags");
+            DropPrimaryKey("dbo.Categorias");
+            DropPrimaryKey("dbo.Usuarios");
+            AlterColumn("dbo.CategoriaProductoes", "Categoria_Nombre", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.ProductoUsuarios", "Usuario_Mail", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.TagArticuloes", "Tag_Nombre", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.UsuarioArticuloes", "Usuario_Mail", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.Resenhas", "ProductoResenhado_ID", c => c.Int());
+            AlterColumn("dbo.Resenhas", "Autor_Mail", c => c.String(maxLength: 128));
+            AlterColumn("dbo.Resenhas", "Texto", c => c.String());
+            AlterColumn("dbo.ComentariosEnArticulos", "Autor_Mail", c => c.String(maxLength: 128));
+            AlterColumn("dbo.ComentariosEnArticulos", "ArticuloComentado_ID", c => c.Int());
+            AlterColumn("dbo.ComentariosEnArticulos", "Texto", c => c.String());
+            AlterColumn("dbo.Tags", "Glyphicon", c => c.String());
+            AlterColumn("dbo.Tags", "Nombre", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.Categorias", "Glyphicon", c => c.String());
+            AlterColumn("dbo.Categorias", "Nombre", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.Productos", "Imagen", c => c.String());
+            AlterColumn("dbo.Productos", "Texto", c => c.String());
+            AlterColumn("dbo.Productos", "Titulo", c => c.String());
+            AlterColumn("dbo.Usuarios", "Descripcion", c => c.String());
+            AlterColumn("dbo.Usuarios", "Nombre", c => c.String());
+            AlterColumn("dbo.Usuarios", "Password", c => c.String());
+            AlterColumn("dbo.Usuarios", "Mail", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("dbo.Articulos", "Texto", c => c.String());
+            AlterColumn("dbo.Articulos", "Titulo", c => c.String());
+            AddPrimaryKey("dbo.CategoriaProductoes", new[] { "Categoria_Nombre", "Producto_ID" });
+            AddPrimaryKey("dbo.ProductoUsuarios", new[] { "Producto_ID", "Usuario_Mail" });
+            AddPrimaryKey("dbo.TagArticuloes", new[] { "Tag_Nombre", "Articulo_ID" });
+            AddPrimaryKey("dbo.UsuarioArticuloes", new[] { "Usuario_Mail", "Articulo_ID" });
+            AddPrimaryKey("dbo.Tags", "Nombre");
+            AddPrimaryKey("dbo.Categorias", "Nombre");
+            AddPrimaryKey("dbo.Usuarios", "Mail");
+            CreateIndex("dbo.TagArticuloes", "Tag_Nombre");
+            CreateIndex("dbo.CategoriaProductoes", "Categoria_Nombre");
+            CreateIndex("dbo.ProductoUsuarios", "Usuario_Mail");
+            CreateIndex("dbo.UsuarioArticuloes", "Usuario_Mail");
+            CreateIndex("dbo.Resenhas", "ProductoResenhado_ID");
+            CreateIndex("dbo.Resenhas", "Autor_Mail");
+            CreateIndex("dbo.ComentariosEnArticulos", "Autor_Mail");
+            CreateIndex("dbo.ComentariosEnArticulos", "ArticuloComentado_ID");
+            AddForeignKey("dbo.TagArticuloes", "Tag_Nombre", "dbo.Tags", "Nombre", cascadeDelete: true);
+            AddForeignKey("dbo.CategoriaProductoes", "Categoria_Nombre", "dbo.Categorias", "Nombre", cascadeDelete: true);
+            AddForeignKey("dbo.ProductoUsuarios", "Usuario_Mail", "dbo.Usuarios", "Mail", cascadeDelete: true);
+            AddForeignKey("dbo.UsuarioArticuloes", "Usuario_Mail", "dbo.Usuarios", "Mail", cascadeDelete: true);
+            AddForeignKey("dbo.Resenhas", "ProductoResenhado_ID", "dbo.Productos", "ID");
+            AddForeignKey("dbo.Resenhas", "Autor_Mail", "dbo.Usuarios", "Mail");
+            AddForeignKey("dbo.ComentariosEnArticulos", "Autor_Mail", "dbo.Usuarios", "Mail");
+            AddForeignKey("dbo.ComentariosEnArticulos", "ArticuloComentado_ID", "dbo.Articulos", "ID");
+        }
+    }
+}

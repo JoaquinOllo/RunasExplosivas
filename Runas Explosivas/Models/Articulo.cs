@@ -16,10 +16,16 @@ namespace Runas_Explosivas.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        [Required]
+        [MaxLength(100, ErrorMessage = "Títulos de artículos no pueden exceder los 100 caracteres")]
         public string Titulo { get; set; }
+        [Required]
         public virtual ICollection<Usuario> Autores { get; set; }
+        [Required]
         public DateTime Fecha { get; set; }
+        [Url]
         public string Link { get; set; }
+        [Required]
         public string Texto { get; set; }
         public string Imagen { get; set; }
 
@@ -39,22 +45,8 @@ namespace Runas_Explosivas.Models
 
         public string GetAllAutores()
         {
-
-            string CadenaDeAutores = "";
-            if (Autores.Count > 1)
-            {
-                CadenaDeAutores = "Autores: ";
-            }
-            else
-            {
-                CadenaDeAutores = "Autor: ";
-            }
-            foreach (Usuario Autor in Autores)
-            {
-                CadenaDeAutores = CadenaDeAutores + Autor.Nombre;
-            }
-
-            return CadenaDeAutores;
+            string CadenaDeAutores = Autores.Count == 1 ? "Autor: ": "Autores: ";
+            return CadenaDeAutores + String.Join(", ", Autores.Select(au => au.Nombre).ToArray());
         }
 
         public virtual ICollection<Tag> Tags { get; set; }

@@ -13,11 +13,18 @@ namespace Runas_Explosivas.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        [Required]
+        [MaxLength(50, ErrorMessage ="Títulos de productos no pueden exceder los 50 caracteres")]
         public string Titulo { get; set; }
+        [Required]
         public virtual ICollection<Usuario> Autores { get; set; }
+        [Required]
         public DateTime Fecha { get; set; }
+        [Url]
         public string Link { get; set; }
+        [Required]
         public string Texto { get; set; }
+        [Required]
         public string Imagen { get; set; }
 
         /// <summary>

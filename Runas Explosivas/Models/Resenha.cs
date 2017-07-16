@@ -13,11 +13,16 @@ namespace Runas_Explosivas.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        [Required]
         public Usuario Autor { get; set; }
+        [Required]
         public DateTime Fecha { get; set; }
+        [Required]
         public string Texto { get; set; }
         public Resenha RespuestaA { get; set; }
+        [Range(1, 10)]
         public float Puntuacion { get; set; }
+        [Required]
         public Producto ProductoResenhado { get; set; }
     }
 }

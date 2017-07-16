@@ -11,7 +11,9 @@ namespace Runas_Explosivas.Models
     public class Categoria
     {
         [Key]
+        [MaxLength(50, ErrorMessage = "El nombre de la categoría no pueden exceder los 50 caracteres")]
         public string Nombre { get; set; }
+        [MaxLength(50, ErrorMessage = "El glyphicon no pueden exceder los 100 caracteres")]
         public string Glyphicon { get; set; }
         public bool Prioridad { get; set; }
         [NotMapped]

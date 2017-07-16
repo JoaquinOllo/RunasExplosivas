@@ -212,5 +212,35 @@ namespace Runas_Explosivas.Controllers
             }
             return "listo";
         }
+
+        public string PruebaEF3()
+        {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                IQueryable<Articulo> Articulos = db.Articulos;
+                IQueryable<Usuario> Usuarios = db.Usuarios;
+                IQueryable<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos;
+                ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo()
+                {
+                    Autor = Usuarios.Single(au => au.Mail == "joaquinollo@gmail.com"),
+                    Fecha = new DateTime(2015, 7, 5, 12, 00, 00),
+                    Texto = "Creo que la nueva edición es un espanto, los odio a todos.",
+                    ArticuloComentado = Articulos.Single(au => au.ID == 1),
+                    RespuestaA = Comentarios.Single(c => c.ID == 1)
+                };
+                db.ComentariosEnArticulos.Add(NuevoComentario);
+                db.SaveChanges();
+                return "listo";
+            }
+        }
+
+        public int PruebaEF4()
+        {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                ComentarioEnArticulo ComentariosEnArticulo = db.ComentariosEnArticulos.Include("RespuestaA").Single(com => com.ID == 2);
+                return ComentariosEnArticulo.BuscadorRespuestaARecursivo();
+            }
+        }
     }
 }
