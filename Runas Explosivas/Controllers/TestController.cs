@@ -223,10 +223,10 @@ namespace Runas_Explosivas.Controllers
                 ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo()
                 {
                     Autor = Usuarios.Single(au => au.Mail == "joaquinollo@gmail.com"),
-                    Fecha = new DateTime(2015, 7, 5, 12, 00, 00),
+                    Fecha = new DateTime(2017, 7, 5, 12, 00, 00),
                     Texto = "Creo que la nueva edición es un espanto, los odio a todos.",
                     ArticuloComentado = Articulos.Single(au => au.ID == 1),
-                    RespuestaA = Comentarios.Single(c => c.ID == 1)
+                    RespuestaA = Comentarios.Single(c => c.ID == 2)
                 };
                 db.ComentariosEnArticulos.Add(NuevoComentario);
                 db.SaveChanges();
@@ -238,8 +238,9 @@ namespace Runas_Explosivas.Controllers
         {
             using (RunasContext db = new Models.RunasContext())
             {
-                ComentarioEnArticulo ComentariosEnArticulo = db.ComentariosEnArticulos.Include("RespuestaA").Single(com => com.ID == 2);
-                return ComentariosEnArticulo.BuscadorRespuestaARecursivo();
+                IQueryable<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos;
+                ComentarioEnArticulo ComentariosEnArticulo = db.ComentariosEnArticulos.Include("RespuestaA.RespuestaA.RespuestaA.RespuestaA").Single(com => com.ID == 3);
+                return ComentariosEnArticulo.NivelDeDerivacion;
             }
         }
     }

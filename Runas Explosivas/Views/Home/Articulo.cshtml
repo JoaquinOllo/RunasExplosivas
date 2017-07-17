@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Runas_Explosivas.Models;
+@{
     Layout = "~/Views/Shared/_Barra Lateral.cshtml";
 }
 
@@ -18,28 +19,24 @@
     <div class="cuerpo-articulo">
         @ViewBag.Articulo.Texto
     </div>
-    <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>
+    <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" data-placement="right" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>
     <hr class="inverted z-depth-1" id="separador-footer">
     <div class="well-sm inverted-extra-light" id="lista-comentarios">
         <ul>
-            <li class="comentario comentario-nested-0">
-                <h4>Peperino Pómoro <span ><small><i class="dark-gray">14/12/1989 15hs</i></small></span></h4> 
-                <p>Creo que la nueva edición de D&D es una vergüenza, ya no se lo puede considerar un juego de rol. Gracias.</p>
-            </li>
-            <li class="comentario comentario-nested-1">
-                <h4>Peperino Pómoro <span><small><i class="dark-gray">14/12/1989 15hs</i></small></span></h4>
-                <p>Creo que la nueva edición de D&D es una vergüenza, ya no se lo puede considerar un juego de rol. Gracias.</p>
-            </li>
-            <li class="comentario comentario-nested-2">
-                <h4>Peperino Pómoro <span><small><i class="dark-gray">14/12/1989 15hs</i></small></span></h4>
-                <p>Creo que la nueva edición de D&D es una vergüenza, ya no se lo puede considerar un juego de rol. Gracias.</p>
-                <!--<button class="btn btn-xs pull-right"><small><b><i class="dark-gray">.responder</i></b></small></button>-->
-            </li>
-            <li class="comentario comentario-nested-3">
-                <h4>Peperino Pómoro <span><small><i class="dark-gray">14/12/1989 15hs</i></small></span></h4>
-                <p>Creo que la nueva edición de D&D es una vergüenza, ya no se lo puede considerar un juego de rol. Gracias.</p>
-
-            </li>
+            @if (ViewBag.Comentarios != null)
+            {
+                foreach (ComentarioEnArticulo Comentario in ViewBag.Comentarios)
+                {
+                    <li class="comentario comentario-nested-@Comentario.NivelDeDerivacion">
+                        <h4>@Comentario.Autor.Nombre <span><small><i class="dark-gray">@Comentario.Fecha.ToString(@"dd\/MM\/yyyy HH:mm")</i></small></span></h4>
+                        <p>@Comentario.Texto</p>
+                    </li>
+                }
+            }
+            @if (ViewBag.Comentarios.Count == 0)
+            {
+                <li class="comentario">No hay comentarios por el momento. ¿Querés ser el primero?</li>
+            }
         </ul>
     </div>
 </div> <!-- fin de display articulos -->

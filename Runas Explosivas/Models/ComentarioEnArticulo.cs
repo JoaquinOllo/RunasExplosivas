@@ -19,31 +19,30 @@ namespace Runas_Explosivas.Models
         public DateTime Fecha { get; set; }
         [Required]
         public string Texto { get; set; }
+
+        /// <summary>
+        /// Indica, si lo hay, el comentario al que responde esta instancia.
+        /// </summary>
         public ComentarioEnArticulo RespuestaA { get; set; }
         [Required]
         public Articulo ArticuloComentado { get; set; }
 
+        /// <summary>
+        /// Propiedad que indica el estilo CSS del comentario en la vista, según a cuántos comntarios esté respondiendo
+        /// </summary>
         public int NivelDeDerivacion
         {
             get
             {
-                int _NivelDeDerivacion = this.BuscadorRespuestaARecursivo();
-                return _NivelDeDerivacion > 4 ? 4 : _NivelDeDerivacion;
+                if (RespuestaA != null)
+                {
+                    return RespuestaA.NivelDeDerivacion + 1 < 4 ? RespuestaA.NivelDeDerivacion + 1 : 3;
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
-
-
-        private int BuscadorRespuestaARecursivo(int contador = 0)
-        {
-            if (RespuestaA != null)
-            {
-                contador += 1;
-                return RespuestaA.BuscadorRespuestaARecursivo(contador);
-            } else
-            {
-                return contador;
-            }
-        }
-
     }
 }

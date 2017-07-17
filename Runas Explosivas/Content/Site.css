@@ -69,6 +69,14 @@ a {
     }
 }
 
+.hidden-xs {
+    display: inline-block !important;
+}
+
+small.subtitulo {
+    font-size: 36px;
+}
+
 /* CSS de AVISOS EN HEADER */
 
 .avisos {
@@ -143,7 +151,7 @@ a {
 /* CSS DE LA SECCIÓN DE COMENTARIOS A ARTÍCULOS*/
 
 #lista-comentarios{
-    /*display: none;*/
+    display: none;
 }
 
 #lista-comentarios > ul{
@@ -171,6 +179,12 @@ a {
 .comentario-nested-3 {
     border-left: 12px solid #999999;
     padding: 2px 2px 2px 28px;
+}
+
+/* CSS DE BOTON DE COMENTARIOS, PARA ANIMAR SU MOVIMIENTO */
+
+#boton-comentarios{
+    transition: all 1s ease;
 }
 
 /* CSS DE BOTÓN DE SCROLLDOWN DE EDITORIAL */
@@ -242,6 +256,7 @@ hr.inverted {
     margin-top: 10px;
     margin-bottom: 0px;
 }
+
 
 #separador-header {
     margin-top: 10px;

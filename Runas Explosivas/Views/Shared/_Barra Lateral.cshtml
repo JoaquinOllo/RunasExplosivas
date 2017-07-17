@@ -105,8 +105,17 @@
     <!-- BOTONERA DE LOGIN Y BÚSQUEDA -->
 
     <div id="botonera">
-        <button id="boton-login" class="@ViewBag.BtnUsuario btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#inicio-sesion" type="submit"><span class="glyphicon glyphicon-user"></span></button>
-        <button id="boton-compras" class="@ViewBag.BtnCarrito btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
-        <button id="boton-busqueda" class="@ViewBag.BtnBuscar btn @ViewBag.Btn btn-info boton-lateral z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        @if (ViewBag.BtnUsuario)
+        {
+            <button id="boton-login" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#inicio-sesion" type="submit"><span class="glyphicon glyphicon-user"></span></button>
+        }
+        @if (ViewBag.BtnCarrito)
+        {
+            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+        }
+        @if (ViewBag.BtnBuscar)
+        {
+            <button id="boton-busqueda" class="btn @ViewBag.Btn btn-info boton-lateral z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        }
     </div>
 </div> <!-- fin de container-fluid -->

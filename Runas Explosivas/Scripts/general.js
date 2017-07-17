@@ -138,52 +138,6 @@ var articulos = [producto1, producto2, producto3, producto4, producto5, producto
 
 $(document).ready(function(){
     
-/* BUCLE PARA AGREGAR ARTICULOS AL DOM */
-
-   // for (var i = 0; i < articulos.length; i++) {
-   // 	if (i === 0) {
-   //         $("#destacado").prepend(
-   //             '<h3><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h3>' +
-   //             '<div class="col-md-10">' +
-   //             '<p>' + articulos[i].getPreviewText(300) + '</p>' +
-   //             '</div>').data("id", articulos[i].ID);
-   //     } else {
-   //         $("#display-articulos-secundarios").append(
-   //             '<div class="col-md-6 articulo" data-id="' + articulos[i].ID + '">' +
-			//    '<h4><a href="#">' + articulos[i].titulo + ' </a>' + allGlyphHTML(articulos[i].tags) + '</h4>' +
-			//    '<p class="hidden-xs">'+ articulos[i].getPreviewText(200) +'</p>'
-			//);
-   //     }
-    	/*if (isInArray("podcast", articulos[i].tags)) {
-    		$("#destacado").append(
-					'<div class="col-xs-2">' +
-						'<div class="btn-group">' + 
-						  '<button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-						    '<span class="glyphicon glyphicon-headphones"></span> <span class="caret"></span>' +
-						  '</button>' +
-						  '<ul class="dropdown-menu">' +
-						    '<li><a href="'+ articulos[i].link +'">Youtube</a></li>' +
-						    '<li><a href="#">Descargá el podcast!</a></li>' +
-						    '<li><a href="#">Escuchalo después!</a></li>' +
-						  '</ul>' +
-						'</div>' +
-					'</div>	')
-    	};*/
-
-    ////}
-
-/* EVENT LISTENER PARA BOTONES DE LOS ARTÍCULOS AL HACER CLIC */
-
-    //$("#display-articulos .articulo a").on("click", function () {
-    //    $("#display-articulos-secundarios").fadeOut();
-    //    $("#destacado").fadeOut(100);
-    //    var thisArticuloID = $(this).parents(".articulo").data("id");
-    //    var thisArticulo = buscarArticuloPorId(thisArticuloID, articulos);
-    //    $("#display-articulos").append(
-
-    //    );
-    //});
-
 /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
 
     $("#boton-expandir-barra").click(function(){
@@ -224,6 +178,13 @@ $(document).ready(function(){
  	$("#boton-busqueda").on("click", function(){
     	botonera("#boton-busqueda");
     });
+
+/* BOTON PARA MOSTRAR U OCULTAR COMENTARIOS */
+
+      
+      $("#boton-comentarios").tooltip("show").on("click", function () {
+          $("#lista-comentarios").slideToggle("fast");
+      });
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 
 

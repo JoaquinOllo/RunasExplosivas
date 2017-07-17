@@ -7,9 +7,6 @@ using System.Web;
 
 namespace Runas_Explosivas.Models
 {
-    /// <summary>
-    /// Representa a la entidad Artículo del blog
-    /// </summary>
     [Table("Articulos")]
     public class Articulo
     {
@@ -43,6 +40,10 @@ namespace Runas_Explosivas.Models
             return Texto.Substring(0, characters) + "...";
         }
 
+        /// <summary>
+        /// Método que devuelve el total de autores de un artículo como un string
+        /// </summary>
+        /// <returns>Devuelve un string con los nombres de los autores separados por coma</returns>
         public string GetAllAutores()
         {
             string CadenaDeAutores = Autores.Count == 1 ? "Autor: ": "Autores: ";
@@ -51,20 +52,26 @@ namespace Runas_Explosivas.Models
 
         public virtual ICollection<Tag> Tags { get; set; }
 
+        /// <summary>
+        /// Propiedad string para acceder a todos los tags de un artículo, separados por "."
+        /// </summary>
         [NotMapped]
         public string AllTags
         {
             get
             {
-                string _AllTags = string.Empty;
-                foreach (Tag tag in Tags)
-                {
-                    _AllTags = _AllTags + "." + tag.Nombre;
-                }
+                //string _AllTags = string.Empty;
+                //foreach (Tag tag in Tags)
+                //{
+                //    _AllTags = _AllTags + "." + tag.Nombre;
+                //}
+                //return _AllTags;
+                string _AllTags = String.Join(".", Tags.Select(t => t.Nombre).ToArray());
                 return _AllTags;
             }
         }
 
+        ///Constructores
         public Articulo (string nTitulo, ICollection<Usuario> nAutores, DateTime nFecha, string nTexto, string nLink, string nImagen, ICollection<Tag> nTags)
         {
             Titulo = nTitulo;

@@ -58,9 +58,32 @@ namespace Runas_Explosivas.Controllers
             using (RunasContext db = new Models.RunasContext())
             {
                 Articulo Articulo = db.Articulos.Include("Tags").Include("Autores").AsQueryable().Single(a => a.ID == blogpostID);
+                List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("Autor").Where(cm => cm.ArticuloComentado.ID == blogpostID).OrderByDescending(cm => cm.Fecha).ToList();
                 ViewBag.Articulo = Articulo;
-                return View();
+                ViewBag.Comentarios = Comentarios;
+
+                if (Articulo.SearchTag("blog"))
+                {
+                    ViewBag.Title = "Blog";
+                    ViewBag.Btn = "btn-lg";
+                    ViewBag.BtnUsuario = true;
+                    ViewBag.BtnBuscar = true;
+                    ViewBag.BtnCarrito = false;
+                    ViewBag.HeaderText = ".blog ";
+                    ViewBag.HeaderGlyph = "glyphicon glyphicon-pencil";
+                } else if (Articulo.SearchTag("podcast"))
+                {
+                        ViewBag.Title = "Podcast";
+                        ViewBag.Btn = "btn-lg";
+                        ViewBag.BtnUsuario = true;
+                        ViewBag.BtnBuscar = true;
+                        ViewBag.BtnCarrito = false;
+                        ViewBag.HeaderText = ".podcast ";
+                        ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
+                }
+                ViewBag.Title = ViewBag.Title + ": " + Articulo.Titulo;
             }
+            return View();
         }
 
         public ActionResult PruebasVarias()
