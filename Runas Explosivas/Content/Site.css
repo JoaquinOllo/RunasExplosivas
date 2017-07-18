@@ -32,7 +32,7 @@ a {
     margin-right: 2%;
 }
 
-@media only screen and (min-width: 768PX) {
+@media only screen and (min-width: 769PX) {
     .main {
         margin-left: 14%;
         margin-right: 14%;
@@ -41,9 +41,18 @@ a {
     }
 }
 
+@media only screen and (min-width: 426PX) and (max-width: 768px) {
+    .main {
+        margin-left: 8%;
+        margin-right: 8%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
 /* CSS DE PAGE HEADER */
 
-.page-header {
+#page-header {
     height: 108px;
     letter-spacing: 3px;
     margin-top: 0;
@@ -53,28 +62,32 @@ a {
     border-style: none;
 }
 
-    .page-header small {
+    #page-header small {
         display: inline-block;
     }
 
-    .page-header h1 {
+    #page-header h1 {
         margin-top: 0;
         font-size: 4em;
     }
 
 @media only screen and (max-width: 768px) {
-    .page-header > h1 {
+    #page-header > h1 {
         font-size: 3em;
         margin-top: 0;
     }
 }
 
-.hidden-xs {
+.hidden-xs { /* este display sobreescribe el predeterminado de bootstrap, para obligar al texto a permanecer en la mísma línea */
     display: inline-block !important;
 }
 
 small.subtitulo {
     font-size: 36px;
+}
+
+#page-header > h1 > span {
+    padding-left: 5px;
 }
 
 /* CSS de AVISOS EN HEADER */
@@ -191,8 +204,9 @@ small.subtitulo {
 
 #boton-scrolldown{
     position: absolute;
-    top: 500px;
-    left: 85px;
+    top: 68vh;
+    left: 6vw;
+    border-radius: 25px;
 }
 
 /* CSS DE TAGS QUE ACOMPAÑAN CADA ARTÍCULO */
@@ -296,6 +310,7 @@ hr.inverted {
     height: 67vh;
     border-radius: 5px 0 0 15px;
     position: fixed;
+    z-index: 20;
     transition: width 0.5s ease, box-shadow 1s ease;
 }
 
@@ -326,21 +341,134 @@ hr.inverted {
     }
 }
 
-
-
-/* CSS de BOTONES DE LOGIN Y BÚSQUEDA */
+/* CSS de BOTONES DE BARRA LATERAL */
 
 #botonera {
     position: fixed;
     bottom: 65px;
     right: 15px;
     border-radius: 15px;
+    z-index: 25;
+}
+
+/* CSS DE EDITORIAL */
+
+#display-tienda{
+    margin-right: 5px;
+    margin: auto;
+}
+
+/* CSS DE CAROUSEL */
+
+.carousel-caption{
+    background: rgba(84,84,84,0.85);
+    border-radius: 25px;
+}
+
+@media only screen and (max-width: 767PX) {
+    .carousel-caption {
+        font-size: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        bottom: 10px;
+    }
+    .carousel-indicators{
+        bottom: -3px;
+    }
+}
+
+
+
+/*CSS DE PRODUCTOS DE TIENDA */
+
+.producto {
+    background: #545454 url("Images/Tienda/BurningWheel.jpg") no-repeat center;
+    background-size: cover;
+    border-radius: 0px 0px 25px 0px;
+    height: 33vh;
+    width: 31vw;
+    margin: 7px;
+    padding: 0px;
+}
+
+.btn-agregar-carrito {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 30px;
+    
+    transition: opacity ease 0.5s;
+}
+
+.producto-header{
+    padding: 10px;
+    opacity: 0.95;
+}
+
+    .categorias-producto {
+        position:absolute;
+        top: 3px;
+        right: 3px;
+        font-style: italic;
+        list-style: none;
+        font-size: small;
+        text-align: right;
+        display: none;
+        color: #919191;
+    }
+    
+    .producto-header h5 {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+.opaco {
+    opacity: 0.4;
+}
+
+.descripcion-producto{
+    color: #ffffff;
+    padding: 10px;
+    transition: opacity ease 0.5s;
+}
+
+.producto-footer{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 10px;
+    opacity: 0.95;
+    font-size: large;
+    border-radius: 0px 15px 0px 0px;
+    transition: width ease 0.5s;
+}
+
+@media screen and (min-width: 426px) and (max-width:769px) {
+    body #display-tienda {
+        margin-right: unset;
+    }
+
+    body .producto-header {
+        padding: 3px;
+    }
+
+        body .producto-header h5 {
+            font-size: 1.2em;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+    body .categorias-producto {
+        font-size: 0.7em;
+    }
+    body .descripcion-producto {
+        font-size: smaller;
+    }
 }
 
 /* SHADOWS FOR MATERIAL DESIGN 
 
 HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
-
 .z-depth-1 {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.35);
     transition: all 0.5s cubic-bezier(.25,.8,.25,1);
@@ -485,3 +613,9 @@ HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
             background-color: #BF762F;
             border-color: #5E3A17;
         }
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

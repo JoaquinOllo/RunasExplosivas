@@ -136,19 +136,20 @@ var articulos = [producto1, producto2, producto3, producto4, producto5, producto
 
 /* DOCUMENT READY PROGRAMAR DEBAJO */
 
-$(document).ready(function(){
-    
-/* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
+$(document).ready(function () {
 
-    $("#boton-expandir-barra").click(function(){
-    	if (!isBarraExpandida()) {
-    		manipularBarra("expandir");
-    	} else {
-			manipularBarra("contraer");
-    	}
+    /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
+
+    $("#boton-expandir-barra").click(function () {
+        if (!isBarraExpandida()) {
+            manipularBarra("expandir");
+        } else {
+            manipularBarra("contraer");
+        }
     });
 
-/* LLAMADO A EVENT LISTENER PARA SCROLLDOWN DE BOTON-SCROLLDOWN DE EDITORIAL */
+    /* LLAMADO A EVENT LISTENER PARA SCROLLDOWN DE BOTON-SCROLLDOWN DE EDITORIAL */
+
 
     $("#boton-scrolldown").on("click", function () {
         var posicionDeTienda = $("#display-tienda").offset().top;
@@ -156,13 +157,32 @@ $(document).ready(function(){
     });
 
     $(window).on("scroll", function () {
-        var posicionDeTienda = $("#display-tienda").offset().top - 15;
-        if ((window.pageYOffset > 350) && $("#boton-scrolldown").css("opacity") !== "0.1" && !$("#boton-scrolldown").is(":animated")) {
-            $("#boton-scrolldown").stop().animate({ opacity: 0.1 }, 500);
-        } else if (window.pageYOffset === 0 && $("#boton-scrolldown").css("opacity") !== "1") {
-            $("#boton-scrolldown").stop().animate({ opacity: 1 }, 100);
+        if ($(window).width > 768) {
+            var posicionDeTienda = $("#display-tienda").offset().top - 15;
+            if ((window.pageYOffset > 350) && $("#boton-scrolldown").css("opacity") !== "0.1" && !$("#boton-scrolldown").is(":animated")) {
+                $("#boton-scrolldown").stop().animate({ opacity: 0.1 }, 500);
+            } else if (window.pageYOffset === 0 && $("#boton-scrolldown").css("opacity") !== "1") {
+                $("#boton-scrolldown").stop().animate({ opacity: 1 }, 100);
+            }
         }
     });
+
+    /* FUNCIÓN PARA CAMBIO DE OPACIDAD EN PRODUCTOS DE EDITORIAL AL HACER HOVER */
+
+    $(".producto").hover(function () {
+        $(this).children(".descripcion-producto").toggleClass("opaco");
+        $(this).children(".btn-agregar-carrito").toggleClass("opaco");
+        $(this).find(".categorias-producto").fadeToggle();
+    }, function () {
+        $(this).children(".descripcion-producto").toggleClass("opaco");
+        $(this).children(".btn-agregar-carrito").toggleClass("opaco");
+        $(this).find(".categorias-producto").fadeToggle();
+    });
+
+    $(".btn-agregar-carrito").on("click", function () {
+
+    });
+
 
 
 /* EVENT LISTENER PARA CLICK DE LOS BOTONES INFERIORES */

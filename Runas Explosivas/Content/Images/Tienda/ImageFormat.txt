@@ -1,0 +1,3 @@
+Aspect Ratio for Carousel: 23:12
+
+Aspect Ratio for Cathalog: 
