@@ -17,5 +17,7 @@ namespace Runas_Explosivas.Models
         public DbSet<Resenha> Resenhas { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Compra> Compras { get; set; }
+        public DbSet<DatosDeEnvio> TablaDatosDeEnvio { get; set; }
     }
 }

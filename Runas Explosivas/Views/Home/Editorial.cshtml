@@ -26,21 +26,21 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="~/Content/Images/Tienda/ApocalypseWorld.jpg" alt="...">
+                    <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[0].Imagen" alt="...">
                     <div class="carousel-caption z-depth-1">
-                        <p>Conocé nuestra nueva aventura para Apocalypse World!</p>
+                        <p>@ViewBag.Productos[0].Titulo</p>
                     </div>
                 </div>
                 <div class="item">
-                    <img src="~/Content/Images/Tienda/DungeonWorld.jpg" alt="...">
+                    <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[1].Imagen" alt="...">
                     <div class="carousel-caption z-depth-1">
-                        <p>3 nuevas clases para Dungeon World en este suplemento!</p>
+                        <p>@ViewBag.Productos[1].Titulo</p>
                     </div>
                 </div>
                 <div class="item">
-                    <img src="~/Content/Images/Tienda/BurningWheel.jpg" alt="...">
+                    <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[2].Imagen" alt="...">
                     <div class="carousel-caption z-depth-1">
-                        <p>Expansión para jugar con bárbaros!</p>
+                        <p>@ViewBag.Productos[2].Titulo</p>
                     </div>
                 </div>
             </div>

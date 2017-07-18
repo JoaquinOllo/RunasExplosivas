@@ -217,18 +217,122 @@ namespace Runas_Explosivas.Controllers
         {
             using (RunasContext db = new Models.RunasContext())
             {
-                IQueryable<Articulo> Articulos = db.Articulos;
-                IQueryable<Usuario> Usuarios = db.Usuarios;
-                IQueryable<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos;
-                ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo()
+                IQueryable<Producto> Productos = db.Productos;
+                IQueryable<Usuario> Autores = db.Usuarios;
+                IQueryable<Categoria> Categorias = db.Categorias;
+                Producto NuevoProducto = new Producto()
                 {
-                    Autor = Usuarios.Single(au => au.Mail == "joaquinollo@gmail.com"),
-                    Fecha = new DateTime(2017, 7, 5, 12, 00, 00),
-                    Texto = "Creo que la nueva edición es un espanto, los odio a todos.",
-                    ArticuloComentado = Articulos.Single(au => au.ID == 1),
-                    RespuestaA = Comentarios.Single(c => c.ID == 2)
+                    Titulo = "Bárbaros para Burning Wheel!",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "Duamn@gmail.com") },
+                    Fecha = new DateTime (2017, 6, 14),
+                    Texto = "3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas." +
+                    "Éste módulo de 40 páginas de descarga directa o en formato libro de tapa blanda requiere del manual básico de Burning Wheel para poder ser usado" +
+                    "Expansiones para hechiceros e invocadores, reglas para combate con armas pesadas, todos los rasgos, habilidades y lifepaths necesarios para jugar a tu bárbaro favorito.",
+                    Imagen = "BurningWheel.jpg",
+                    Stock = 6,
+                    Precio = 250.00f,
+                    Categorias = new List <Categoria> { Categorias.Single(a => a.Nombre == "digital"), Categorias.Single(a => a.Nombre == "expansión"), Categorias.Single(a => a.Nombre == "BW"), Categorias.Single(a => a.Nombre == "booklet"), Categorias.Single(a => a.Nombre == "tapa blanda") }
                 };
-                db.ComentariosEnArticulos.Add(NuevoComentario);
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "El cielo violáceo",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "joaquinollo@gmail.com") },
+                    Fecha = new DateTime(2016, 6, 14),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "cielovioleta.jpg",
+                    Precio = 150.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "digital"), Categorias.Single(a => a.Nombre == "aventura"), Categorias.Single(a => a.Nombre == "PbtA")}
+                };
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "La factoría",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "joaquinollo@gmail.com") },
+                    Fecha = new DateTime(2017, 4, 8),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "bitd.jpg",
+                    Precio = 300.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "aventura"), Categorias.Single(a => a.Nombre == "BitD"), Categorias.Single(a => a.Nombre == "setting"), Categorias.Single(a => a.Nombre == "tapa blanda") }
+                };
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "Las 7 Maravillas",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "Juanma@gmail.com") },
+                    Fecha = new DateTime(2015, 4, 9),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "torchbearer.jpg",
+                    Precio = 450.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "aventura"), Categorias.Single(a => a.Nombre == "setting"), Categorias.Single(a => a.Nombre == "tapa dura") }
+                };
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "Cuervo Negro",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "Juanma@gmail.com"), Autores.Single(a => a.Mail == "Duamn@gmail.com"), Autores.Single(a => a.Mail == "Martin@gmail.com") },
+                    Fecha = new DateTime(2016, 1, 25),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "dungeonworld.jpg",
+                    Precio = 500.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "manual básico"), Categorias.Single(a => a.Nombre == "setting"), Categorias.Single(a => a.Nombre == "tapa dura"), Categorias.Single(a => a.Nombre == "digital") }
+                };
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "Comadrejas!",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "Juanma@gmail.com"), Autores.Single(a => a.Mail == "Duamn@gmail.com"), Autores.Single(a => a.Mail == "joaquinollo@gmail.com") },
+                    Fecha = new DateTime(2017, 1, 11),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "MouseGuard.jpg",
+                    Precio = 220.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "aventura"), Categorias.Single(a => a.Nombre == "booklet"), Categorias.Single(a => a.Nombre == "digital") }
+                };
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "El navegante de sueños y pesadillas",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "Juanma@gmail.com"), Autores.Single(a => a.Mail == "Duamn@gmail.com"), Autores.Single(a => a.Mail == "joaquinollo@gmail.com") },
+                    Fecha = new DateTime(2017, 1, 13),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "BurningWheel.jpg",
+                    Precio = 300.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "expansión"), Categorias.Single(a => a.Nombre == "BW"), Categorias.Single(a => a.Nombre == "digital") }
+                };
+                db.Productos.Add(NuevoProducto);
+
+                NuevoProducto = new Producto()
+                {
+                    Titulo = "5 skins para Monsterhearts",
+                    Autores = new List<Usuario> { Autores.Single(a => a.Mail == "Juanma@gmail.com"), Autores.Single(a => a.Mail == "joaquinollo@gmail.com") },
+                    Fecha = new DateTime(2015, 1, 13),
+                    Texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis auctor diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dui turpis, dapibus ut felis at, porttitor aliquam dolor. Phasellus sagittis purus vel sollicitudin semper. Praesent euismod ipsum non nisl tincidunt, pellentesque facilisis tortor accumsan. Duis euismod hendrerit felis, id suscipit lectus ornare id. Nam sit amet ullamcorper nulla, vel luctus neque. Praesent nec ipsum pulvinar, hendrerit nulla nec, iaculis elit. Pellentesque at mi sit amet lorem porttitor convallis eu eu erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce elementum sagittis eros, quis efficitur quam faucibus a. Praesent aliquam sollicitudin magna non consectetur." +
+                    "Quisque eu pellentesque lectus. Nulla viverra lorem ac mauris viverra finibus vitae ut tellus. Pellentesque egestas eros a metus dapibus, eu luctus metus tempor. Nulla viverra metus in lacus lacinia, vitae varius massa pulvinar. Nulla facilisi. Cras a urna viverra, posuere odio nec, sodales eros. Fusce ac mi quam. Duis lacinia mollis hendrerit. Maecenas viverra risus eu felis facilisis suscipit. Maecenas egestas sapien et scelerisque venenatis. Curabitur tincidunt velit id tortor dapibus, vitae cursus turpis dictum." +
+                    "Maecenas ultrices finibus placerat. Vestibulum laoreet, lorem efficitur eleifend blandit, dui lacus hendrerit turpis, vitae vulputate ligula massa ac purus. Etiam egestas urna enim, vel sodales est dictum eu. Curabitur egestas nisl eget augue luctus malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla porttitor turpis et ipsum tristique, id bibendum dui fringilla. Donec in tincidunt ipsum. Etiam risus nibh, fringilla ut pharetra id, vulputate ac lacus. Sed elementum est non cursus ornare.",
+                    Imagen = "monsterhearts.jpg",
+                    Precio = 150.00f,
+                    Categorias = new List<Categoria> { Categorias.Single(a => a.Nombre == "expansión"), Categorias.Single(a => a.Nombre == "digital") }
+                };
+                db.Productos.Add(NuevoProducto);
+
                 db.SaveChanges();
                 return "listo";
             }

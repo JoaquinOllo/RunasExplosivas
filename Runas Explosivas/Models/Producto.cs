@@ -26,6 +26,8 @@ namespace Runas_Explosivas.Models
         public string Texto { get; set; }
         [Required]
         public string Imagen { get; set; }
+        [Required]
+        public int Stock { get; set; }
 
         /// <summary>
         /// Método para obtener los primeros caracteres de un texto de artículo, para mostrar en páginas de inicio
@@ -63,7 +65,6 @@ namespace Runas_Explosivas.Models
 
         public virtual ICollection<Categoria> Categorias { get; set; }
         public float Precio { get; set; }
-        public int Stock { get; set; }
 
         [NotMapped]
         public string AllTags
@@ -94,22 +95,6 @@ namespace Runas_Explosivas.Models
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// Método para obtener HTML de Glyphicons
-        /// </summary>
-        /// <returns>Devuelve htmlstring con el HTML del glyphicon</returns>
-        public HtmlString AllGlyphHTML()
-        {
-            String CadenaGlyphs = "";
-            HtmlString CadenaGlyphsHTML = new HtmlString("");
-            foreach (Categoria Categoria in Categorias)
-            {
-                CadenaGlyphs = CadenaGlyphs + Categoria.GlyphHTML.ToString();
-            }
-            CadenaGlyphsHTML = new HtmlString(CadenaGlyphs);
-            return CadenaGlyphsHTML;
         }
     }
 }

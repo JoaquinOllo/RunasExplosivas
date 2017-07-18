@@ -63,7 +63,7 @@ a {
 }
 
     #page-header small {
-        display: inline-block;
+
     }
 
     #page-header h1 {
@@ -71,19 +71,19 @@ a {
         font-size: 4em;
     }
 
+small.subtitulo {
+    font-size: 36px;
+    display: inline-block;
+}
+
 @media only screen and (max-width: 768px) {
     #page-header > h1 {
         font-size: 3em;
         margin-top: 0;
     }
-}
-
-.hidden-xs { /* este display sobreescribe el predeterminado de bootstrap, para obligar al texto a permanecer en la mísma línea */
-    display: inline-block !important;
-}
-
-small.subtitulo {
-    font-size: 36px;
+    #page-header small {
+        display: none !important;
+    }
 }
 
 #page-header > h1 > span {
@@ -420,10 +420,11 @@ hr.inverted {
     .producto-header h5 {
         font-size: 1.5em;
         text-align: center;
+        padding-left: 2px;
     }
 
 .opaco {
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 .descripcion-producto{
@@ -443,11 +444,25 @@ hr.inverted {
     transition: width ease 0.5s;
 }
 
+
+
+@media screen and (max-width: 426px) {
+    body .producto{
+        width: initial;
+    }
+}
+
+
 @media screen and (min-width: 426px) and (max-width:769px) {
     body #display-tienda {
         margin-right: unset;
+        margin-left: 30px;
     }
 
+
+}
+
+@media screen and (max-width:769px) {
     body .producto-header {
         padding: 3px;
     }
@@ -470,8 +485,7 @@ hr.inverted {
 
 HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
 .z-depth-1 {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.35);
-    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.35); transition: all 0.5s cubic-bezier(.25,.8,.25,1);
 }
 
     .z-depth-1.hover,

@@ -154,15 +154,14 @@ $(document).ready(function () {
     $("#boton-scrolldown").on("click", function () {
         var posicionDeTienda = $("#display-tienda").offset().top;
         $("html, body").animate({ scrollTop: (posicionDeTienda - 15) }, 450);
+        $("#boton-scrolldown").fadeOut("slow");
     });
 
     $(window).on("scroll", function () {
         if ($(window).width > 768) {
             var posicionDeTienda = $("#display-tienda").offset().top - 15;
-            if ((window.pageYOffset > 350) && $("#boton-scrolldown").css("opacity") !== "0.1" && !$("#boton-scrolldown").is(":animated")) {
-                $("#boton-scrolldown").stop().animate({ opacity: 0.1 }, 500);
-            } else if (window.pageYOffset === 0 && $("#boton-scrolldown").css("opacity") !== "1") {
-                $("#boton-scrolldown").stop().animate({ opacity: 1 }, 100);
+            if (window.pageYOffset === 0 && $("#boton-scrolldown").css("display") === "none") {
+                $("#boton-scrolldown").fadeIn("slow");
             }
         }
     });
@@ -172,11 +171,11 @@ $(document).ready(function () {
     $(".producto").hover(function () {
         $(this).children(".descripcion-producto").toggleClass("opaco");
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
-        $(this).find(".categorias-producto").fadeToggle();
+        $(this).find(".categorias-producto").fadeTo(300, 0.95);
     }, function () {
         $(this).children(".descripcion-producto").toggleClass("opaco");
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
-        $(this).find(".categorias-producto").fadeToggle();
+        $(this).find(".categorias-producto").fadeTo(400, 0.3);
     });
 
     $(".btn-agregar-carrito").on("click", function () {

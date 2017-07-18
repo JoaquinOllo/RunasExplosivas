@@ -45,7 +45,12 @@ namespace Runas_Explosivas.Controllers
 
         public ActionResult Editorial()
         {
-            return View();
+            using (RunasContext db = new Models.RunasContext())
+            {
+                List<Producto> Productos = db.Productos.Include("Categorias").Include("Autores").AsQueryable().OrderByDescending(a => a.Fecha).Take(20).ToList();
+                ViewBag.Productos = Productos;
+                return View();
+            }
         }
 
         public ActionResult Contacto()

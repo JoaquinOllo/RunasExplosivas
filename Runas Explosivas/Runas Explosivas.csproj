@@ -160,10 +160,24 @@
     <Compile Include="Migrations\201707160442583_AtributosEnModelo.Designer.cs">
       <DependentUpon>201707160442583_AtributosEnModelo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707181743342_CompraYDatosDeEnvio.cs" />
+    <Compile Include="Migrations\201707181743342_CompraYDatosDeEnvio.Designer.cs">
+      <DependentUpon>201707181743342_CompraYDatosDeEnvio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707181800151_GlyphRetiradoACategorias.cs" />
+    <Compile Include="Migrations\201707181800151_GlyphRetiradoACategorias.Designer.cs">
+      <DependentUpon>201707181800151_GlyphRetiradoACategorias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707181804029_CategoriaSinDescripcion.cs" />
+    <Compile Include="Migrations\201707181804029_CategoriaSinDescripcion.Designer.cs">
+      <DependentUpon>201707181804029_CategoriaSinDescripcion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\ComentarioEnArticulo.cs" />
+    <Compile Include="Models\Compra.cs" />
+    <Compile Include="Models\DatosDeEnvio.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Resenha.cs" />
     <Compile Include="Models\RunasContext.cs" />
@@ -218,6 +232,7 @@
       <BrowseToURL>~/Home/Articulo</BrowseToURL>
     </Content>
     <Content Include="Views\Home\PruebasVarias.cshtml" />
+    <Content Include="Views\Home\Producto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -243,6 +258,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707160442583_AtributosEnModelo.resx">
       <DependentUpon>201707160442583_AtributosEnModelo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181743342_CompraYDatosDeEnvio.resx">
+      <DependentUpon>201707181743342_CompraYDatosDeEnvio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181800151_GlyphRetiradoACategorias.resx">
+      <DependentUpon>201707181800151_GlyphRetiradoACategorias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181804029_CategoriaSinDescripcion.resx">
+      <DependentUpon>201707181804029_CategoriaSinDescripcion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

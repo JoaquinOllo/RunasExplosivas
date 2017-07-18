@@ -24,7 +24,9 @@ namespace Runas_Explosivas.Models
         public bool IsColaborador { get; set; }
 
         public virtual ICollection<Articulo> Articulos { get; set; }
+        public virtual ICollection<Resenha> Resenhas { get; set; }
         public virtual ICollection<Producto> Productos { get; set; }
+        public virtual ICollection<Compra> Compras { get; set; }
 
     }
 }
