@@ -96,6 +96,11 @@ namespace Runas_Explosivas.Controllers
             return View();
         }
 
+        public ActionResult Registo()
+        {
+            return View();
+        }
+
         public ActionResult Mensaje(string nombre, string email, string mensaje, string SendTo)
         {
             SmtpClient clienteSmtp = new SmtpClient();
@@ -123,6 +128,48 @@ namespace Runas_Explosivas.Controllers
             return View("Index");
         }
 
+        //public JsonResult Login(string Mail, string Password)
+        //{
+        //    using (RunasContext db = new Models.RunasContext())
+        //    {
+        //        Usuario UsuarioLogin = db.Usuarios.SingleOrDefault(us => us.Mail == Mail);
+        //        bool UsuarioEncontrado;
+        //        bool PasswordCorrecto;
 
+        //        if (UsuarioLogin == default(Usuario))
+        //        {
+        //            UsuarioEncontrado = false;
+        //        } else if (Password != UsuarioLogin.Password)
+        //        {
+        //            UsuarioEncontrado = true;
+        //            PasswordCorrecto = false;
+        //        } else if (Password == UsuarioLogin.Password)
+        //        {
+        //            UsuarioEncontrado = true;
+        //            PasswordCorrecto = true;
+        //            Session["Usuario"] = UsuarioLogin;
+        //            return Json(REPLACETHIS, JsonRequestBehavior.AllowGet);
+        //        }
+        //    }
+        //}
+
+        //public ActionResult Registro (string Mail, string Password, string Nombre, string Descripcion)
+        //{
+        //    using (RunasContext db = new Models.RunasContext())
+        //    {
+        //        Usuario UsuarioNuevo = new Usuario()
+        //        {
+        //            Mail = Mail,
+        //            Password = Password,
+        //            Nombre = Nombre,
+        //            Descripcion = Descripcion,
+        //            IsAdmin = false,
+        //            IsColaborador = false
+        //        };
+        //    }
+
+
+        //    return RedirectToAction("Home", "Index");
+        //}
     }
 }
