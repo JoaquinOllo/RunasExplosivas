@@ -66,17 +66,22 @@ namespace Runas_Explosivas.Models
         public virtual ICollection<Categoria> Categorias { get; set; }
         public float Precio { get; set; }
 
-        [NotMapped]
-        public string AllTags
+        public List<string> AllCategorias(bool soloPrioridad = true, int cantidadElementos = 3)
         {
-            get
+            IEnumerable<string> _AllCategorias;
+            if (soloPrioridad)
             {
-                string _AllTags = string.Empty;
-                foreach (Categoria Categoria in Categorias)
-                {
-                    _AllTags = _AllTags + "." + Categoria.Nombre;
-                }
-                return _AllTags;
+                _AllCategorias = Categorias.Where(cat => cat.Prioridad).Select(cat => "." + cat.Nombre);
+            } else
+            {
+                _AllCategorias = Categorias.Select(cat => "." + cat.Nombre);
+            }
+            if (cantidadElementos == 0)
+            {
+                return _AllCategorias.ToList();
+            } else
+            {
+                return _AllCategorias.Take(cantidadElementos).ToList();
             }
         }
 

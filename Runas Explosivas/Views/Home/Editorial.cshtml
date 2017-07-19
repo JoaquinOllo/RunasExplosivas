@@ -64,16 +64,25 @@
         <h3>No te pierdas nuestros últimos productos!</h3>
         <!-- DISPLAY TIENDA.SECUNDARIOS-->
 
-        <div class="col-sm-6 producto">
+    @for (int i = 3; i < ViewBag.Productos.Count; i++)
+    {
+        <div class="col-sm-6 producto" style="background: #545454 url('../Content/Images/Tienda/@ViewBag.Productos[i].Imagen') no-repeat center;
+    background-size: cover;" >
             <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
+                <a><h5 class="inverted-light">@ViewBag.Productos[i].Titulo</h5></a><ul class="categorias-producto">
+                @foreach (String Categoria in ViewBag.Productos[i].AllCategorias())
+                {<li>@Categoria</li>}
+                </ul>
             </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
+            <p class="descripcion-producto opaco">@ViewBag.Productos[i].GetPreviewText(250)</p>
             <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
             <div class="producto-footer inverted-light">
-                <p>$359</p>
+                <p>$@ViewBag.Productos[i].Precio</p>
             </div>
         </div>
+    }
+
+
         <div class="col-sm-6 producto">
             <div class="producto-header inverted-light">
                 <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>

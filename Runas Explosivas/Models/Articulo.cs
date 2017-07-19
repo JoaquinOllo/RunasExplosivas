@@ -60,12 +60,6 @@ namespace Runas_Explosivas.Models
         {
             get
             {
-                //string _AllTags = string.Empty;
-                //foreach (Tag tag in Tags)
-                //{
-                //    _AllTags = _AllTags + "." + tag.Nombre;
-                //}
-                //return _AllTags;
                 string _AllTags = String.Join(".", Tags.Select(t => t.Nombre).ToArray());
                 return _AllTags;
             }

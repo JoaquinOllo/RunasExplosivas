@@ -169,11 +169,11 @@ $(document).ready(function () {
     /* FUNCIÓN PARA CAMBIO DE OPACIDAD EN PRODUCTOS DE EDITORIAL AL HACER HOVER */
 
     $(".producto").hover(function () {
-        $(this).children(".descripcion-producto").toggleClass("opaco");
+        $(this).children(".descripcion-producto").toggleClass("fondo-gris").fadeTo(200, 0.95);
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
         $(this).find(".categorias-producto").fadeTo(300, 0.95);
     }, function () {
-        $(this).children(".descripcion-producto").toggleClass("opaco");
+        $(this).children(".descripcion-producto").toggleClass("fondo-gris").fadeTo(200, 0.3);
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
         $(this).find(".categorias-producto").fadeTo(400, 0.3);
     });

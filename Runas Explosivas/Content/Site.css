@@ -264,6 +264,10 @@ hr.inverted {
     border-width: 6px;
 }
 
+.fondo-gris {
+    background-color: #383838 !important;
+}
+
 /* CSS DE HR QUE SEPARA HEADER Y FOOTER */
 
 #separador-footer{
@@ -377,13 +381,9 @@ hr.inverted {
     }
 }
 
-
-
 /*CSS DE PRODUCTOS DE TIENDA */
 
 .producto {
-    background: #545454 url("Images/Tienda/BurningWheel.jpg") no-repeat center;
-    background-size: cover;
     border-radius: 0px 0px 25px 0px;
     height: 33vh;
     width: 31vw;
@@ -450,6 +450,11 @@ hr.inverted {
     body .producto{
         width: initial;
     }
+    body .producto-header h5 {
+        font-size: 1em;
+        text-align: left;
+        margin-top: 10px;
+    }
 }
 
 
@@ -458,20 +463,16 @@ hr.inverted {
         margin-right: unset;
         margin-left: 30px;
     }
+        body .producto-header h5 {
+            font-size: 1.2em;
 
-
+        }
 }
 
 @media screen and (max-width:769px) {
     body .producto-header {
         padding: 3px;
     }
-
-        body .producto-header h5 {
-            font-size: 1.2em;
-            text-align: left;
-            margin-top: 10px;
-        }
 
     body .categorias-producto {
         font-size: 0.7em;
