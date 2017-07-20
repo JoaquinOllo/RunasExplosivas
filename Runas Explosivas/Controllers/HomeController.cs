@@ -12,8 +12,12 @@ namespace Runas_Explosivas.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(bool UsuarioRegistrado = false)
         {
+            if (UsuarioRegistrado)
+            {
+                ViewBag.UsuarioRegistrado = true;
+            }
             using (RunasContext db = new Models.RunasContext())
             {
                 List<Articulo> Articulos = db.Articulos.Include("Tags").AsQueryable().OrderByDescending(u => u.Fecha).Take(20).ToList();
@@ -91,12 +95,12 @@ namespace Runas_Explosivas.Controllers
             return View();
         }
 
-        public ActionResult PruebasVarias()
+        public ActionResult Registro()
         {
             return View();
         }
 
-        public ActionResult Registo()
+        public ActionResult Registate()
         {
             return View();
         }
@@ -152,24 +156,25 @@ namespace Runas_Explosivas.Controllers
         //        }
         //    }
         //}
+        public ActionResult RegistroUsuarioNuevo(string Mail, string Password, string NombreCompleto, string Descripcion)
+        {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                Usuario UsuarioNuevo = new Usuario()
+                {
+                    Mail = Mail,
+                    Password = Password,
+                    Nombre = NombreCompleto,
+                    Descripcion = Descripcion,
+                    IsAdmin = false,
+                    IsColaborador = false
+                };
 
-        //public ActionResult Registro (string Mail, string Password, string Nombre, string Descripcion)
-        //{
-        //    using (RunasContext db = new Models.RunasContext())
-        //    {
-        //        Usuario UsuarioNuevo = new Usuario()
-        //        {
-        //            Mail = Mail,
-        //            Password = Password,
-        //            Nombre = Nombre,
-        //            Descripcion = Descripcion,
-        //            IsAdmin = false,
-        //            IsColaborador = false
-        //        };
-        //    }
+                db.Usuarios.Add(UsuarioNuevo);
+                db.SaveChanges();
 
-
-        //    return RedirectToAction("Home", "Index");
-        //}
+                return RedirectToAction("Index", "Home", new { UsuarioRegistrado = true });
+            }
+        }
     }
 }

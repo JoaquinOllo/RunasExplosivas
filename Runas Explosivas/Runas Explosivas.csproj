@@ -231,9 +231,9 @@
     <Content Include="Views\Home\Articulo.cshtml">
       <BrowseToURL>~/Home/Articulo</BrowseToURL>
     </Content>
-    <Content Include="Views\Home\PruebasVarias.cshtml" />
-    <Content Include="Views\Home\Producto.cshtml" />
     <Content Include="Views\Home\Registro.cshtml" />
+    <Content Include="Views\Home\Producto.cshtml" />
+    <Content Include="Views\Home\Registrate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
