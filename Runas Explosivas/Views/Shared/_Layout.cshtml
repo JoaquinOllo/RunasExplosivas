@@ -52,7 +52,7 @@
                 <ul class="nav navbar-nav black-font">
                     <li class="@(ViewBag.Title == "Blog" ? "active" : string.Empty)"><a href="@Url.Action("Blog", "Home")">Blog <span class="glyphicon glyphicon-pencil"></span></a></li>
                     <li class="@(ViewBag.Title == "Podcast" ? "active" : string.Empty)"><a href="@Url.Action("Podcast", "Home")">Podcast <span class="glyphicon glyphicon-headphones"></span></a></li>
-                    <li class="@(ViewBag.Title == "Editorial" ? "active" : string.Empty)"><a href="@Url.Action("Editorial", "Home")">Editorial Rúnica <span class="glyphicon glyphicon-book"></span></a></li>
+                    <li class="@(ViewBag.Title == "Editorial" ? "active" : string.Empty)"><a href="@Url.Action("Index", "Editorial")">Editorial Rúnica <span class="glyphicon glyphicon-book"></span></a></li>
                     <li class="dropup">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recursos <span class="glyphicon glyphicon-wrench"> </span><span class="caret"></span></a>
                         <ul class="dropdown-menu    black-font">

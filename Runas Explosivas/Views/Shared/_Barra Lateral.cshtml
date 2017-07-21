@@ -30,7 +30,7 @@
             <div class="barra-lateral-widget" id="usuario">
                 @if (Session["Usuario"] == null)
                 { 
-                    <form id="form-inicio-sesion" method="post" action="@Url.Action("Login","Home")">
+                    <form id="form-inicio-sesion" method="post" action="@Url.Action("Login","Usuario")">
                         <h4>Iniciar sesión</h4>
                         <div class="form-group">
                             <label for="inputEmail" class="sr-only">Dirección de email</label>
@@ -42,12 +42,12 @@
                         </div>
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
                     </form>
-                    <a class="btn btn-lg btn-info btn-block" id="boton-registro" href="@Url.Action("Registro", "Home")">Registrate!</a>
+                    <a class="btn btn-lg btn-info btn-block" id="boton-registro" href="@Url.Action("Index", "Usuario")">Registrate!</a>
                 } else
                 {
                     <h4>@Usuario.Nombre</h4>
                     <h5>Notificaciones: <span class="badge">42</span></h5>
-                    <a class="btn btn-lg btn-info btn-block" href="@Url.Action("CerrarSesion", "Home")">Cerrar sesión</a>
+                    <a class="btn btn-lg btn-info btn-block" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
                 }
             </div>
 
