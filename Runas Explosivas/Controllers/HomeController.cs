@@ -132,30 +132,24 @@ namespace Runas_Explosivas.Controllers
             return View("Index");
         }
 
-        //public JsonResult Login(string Mail, string Password)
-        //{
-        //    using (RunasContext db = new Models.RunasContext())
-        //    {
-        //        Usuario UsuarioLogin = db.Usuarios.SingleOrDefault(us => us.Mail == Mail);
-        //        bool UsuarioEncontrado;
-        //        bool PasswordCorrecto;
+        public ActionResult Login(string Mail, string Password)
+        {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                Usuario UsuarioLogin = db.Usuarios.SingleOrDefault(us => us.Mail == Mail && us.Password == Password);
 
-        //        if (UsuarioLogin == default(Usuario))
-        //        {
-        //            UsuarioEncontrado = false;
-        //        } else if (Password != UsuarioLogin.Password)
-        //        {
-        //            UsuarioEncontrado = true;
-        //            PasswordCorrecto = false;
-        //        } else if (Password == UsuarioLogin.Password)
-        //        {
-        //            UsuarioEncontrado = true;
-        //            PasswordCorrecto = true;
-        //            Session["Usuario"] = UsuarioLogin;
-        //            return Json(REPLACETHIS, JsonRequestBehavior.AllowGet);
-        //        }
-        //    }
-        //}
+                if (UsuarioLogin == default(Usuario))
+                {
+                    TempData["ErrorLogin"] = "La dirección ingresada o la contraseña son incorrectas. Por favor, intentá nuevamente";
+                } // IMPLEMENTAR MENSAJE DE ERROR
+                else 
+                {
+                    Session["Usuario"] = UsuarioLogin;
+                }
+                    return RedirectToAction("Index","Home");
+            }
+        }
+
         public ActionResult RegistroUsuarioNuevo(string Mail, string Password, string NombreCompleto, string Descripcion)
         {
             using (RunasContext db = new Models.RunasContext())
@@ -173,7 +167,7 @@ namespace Runas_Explosivas.Controllers
                 db.Usuarios.Add(UsuarioNuevo);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Home", new { UsuarioRegistrado = true });
+                return RedirectToAction("Index", "Home");
             }
         }
     }
