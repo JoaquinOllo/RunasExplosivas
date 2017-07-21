@@ -190,8 +190,8 @@ $(document).ready(function () {
     	botonera("#boton-compras");
     });
 
-    $("#boton-login").on("click", function(){
-    	botonera("#boton-login");
+    $("#boton-usuario").on("click", function(){
+    	botonera("#boton-usuario");
     });
 
  	$("#boton-busqueda").on("click", function(){

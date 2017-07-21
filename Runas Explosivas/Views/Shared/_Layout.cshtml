@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Runas_Explosivas.Models;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,6 +13,10 @@
 </head>
 <body>
     <div class="z-depth-1 inverted" id="page-header">
+        @if((Usuario)Session["Usuario"] != null)
+        { 
+            <div id="usuario-conectado" class="secondary-color"><span class="glyphicon glyphicon-user"></span>@(((Usuario)Session["Usuario"]).Nombre)</div>
+        }
         <h1 class="fuenteRE">Runas Explosivas <small class="subtitulo">@ViewBag.HeaderText </small><span class="@ViewBag.HeaderGlyph"></span></h1>
         <div class="avisos">
             <small></small>

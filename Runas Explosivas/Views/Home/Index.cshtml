@@ -6,29 +6,17 @@
 }
 
 <!-- DISPLAY ARTÍCULOS.PRINCIPAL -->
-@*@if (ViewBag.UsuarioRegistrado)
-{
-    <div class="modal fade" tabindex="-1" role="dialog" data-show="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Usuario Registrado!</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Hemos registrado sus datos de usuario exitosamente. Debería recibir un mail a la brevedad. Use el inicio de sesión para conectarse y empezar a comentar artículos, realizar compras, etc.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-}*@
 
 
 <div class="container-fluid bottom-pad">
     <div class="main z-depth-1 row">
+        @if (TempData["Reporte"] != null)
+        {
+        <div class="alert alert-@((string)TempData["TipoDeReporte"])">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>@((string)TempData["Reporte"])</strong>
+        </div>
+        }
         <div id="display-articulos">
             <div class="row articulo" data-id="@ViewBag.Articulos[0].ID" id="destacado">
                 <h3> @Html.ActionLink(

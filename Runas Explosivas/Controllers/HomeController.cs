@@ -132,21 +132,23 @@ namespace Runas_Explosivas.Controllers
             return View("Index");
         }
 
-        public ActionResult Login(string Mail, string Password)
+        public ActionResult Login(string inputEmail, string inputPassword)
         {
             using (RunasContext db = new Models.RunasContext())
             {
-                Usuario UsuarioLogin = db.Usuarios.SingleOrDefault(us => us.Mail == Mail && us.Password == Password);
+                Usuario UsuarioConectado = db.Usuarios.SingleOrDefault(us => us.Mail == inputEmail && us.Password == inputPassword);
 
-                if (UsuarioLogin == default(Usuario))
+                if (UsuarioConectado == default(Usuario))
                 {
-                    TempData["ErrorLogin"] = "La dirección ingresada o la contraseña son incorrectas. Por favor, intentá nuevamente";
-                } // IMPLEMENTAR MENSAJE DE ERROR
+                    TempData["Reporte"] = "La dirección ingresada o la contraseña son incorrectas. Por favor, intentá nuevamente";
+                    TempData["TipoDeReporte"] = "danger";
+                }
                 else 
                 {
-                    Session["Usuario"] = UsuarioLogin;
+                    Session["Usuario"] = UsuarioConectado;
+                    Session["BotonUsuario"] = "borde-azul";
                 }
-                    return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","Home");
             }
         }
 
@@ -154,21 +156,42 @@ namespace Runas_Explosivas.Controllers
         {
             using (RunasContext db = new Models.RunasContext())
             {
-                Usuario UsuarioNuevo = new Usuario()
+                if (!db.Usuarios.Any(u => u.Mail == Mail))
                 {
-                    Mail = Mail,
-                    Password = Password,
-                    Nombre = NombreCompleto,
-                    Descripcion = Descripcion,
-                    IsAdmin = false,
-                    IsColaborador = false
-                };
+                    Usuario UsuarioNuevo = new Usuario()
+                    {
+                        Mail = Mail,
+                        Password = Password,
+                        Nombre = NombreCompleto,
+                        Descripcion = Descripcion,
+                        IsAdmin = false,
+                        IsColaborador = false
+                    };
+                    db.Usuarios.Add(UsuarioNuevo);
+                    db.SaveChanges();
 
-                db.Usuarios.Add(UsuarioNuevo);
-                db.SaveChanges();
-
+                    TempData["Reporte"] = $"Has sido registrado exitosamente. Bienvenido, {UsuarioNuevo.Nombre}! Te debería llegar un mail en breve. Ya podés comentar nuestros artículos y realizar compras.";
+                    TempData["TipoDeReporte"] = "success";
+                    Session["Usuario"] = db.Usuarios.FirstOrDefault(u => u.Mail == UsuarioNuevo.Mail);
+                    Session["BotonUsuario"] = "borde-azul";
+                } else
+                {
+                    TempData["Reporte"] = "Ya existe un usuario registrado para la dirección de correo ingresada. Puede que ya estés registrado. Probaste ingresar? Por cualquier problema contactate con nosotros desde el mail con el que tuviste dificultades, para resetear tu contraseña.";
+                    TempData["TipoDeReporte"] = "danger";
+                }
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Admin()
+        {
+            return View();
         }
     }
 }

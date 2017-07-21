@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Runas_Explosivas.Models;
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Usuario Usuario = (Usuario)Session["Usuario"];
 }
 <div class="container-fluid bottom-pad">
     @RenderBody()
@@ -23,27 +25,30 @@
                 <h5>Carrito de compras</h5>
             </div>
 
-            <!-- WIDGET DE INICIO DE SESIÓN-->
+            <!-- WIDGET DE USUARIO-->
 
-            <div class="barra-lateral-widget" id="inicio-sesion">
-                <form id="form-inicio-sesion">
-                    <h4>Iniciar sesión</h4>
-                    <div class="form-group">
-                        <label for="inputEmail" class="sr-only">Dirección de email</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputContraseña" class="sr-only">Contraseña</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="*******" required>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Mantener sesión iniciada
-                        </label>
-                    </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-                </form>
-                <a class="btn btn-lg btn-info btn-block" id="boton-registro" href="@Url.Action("Registro", "Home")">Registrate!</a>
+            <div class="barra-lateral-widget" id="usuario">
+                @if (Session["Usuario"] == null)
+                { 
+                    <form id="form-inicio-sesion" method="post" action="@Url.Action("Login","Home")">
+                        <h4>Iniciar sesión</h4>
+                        <div class="form-group">
+                            <label for="inputEmail" class="sr-only">Dirección de email</label>
+                            <input type="email" name="inputEmail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContraseña" class="sr-only">Contraseña</label>
+                            <input type="password" name="inputPassword" class="form-control" placeholder="*******" required>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+                    </form>
+                    <a class="btn btn-lg btn-info btn-block" id="boton-registro" href="@Url.Action("Registro", "Home")">Registrate!</a>
+                } else
+                {
+                    <h4>@Usuario.Nombre</h4>
+                    <h5>Notificaciones: <span class="badge">42</span></h5>
+                    <a class="btn btn-lg btn-info btn-block" href="@Url.Action("CerrarSesion", "Home")">Cerrar sesión</a>
+                }
             </div>
 
             <!-- WIDGET DE REGISTRO DE USUARIO NUEVO -->
@@ -107,8 +112,10 @@
     <div id="botonera">
         @if (ViewBag.BtnUsuario)
         {
-            <button id="boton-login" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#inicio-sesion" type="submit"><span class="glyphicon glyphicon-user"></span></button>
-        }
+            <button id="boton-usuario" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#usuario" type="submit">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+        } 
         @if (ViewBag.BtnCarrito)
         {
             <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
