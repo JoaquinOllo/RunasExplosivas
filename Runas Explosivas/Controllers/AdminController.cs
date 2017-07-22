@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Runas_Explosivas.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,14 @@ namespace Runas_Explosivas.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
+            {
+                return View();
+            } else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
     }
 }

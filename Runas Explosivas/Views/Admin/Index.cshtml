@@ -1,36 +1,96 @@
 ﻿@using Runas_Explosivas.Models;
 @{
-    ViewBag.Title = "Registro";
-    ViewBag.HeaderText = "Registro de usuario";
-    ViewBag.HeaderGlyph = "";
+    ViewBag.Title = "Administración";
+    ViewBag.HeaderText = ".admin";
+    ViewBag.HeaderGlyph = "glyphicon glyphicon-tower";
 }
+<nav class="navbar navbar-default inverted-secondary z-depth-2" id="admin-navbar">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-admin" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand visible-xs black-font"><small>Acciones de Administrador</small></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-admin">
+            <ul class="nav navbar-nav black-font">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artículos/Podcasts <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu black-font">
+                        <li><a class="boton-display" data-display="#escribir-articulo">Crear artículo nuevo</a></li>
+                        <li><a class="boton-display">Editar artículo</a></li>
+                        <li><a class="boton-display">Eliminar artículo</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Editorial <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu black-font">
+                        <li><a class="boton-display">Compras</a></li>
+                        <li><a class="boton-display">Crear producto</a></li>
+                        <li><a class="boton-display">Editar producto</a></li>
+                        <li><a class="boton-display">Eliminar producto</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right black-font">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Moderación <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu black-font">
+                        <li><a class="boton-display">Moderar comentarios</a></li>
+                        <li><a class="boton-display">Moderar reseñas</a></li>
+                    </ul>
+                </li>
+                <li><a class="boton-display" href="#">Administrar Usuarios</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 <div class="container-fluid bottom-pad">
-    <div class="main z-depth-1 row">
-        <form id="form-registro" action="@Url.Action("RegistroUsuarioNuevo", "Usuario")" method="post">
-            <h2>Usuario nuevo</h2>
-            <div class="form-group">
-                <label for="NombreCompleto">Nombre Completo</label>
-                <input type="text" name="NombreCompleto" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="Mail">Dirección de email</label>
-                <input type="email" name="Mail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
-            </div>
-            <div class="form-group">
-                <label for="Password">Contraseña</label>
-                <input type="password" name="Password" class="form-control" placeholder="*******" required>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value=""> I'm not a robot
-                </label>
-            </div>
+    <div class="main z-depth-1">
+        <div class="row admin-subpage" id="escribir-articulo">
+            <h3>Crear artículo</h3>
 
-            <div class="form-group">
-                <textarea rows="4" cols="50" name="Descripcion" class="form-control">Querés contarnos algo sobre vos?</textarea>
-            </div>
-            <button class="btn btn-lg boton-lateral btn-primary btn-block" type="submit">Registrate!</button>
-        </form>
+            <form method="post" action="">
+                <div class="form-group">
+                    <label for="inputTitulo">Título</label>
+                    <input type="text" class="form-control" id="inputTitulo" placeholder="Acá va el título">
+                </div>
+                <div class="form-group">
+                    <label for="inputTag">Tags</label>
+                    <input type="text" class="form-control" id="inputTag" placeholder="Acá va la lista de tags completa a enviar. Completá el campo debajo mío y apretá +" disabled />
+                </div>
+                <div class="form-group">
+                    <div class="input-group" style="width: 50%">
+                        <input type="text" id="inputTagIndividual" data-send="#inputTag" class="form-control" placeholder="blog, editorial, podcast, etc." />
+                        <div class="input-group-addon inverted-secondary"><a><span class="glyphicon glyphicon-plus-sign"></span></a></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr class="z-depth-1 inverted" />
+                    <div class="form-group col-xs-12">
+                        <label for="inputTexto">Contenido del artículo. Seguí scrolleando para saber cómo agregar subtítulos y links</label>
+                        <textarea class="form-control" id="inputTexto" placeholder="Acá va el texto" rows="10" cols="6"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary z-depth-1" type="submit">Crear artículo!</button>
+</form>
+        </div>
+        <div class="row admin-subpage" id="editar-articulo"></div>
+        <div class="row admin-subpage" id="eliminar-articulo"></div>
+        <div class="row admin-subpage" id="crear-producto"></div>
+        <div class="row admin-subpage" id="editar-producto"></div>
+        <div class="row admin-subpage" id="eliminar-producto"></div>
+        <div class="row admin-subpage" id="gestion-compras"></div>
+        <div class="row admin-subpage" id="moderar-comentarios"></div>
+        <div class="row admin-subpage" id="moderar-resenhas"></div>
+        <div class="row admin-subpage" id="admin-usuarios"></div>
     </div>
 </div>

@@ -210,4 +210,20 @@ $(document).ready(function () {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
 	});
-});
+
+
+/* FUNCIONES DE PÁGINA DE ADMINISTRACIÓN */
+
+    $(".boton-display").click(function () {
+        if (!$(this).hasClass("active")) {
+            var display = $(this).data("display");
+            $(".main").children().slideUp("fast", function () {
+                $(display).slideDown(300);
+            });
+            $(this).toggleClass("active");
+        } else {
+            $(".main").children().slideUp("fast");
+            $(this).toggleClass("active");
+        }
+    });
+});    
