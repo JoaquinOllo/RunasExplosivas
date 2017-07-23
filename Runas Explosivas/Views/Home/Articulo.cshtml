@@ -16,6 +16,14 @@
         </div>
     </div>
     <hr class="inverted z-depth-1" id="separador-header">
+    
+    @if (ViewBag.Articulo.SearchTag("podcast"))
+    {
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/y-GIvQAsn6w" allowfullscreen></iframe>
+        </div>
+    }
+
     <div class="cuerpo-articulo">
         @ViewBag.Articulo.Texto
     </div>

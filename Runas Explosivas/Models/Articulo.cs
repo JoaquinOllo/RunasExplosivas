@@ -29,15 +29,28 @@ namespace Runas_Explosivas.Models
         /// <summary>
         /// Método para obtener los primeros caracteres de un texto de artículo, para mostrar en páginas de inicio
         /// </summary>
-        /// <param name="characters">Parámetro para especificar cantidad de caracteres del preview</param>
+        /// <param name="lengthPreview">Parámetro para especificar cantidad de caracteres del preview</param>
         /// <returns>Devuelve un string con los primeros caracteres del texto.</returns>
-        public string GetPreviewText(int characters)
+        public string GetPreviewText(int lengthPreview)
         {
-            if (characters >= Texto.Length)
+            List<string> PuntosDeParada = new List<string>() {".", ",", " ", ":", ";" };
+            int IndexDeParada = Texto.Length;
+            if (lengthPreview > Texto.Length)
             {
-                characters = Texto.Length;
+                IndexDeParada = Texto.Length;
+            } else
+            {
+                for (int i = lengthPreview; i > 0; i--)
+                {
+                    if (PuntosDeParada.Contains(Texto[i].ToString()))
+                    {
+                        IndexDeParada = i;
+                        i = 0;
+                    }
+                }
             }
-            return Texto.Substring(0, characters) + "...";
+
+            return Texto.Substring(0, IndexDeParada) + "...";
         }
 
         /// <summary>
