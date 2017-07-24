@@ -24,5 +24,24 @@ namespace Runas_Explosivas.Models
         public float Puntuacion { get; set; }
         [Required]
         public Producto ProductoResenhado { get; set; }
+
+
+        /// <summary>
+        /// Propiedad que indica el estilo CSS del comentario en la vista, según a cuántos comntarios esté respondiendo
+        /// </summary>
+        public int NivelDeDerivacion
+        {
+            get
+            {
+                if (RespuestaA != null)
+                {
+                    return RespuestaA.NivelDeDerivacion + 1 < 4 ? RespuestaA.NivelDeDerivacion + 1 : 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
     }
 }

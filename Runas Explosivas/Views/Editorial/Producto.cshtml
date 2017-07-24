@@ -10,3 +10,51 @@
     ViewBag.HeaderGlyph = "glyphicon glyphicon-book";
 }
 
+<div id="display-articulos" class="main">
+    <p class="articulo-info alineado-derecho">@ViewBag.Producto.Fecha.ToString(@"dd\/MM\/yyyy")</p>
+    <h2>@ViewBag.Producto.Titulo</h2>
+    <div class="row">
+        <div class="col-xs-10 col-md-12">
+            <p class="articulo-info">@ViewBag.Producto.GetAllAutores()</p>
+        </div>
+        <div class="col-xs-10 col-md-12">
+            <p class="articulo-info">@ViewBag.Producto.CategoriasToString</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" >
+            <img class="img-responsive img-rounded" src="~/Content/Images/Tienda/@ViewBag.Producto.Imagen" />
+        </div>
+    </div>
+    <div class="cuerpo-articulo">
+        @ViewBag.Producto.Texto
+    </div>
+    <div class="row inverted z-depth-1" id="articulo-precio">
+        <div class="col-xs-9">
+            <p class="articulo-info">$@ViewBag.Producto.Precio</p>
+        </div>
+        <div class="col-xs-3">
+            <a class="alineado-derecho" href="#"><span class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Clic para agregar al carrito :D"></span></a>
+        </div>
+    </div>
+    <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" data-placement="right" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>
+    <hr class="inverted z-depth-1" id="separador-footer">
+    <div class="well-sm inverted-extra-light" id="lista-comentarios">
+        <ul>
+            @if (ViewBag.Resenhas != null)
+            {
+                foreach (Resenha Resenha in ViewBag.Resenhas)
+                {
+                    <li class="comentario comentario-nested-@Resenha.NivelDeDerivacion">
+                        <h4>@Resenha.Autor.Nombre <span><small><i class="dark-gray">@Resenha.Fecha.ToString(@"dd\/MM\/yyyy HH:mm")</i></small></span></h4>
+                        <p>@Resenha.Texto</p>
+                    </li>
+                }
+            }
+            @if (ViewBag.Resenhas.Count == 0)
+            {
+                <li class="comentario">No hay reseñas por el momento. ¿Querés ser el primero?</li>
+            }
+        </ul>
+    </div>
+</div> <!-- fin de display articulos -->

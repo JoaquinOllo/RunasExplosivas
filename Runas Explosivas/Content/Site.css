@@ -154,18 +154,14 @@ small.subtitulo {
     min-height: 40vh;
 }
 
-/* CSS de páginas individuales de artículos*/
+/* CSS de páginas individuales de artículos y productos */
 
 .cuerpo-articulo, 
 .cuerpo-articulo > p{
     text-align: justify;
     text-indent: 30px;
     padding-bottom: 10px;
-}
-
-.cuerpo-articulo > p::first-letter {
-    font-size: 120%;
-    font-weight: bold;
+    padding-top: 10px;
 }
 
 .alineado-derecho {
@@ -178,12 +174,50 @@ small.subtitulo {
     letter-spacing: 3px;
     font-size: 110%;
     font-variant: small-caps;
-    font-weight: bold,
+    word-wrap: break-word;
 }
 
-/* CSS DE LA SECCIÓN DE COMENTARIOS A ARTÍCULOS*/
+#articulo-precio {
+    margin: auto;
+    width: 25vw;
+    border-bottom: 3px inset #ef6c00;
+    border-right: 3px inset #ef6c00;
+    border-top-left-radius: 15px;
+}
 
-#lista-comentarios{
+    #articulo-precio p {
+        padding-top: 5px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 4px;
+        font-size: 18px;
+        color: #ff9d3f;
+    }
+
+    #articulo-precio span {
+        font-size: 150%;
+        color: #ff9d3f;
+        padding-top: 5px;
+    }
+
+
+/* CSS DE EMBED DE PODCAST EN ARTÍCULOS INDIVIDUALES */
+#link-podcast {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+
+    #link-podcast iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+/* CSS DE LA SECCIÓN DE COMENTARIOS A ARTÍCULOS*/
+#lista-comentarios {
     display: none;
 }
 
@@ -260,7 +294,7 @@ small.subtitulo {
     border-style: none;
 }
 
-.inverted-light {
+.inverted-light, .inverted-light p {
     background-color: #545454;
     color: #ffffff;
 }
@@ -307,7 +341,7 @@ hr.inverted {
 
 
 #separador-header {
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 20px;
 }
 

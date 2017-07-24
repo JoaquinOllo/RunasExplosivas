@@ -22,7 +22,16 @@ namespace Runas_Explosivas.Controllers
 
         public ActionResult Producto (int prodID)
         {
-            return View();
+            using (RunasContext db = new Models.RunasContext())
+            {
+                Producto Producto = db.Productos.Include("Categorias").Include("Autores").AsQueryable().Single(a => a.ID == prodID);
+                List<Resenha> Resenhas = db.Resenhas.Include("Autor").Where(cm => cm.ProductoResenhado.ID == prodID).OrderByDescending(cm => cm.Fecha).ToList();
+                ViewBag.Producto = Producto;
+                ViewBag.Resenhas = Resenhas;
+
+                ViewBag.Title = "Product: " + Producto.Titulo;
+            }
+                return View();
         }
     }
 }

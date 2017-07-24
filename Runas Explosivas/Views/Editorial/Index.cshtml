@@ -25,24 +25,41 @@
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[0].Imagen" alt="...">
-                    <div class="carousel-caption z-depth-1">
-                        <p>@ViewBag.Productos[0].Titulo</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[1].Imagen" alt="...">
-                    <div class="carousel-caption z-depth-1">
-                        <p>@ViewBag.Productos[1].Titulo</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[2].Imagen" alt="...">
-                    <div class="carousel-caption z-depth-1">
-                        <p>@ViewBag.Productos[2].Titulo</p>
-                    </div>
-                </div>
+                @for (int i = 0; i < 3; i++)
+                {
+                    if (i == 0)
+                    {
+                        <div class="item active">
+                            <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[i].Imagen" alt="...">
+                            <div class="carousel-caption z-depth-1">
+                                @Html.ActionLink(
+                                    linkText: (string)(ViewBag.Productos[i].Titulo + ": " + ViewBag.Productos[i].GetPreviewText(30)),
+                                    actionName: "Producto",
+                                    controllerName: "Editorial",
+                                    routeValues: new
+                                    {
+                                        prodID = (int)ViewBag.Productos[i].ID
+                                    }, htmlAttributes: null)
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="item">
+                            <img class="img-responsive" src="~/Content/Images/Tienda/@ViewBag.Productos[i].Imagen" alt="...">
+                            <div class="carousel-caption z-depth-1">
+                                @Html.ActionLink(
+                     linkText: (string)(ViewBag.Productos[i].Titulo + ": " + ViewBag.Productos[i].GetPreviewText(30)),
+                     actionName: "Producto",
+                     controllerName: "Editorial",
+                     routeValues: new
+                     {
+                         prodID = (int)ViewBag.Productos[i].ID
+                     }, htmlAttributes: null)
+                            </div>
+                        </div>
+                     }
+                }
             </div>
 
             <!-- Controls -->
@@ -62,16 +79,24 @@
         <hr class="z-depth-1 inverted">
     <div id="display-tienda" class="row">
         <h3>No te pierdas nuestros últimos productos!</h3>
-        <!-- DISPLAY TIENDA.SECUNDARIOS-->
+        
+    <!-- DISPLAY TIENDA.SECUNDARIOS-->
 
     @for (int i = 3; i < ViewBag.Productos.Count; i++)
     {
         <div class="col-sm-6 producto" style="background: #545454 url('../Content/Images/Tienda/@ViewBag.Productos[i].Imagen') no-repeat center;
     background-size: cover;" >
             <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">@ViewBag.Productos[i].Titulo</h5></a><ul class="categorias-producto">
-                @foreach (String Categoria in ViewBag.Productos[i].AllCategorias())
-                {<li>@Categoria</li>}
+                <h5 class="inverted-light">
+                    @Html.ActionLink(
+                     linkText: (string)ViewBag.Productos[i].Titulo,
+                     actionName: "Producto",
+                     controllerName: "Editorial",
+                     routeValues: new
+                     { prodID = (int)ViewBag.Productos[i].ID }, htmlAttributes: null)
+                </h5>
+                <ul class="categorias-producto">
+                    @foreach (String Categoria in ViewBag.Productos[i].AllCategorias()){<li>@Categoria</li>}
                 </ul>
             </div>
             <p class="descripcion-producto opaco">@ViewBag.Productos[i].GetPreviewText(250)</p>
@@ -81,197 +106,5 @@
             </div>
         </div>
     }
-
-
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
-        <div class="col-sm-6 producto">
-            <div class="producto-header inverted-light">
-                <a><h5 class="inverted-light">Bárbaros para BW!</h5></a><ul class="categorias-producto"><li>.digital</li><li>.BW</li><li>.modulo</li></ul>
-            </div>
-            <p class="descripcion-producto opaco">3 settings y más de 40 lifepaths para que juegues Conan el bárbaro con Burning Wheel sin problemas.</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
-            <div class="producto-footer inverted-light">
-                <p>$359</p>
-            </div>
-        </div>
     </div> <!-- fin de display tienda -->
 </div>

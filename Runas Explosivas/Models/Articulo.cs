@@ -27,10 +27,10 @@ namespace Runas_Explosivas.Models
         public string Imagen { get; set; }
 
         /// <summary>
-        /// Método para obtener los primeros caracteres de un texto de artículo, para mostrar en páginas de inicio
+        /// Método que devuelve un fragmento del largo especificado del texto descriptivo del artículo.
         /// </summary>
-        /// <param name="lengthPreview">Parámetro para especificar cantidad de caracteres del preview</param>
-        /// <returns>Devuelve un string con los primeros caracteres del texto.</returns>
+        /// <param name="lengthPreview">length de tipo entero del preview del artículo a devolver</param>
+        /// <returns>devuelve un string del largo especificado más puntos suspensivos</returns>
         public string GetPreviewText(int lengthPreview)
         {
             List<string> PuntosDeParada = new List<string>() {".", ",", " ", ":", ";" };

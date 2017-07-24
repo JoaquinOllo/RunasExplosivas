@@ -29,43 +29,54 @@ namespace Runas_Explosivas.Models
         [Required]
         public int Stock { get; set; }
 
-        /// <summary>
-        /// Método para obtener los primeros caracteres de un texto de artículo, para mostrar en páginas de inicio
-        /// </summary>
-        /// <param name="characters">Parámetro para especificar cantidad de caracteres del preview</param>
-        /// <returns>Devuelve un string con los primeros caracteres del texto.</returns>
-        public string GetPreviewText(int characters)
+/// <summary>
+/// Método que devuelve un fragmento del largo especificado del texto descriptivo del artículo.
+/// </summary>
+/// <param name="lengthPreview">length de tipo entero del preview del artículo a devolver</param>
+/// <returns>devuelve un string del largo especificado más puntos suspensivos</returns>
+        public string GetPreviewText(int lengthPreview)
         {
-            if (characters >= Texto.Length)
+            List<string> PuntosDeParada = new List<string>() { ".", ",", " ", ":", ";" };
+            int IndexDeParada = Texto.Length;
+            if (lengthPreview > Texto.Length)
             {
-                characters = Texto.Length;
-            }
-            return Texto.Substring(0, characters) + "...";
-        }
-
-        public string GetAllAutores()
-        {
-
-            string CadenaDeAutores = "";
-            if (Autores.Count > 1)
-            {
-                CadenaDeAutores = "Autores: ";
+                IndexDeParada = Texto.Length;
             }
             else
             {
-                CadenaDeAutores = "Autor: ";
-            }
-            foreach (Usuario Autor in Autores)
-            {
-                CadenaDeAutores = CadenaDeAutores + Autor.Nombre;
+                for (int i = lengthPreview; i > 0; i--)
+                {
+                    if (PuntosDeParada.Contains(Texto[i].ToString()))
+                    {
+                        IndexDeParada = i;
+                        i = 0;
+                    }
+                }
             }
 
-            return CadenaDeAutores;
+            return Texto.Substring(0, IndexDeParada) + "...";
+        }
+
+        /// <summary>
+        /// Método que devuelve el total de autores de un artículo como un string
+        /// </summary>
+        /// <returns>Devuelve un string con los nombres de los autores separados por coma</returns>
+        public string GetAllAutores()
+        {
+            string CadenaDeAutores = Autores.Count == 1 ? "Autor: " : "Autores: ";
+            return CadenaDeAutores + String.Join(", ", Autores.Select(au => au.Nombre).ToArray());
         }
 
         public virtual ICollection<Categoria> Categorias { get; set; }
+
         public float Precio { get; set; }
 
+        /// <summary>
+        /// Método que devuelve una lista de las categorías con el formato apropiado para ser mostradas en la vista 
+        /// </summary>
+        /// <param name="soloPrioridad">parámetro booleano, true por defecto, para especificar si la lista contiene sólo las categorías con prioridad = true, o no</param>
+        /// <param name="cantidadElementos">parámetro entero, 3 por defecto, para especificar la cantidad de elementos que debe contener la lista de categorías. Si se pasa 0 como parámetro, se muestran todas las categorías.</param>
+        /// <returns></returns>
         public List<string> AllCategorias(bool soloPrioridad = true, int cantidadElementos = 3)
         {
             IEnumerable<string> _AllCategorias;
@@ -82,6 +93,14 @@ namespace Runas_Explosivas.Models
             } else
             {
                 return _AllCategorias.Take(cantidadElementos).ToList();
+            }
+        }
+
+        public string CategoriasToString
+        {
+            get
+            {
+                return String.Join("", AllCategorias(false, 0).ToArray());
             }
         }
 
