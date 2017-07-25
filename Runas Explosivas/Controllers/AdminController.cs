@@ -96,6 +96,9 @@ namespace Runas_Explosivas.Controllers
                     NombreArchivo = _NombreArchivo;
                 }
 
+                /* CREACIÓN DEL NUEVO ARTÍCULO, CON LAS LISTAS DE TAGS Y AUTORES CREADAS ANTERIORMENTE
+                 * Y LOS PARÁMETROS PASADOS A LA ACCIÓN */
+
                 Articulo NuevoArticulo = new Articulo()
                 {
                     Titulo = inputTitulo,
