@@ -29,7 +29,6 @@ namespace Runas_Explosivas.Controllers
                 else
                 {
                     Session["Usuario"] = UsuarioConectado;
-                    Session["BotonUsuario"] = "borde-azul";
                 }
                 return RedirectToAction("Index", "Home");
             }

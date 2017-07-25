@@ -214,6 +214,8 @@ $(document).ready(function () {
 
 /* FUNCIONES DE PÁGINA DE ADMINISTRACIÓN */
 
+    // DISPLAY DE SECCIONES DEL NAVBAR
+
     $(".boton-display").click(function () {
         if (!$(this).hasClass("active")) {
             var display = $(this).data("display");
@@ -226,4 +228,33 @@ $(document).ready(function () {
             $(this).toggleClass("active");
         }
     });
+
+    // AGREGADO Y RESETEO DINÁMICO DE TAGS Y AUTORES A LOS FORMULARIOS DE ADMINPAGE
+
+    var AutorPorDefecto = $(".inputAutores").val();
+
+    $(".boton-agregar-contenido").click(function () {
+        var formularioIndividual = $(this).prev();
+        var formularioGlobal = $(formularioIndividual).parentsUntil("form", ".form-group").prev().children("input");
+        var separador = $(formularioGlobal).val() == ""? "": " ";
+        if ($(formularioIndividual).val() != "") {
+            $(formularioGlobal).val($(formularioGlobal).val() + separador + $(formularioIndividual).val().toLowerCase());
+            $(formularioIndividual).val("");
+        }
+    });
+
+    $(".boton-reset-contenido").click(function () {
+        var formulario = $(this).prev(".form-group").prev(".form-group").children("input");
+        $(formulario).val("");
+    });
+
+    $(".boton-reset-autores").click(function () {
+        var formulario = $(this).parent(".btn-group").prev(".form-group").prev(".form-group").children("input");
+        if ($(this).data("autor") != "default") {
+            $(formulario).val($(this).data("autor"));
+        } else {
+            $(formulario).val(AutorPorDefecto);
+        }
+    });
+
 });    

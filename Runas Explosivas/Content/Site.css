@@ -35,7 +35,7 @@ a {
 @media only screen and (min-width: 769PX) {
     .main {
         margin-left: 13%;
-        margin-right: 13%;
+        margin-right: 14%;
         padding-left: 30px;
         padding-right: 45px;
     }
@@ -97,14 +97,14 @@ small.subtitulo {
         right: 0px;
     }
 
-    @media only screen and (max-width: 425px) {
+    @media only screen and (max-width: 768px) {
         #usuario-conectado {
             text-align: right;
             padding-right: 15px;
             padding-top: 10px;
             position: absolute;
             right: 0px;
-            top: 50px;
+            top: 47px;
             font-size: 10px;
         }
     }
@@ -351,6 +351,10 @@ small.subtitulo {
     #separador-header {
         margin-top: 0px;
         margin-bottom: 20px;
+    }
+
+    hr {
+        margin-left: 2%;
     }
 
     /* CSS DE NAVBARS */
@@ -745,4 +749,8 @@ HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
 
     .admin-subpage {
         display: none;
+    }
+
+    .admin-subpage label {
+        padding-top: 10px;
     }

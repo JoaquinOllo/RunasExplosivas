@@ -347,5 +347,14 @@ namespace Runas_Explosivas.Controllers
                 return ComentariosEnArticulo.NivelDeDerivacion;
             }
         }
+
+        public int PruebaEF5(int ID)
+        {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                Articulo NuevoArticulo = db.Articulos.FirstOrDefault(A => A.ID == ID);
+                return NuevoArticulo.ID;
+            }
+        }
     }
 }

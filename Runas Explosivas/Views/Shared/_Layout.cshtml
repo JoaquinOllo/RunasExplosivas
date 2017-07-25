@@ -27,7 +27,8 @@
 
     @RenderBody()
 
-
+@if (ViewBag.Title != "Administración")
+{ 
     <nav class="navbar  navbar-default navbar-fixed-bottom inverted-secondary z-depth-2">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,6 +63,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+}
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
