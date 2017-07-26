@@ -27,6 +27,12 @@
 
 
     <div class="cuerpo-articulo">
+        
+        @if (!String.IsNullOrWhiteSpace(ViewBag.Articulo.Imagen))
+        {
+            <img class="img-responsive img-rounded" src="@ViewBag.Articulo.ImagenFullPath" />
+        }
+
         @ViewBag.Articulo.Texto
     </div>
     <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" data-placement="right" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>

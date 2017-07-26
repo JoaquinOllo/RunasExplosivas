@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace Runas_Explosivas.Controllers
@@ -33,7 +34,7 @@ namespace Runas_Explosivas.Controllers
             
         }
 
-        public ActionResult CrearArticulo(string inputTitulo, string inputAutores, string inputTags, string inputTexto, HttpPostedFileBase inputFile, string inputLink = null)
+        public ActionResult CrearArticulo(string inputTitulo, string inputAutores, string inputTags, string inputTexto, HttpPostedFileBase inputImagen, string inputLink = null)
         {
             using (RunasContext db = new Models.RunasContext())
             {
@@ -76,23 +77,23 @@ namespace Runas_Explosivas.Controllers
                  * EL NOMBRE AGREGÁNDOLE UN NÚMERO HASTA QUE NO HAYA OTRO ARCHIVO CON EL MISMO NOMBRE. 
                  * ENTONCES LO GUARDAMOS */
 
-                string SavePath = "~/Content/Images/Articulos/";
+                string SavePath = HostingEnvironment.ApplicationPhysicalPath + "Content\\Images\\Articulos\\";
                 string NombreArchivo = string.Empty;
-                if (inputFile != null && inputFile.ContentLength > 0)
+                if (inputImagen != null && inputImagen.ContentLength > 0)
                 {
-                    string _NombreArchivo = Path.GetFileName(inputFile.FileName);
-                    string Fullpath = Path.Combine(SavePath, _NombreArchivo);
+                    var _NombreArchivo = Path.GetFileName(inputImagen.FileName);
+                    var Fullpath = Path.Combine(SavePath, _NombreArchivo);
                     if (System.IO.File.Exists(Fullpath))
                     {
                         int contador = 2;
                         while (System.IO.File.Exists(Fullpath))
                         {
-                            _NombreArchivo = contador.ToString() + _NombreArchivo;
+                            _NombreArchivo = _NombreArchivo + contador.ToString();
                             Fullpath = SavePath + _NombreArchivo;
                             contador++;
                         }
                     }
-                    inputFile.SaveAs(Fullpath);
+                    inputImagen.SaveAs(Fullpath);
                     NombreArchivo = _NombreArchivo;
                 }
 
@@ -106,7 +107,7 @@ namespace Runas_Explosivas.Controllers
                     Fecha = DateTime.Now,
                     Autores = ListaAutores,
                     Tags = ListaTags,
-                    Imagen = inputFile != null && inputFile.ContentLength > 0 ? NombreArchivo : ""
+                    Imagen = inputImagen != null && inputImagen.ContentLength > 0 ? NombreArchivo : ""
                 };
 
                 if (inputLink != "") { NuevoArticulo.Link = inputLink; }

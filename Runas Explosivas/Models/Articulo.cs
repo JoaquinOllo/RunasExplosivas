@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace Runas_Explosivas.Models
 {
@@ -25,6 +26,21 @@ namespace Runas_Explosivas.Models
         [Required]
         public string Texto { get; set; }
         public string Imagen { get; set; }
+
+        public string ImagenFullPath
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Imagen))
+                {
+                    return "~\\Content\\Images\\Articulos\\" + Imagen;
+                } else
+                {
+                    return null;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Método que devuelve un fragmento del largo especificado del texto descriptivo del artículo.

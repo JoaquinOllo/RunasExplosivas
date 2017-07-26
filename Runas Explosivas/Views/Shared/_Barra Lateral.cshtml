@@ -110,17 +110,17 @@
     <!-- BOTONERA DE LOGIN Y BÚSQUEDA -->
 
     <div id="botonera">
-        @if (ViewBag.BtnUsuario)
+        @if (ViewBag.BtnUsuario != null && ViewBag.BtnUsuario)
         {
             <button id="boton-usuario" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#usuario" type="submit">
                 <span class="glyphicon glyphicon-user"></span>
             </button>
         } 
-        @if (ViewBag.BtnCarrito)
+        @if (ViewBag.BtnCarrito != null && ViewBag.BtnCarrito)
         {
             <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
         }
-        @if (ViewBag.BtnBuscar)
+        @if (ViewBag.BtnBuscar != null && ViewBag.BtnBuscar)
         {
             <button id="boton-busqueda" class="btn @ViewBag.Btn btn-info boton-lateral z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
         }

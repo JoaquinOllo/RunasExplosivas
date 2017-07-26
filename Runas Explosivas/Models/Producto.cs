@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace Runas_Explosivas.Models
 {
@@ -119,6 +120,21 @@ namespace Runas_Explosivas.Models
                 }
             }
             return false;
+        }
+
+        public string ImagenFullPath
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Imagen))
+                {
+                    return "~\\Content\\Images\\Tienda\\" + Imagen;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
     }
 }
