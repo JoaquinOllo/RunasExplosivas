@@ -12,35 +12,27 @@ namespace Runas_Explosivas.Controllers
 {
     public class HomeController : Controller
     {
+        RunasContext db = new RunasContext();
+
         public ActionResult Index()
         {
-            using (RunasContext db = new Models.RunasContext())
-            {
-                List<Articulo> Articulos = db.Articulos.Include("Tags").AsQueryable().OrderByDescending(u => u.Fecha).Take(20).ToList();
-                ViewBag.Articulos = Articulos;
-                return View();
-            }
+            List<Articulo> Articulos = db.Articulos.Include("Tags").AsQueryable().OrderByDescending(u => u.Fecha).Take(20).ToList();
+            ViewBag.Articulos = Articulos;
+            return View();
         }
 
         public ActionResult Podcast()
         {
-            using (RunasContext db = new Models.RunasContext())
-            {
-                List<Articulo> ArticulosFiltradosPodcast = db.Articulos.Include("Tags").AsQueryable().Where(a => a.Tags.Any(t => t.Nombre == "podcast")).OrderByDescending(a => a.Fecha).Take(20).ToList();
-                ViewBag.Articulos = ArticulosFiltradosPodcast;
-                return View();
-            }
+            List<Articulo> ArticulosFiltradosPodcast = db.Articulos.Include("Tags").AsQueryable().Where(a => a.Tags.Any(t => t.Nombre == "podcast")).OrderByDescending(a => a.Fecha).Take(20).ToList();
+            ViewBag.Articulos = ArticulosFiltradosPodcast;
+            return View();
         }
 
         public ActionResult Blog()
         {
-
-            using (RunasContext db = new Models.RunasContext())
-            {
-                List<Articulo> ArticulosFiltradosBlog = db.Articulos.Include("Tags").AsQueryable().Where(a => a.Tags.Any(t => t.Nombre == "blog")).OrderByDescending(a => a.Fecha).Take(20).ToList();
-                ViewBag.Articulos = ArticulosFiltradosBlog;
-                return View();
-            }
+            List<Articulo> ArticulosFiltradosBlog = db.Articulos.Include("Tags").AsQueryable().Where(a => a.Tags.Any(t => t.Nombre == "blog")).OrderByDescending(a => a.Fecha).Take(20).ToList();
+            ViewBag.Articulos = ArticulosFiltradosBlog;
+            return View();
         }
 
         public ActionResult Contacto()
@@ -50,35 +42,32 @@ namespace Runas_Explosivas.Controllers
 
         public ActionResult Articulo(int blogpostID)
         {
-            using (RunasContext db = new Models.RunasContext())
-            {
-                Articulo Articulo = db.Articulos.Include("Tags").Include("Autores").AsQueryable().Single(a => a.ID == blogpostID);
-                List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("Autor").Where(cm => cm.ArticuloComentado.ID == blogpostID).OrderByDescending(cm => cm.Fecha).ToList();
-                ViewBag.Articulo = Articulo;
-                ViewBag.Comentarios = Comentarios;
+            Articulo Articulo = db.Articulos.Include("Tags").Include("Autores").AsQueryable().Single(a => a.ID == blogpostID);
+            List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("Autor").Where(cm => cm.ArticuloComentado.ID == blogpostID).OrderByDescending(cm => cm.Fecha).ToList();
+            ViewBag.Articulo = Articulo;
+            ViewBag.Comentarios = Comentarios;
 
-                if (Articulo.SearchTag("blog"))
-                {
-                    ViewBag.Title = "Blog";
+            if (Articulo.SearchTag("blog"))
+            {
+                ViewBag.Title = "Blog";
+                ViewBag.Btn = "btn-lg";
+                ViewBag.BtnUsuario = true;
+                ViewBag.BtnBuscar = true;
+                ViewBag.BtnCarrito = false;
+                ViewBag.HeaderText = ".blog ";
+                ViewBag.HeaderGlyph = "glyphicon glyphicon-pencil";
+            } else if (Articulo.SearchTag("podcast"))
+            {
+                    ViewBag.Title = "Podcast";
                     ViewBag.Btn = "btn-lg";
                     ViewBag.BtnUsuario = true;
                     ViewBag.BtnBuscar = true;
                     ViewBag.BtnCarrito = false;
-                    ViewBag.HeaderText = ".blog ";
-                    ViewBag.HeaderGlyph = "glyphicon glyphicon-pencil";
-                } else if (Articulo.SearchTag("podcast"))
-                {
-                        ViewBag.Title = "Podcast";
-                        ViewBag.Btn = "btn-lg";
-                        ViewBag.BtnUsuario = true;
-                        ViewBag.BtnBuscar = true;
-                        ViewBag.BtnCarrito = false;
-                        ViewBag.HeaderText = ".podcast ";
-                        ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
-                }
-                ViewBag.Title = ViewBag.Title + ": " + Articulo.Titulo;
+                    ViewBag.HeaderText = ".podcast ";
+                    ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
             }
-            return View();
+            ViewBag.Title = ViewBag.Title + ": " + Articulo.Titulo;
+        return View();
         }
 
         public ActionResult Registate()
@@ -111,6 +100,24 @@ namespace Runas_Explosivas.Controllers
 
             clienteSmtp.Send(mensajeParaUsuario);
             return View("Index");
+        }
+
+        public JsonResult BuscarArticulo (string TipoDeBusqueda, string ValorABuscar)
+        {
+            List<Articulo> ResultadosBusqueda = new List<Models.Articulo>() { };
+            if (TipoDeBusqueda == "Tag")
+            {
+                ResultadosBusqueda = db.Articulos.Where(A => A.Tags.Any(t => t.Nombre == ValorABuscar)).ToList();
+            } else if (TipoDeBusqueda == "Autor")
+            {
+                ResultadosBusqueda = db.Articulos.Where(A => A.Autores.Any(au => au.Nombre.Contains(ValorABuscar))).ToList();
+            } else
+            {
+                ResultadosBusqueda = db.Articulos.Where(A => A.Titulo.Contains(ValorABuscar)).ToList();
+            }
+            var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo }).Take(20);
+
+            return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
         }
     }
 }

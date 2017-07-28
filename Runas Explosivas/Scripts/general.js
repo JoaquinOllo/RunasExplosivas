@@ -257,4 +257,32 @@ $(document).ready(function () {
         }
     });
 
+    // ENVÍO DE FORMULARIO DE BÚSQUEDA DE AJAX
+
+    $('form-busqueda').submit(function () {
+
+        $.ajax({
+            url: '@Url.Action("Home", "BuscarArticulo")',
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: {
+                ValorABuscar: $('.ValorABuscar').val(),
+                UserName: $('#username').val(),
+                CommentText: $('#comment').val()
+            },
+            success: function (result) {
+
+                alert("success " + result.UserName);
+            },
+            error: function (result) {
+                alert("Failed");
+            }
+        });
+        return false;
+    });
+
+    // PARA SELECCIONAR POR AJAX CADA CAMPO POR SU NOMBRE
+    // $("#form-busqueda [name=ValorABuscar]"); 
+
 });    
