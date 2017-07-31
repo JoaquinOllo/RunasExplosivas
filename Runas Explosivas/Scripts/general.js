@@ -259,30 +259,41 @@ $(document).ready(function () {
 
     // ENVÍO DE FORMULARIO DE BÚSQUEDA DE AJAX
 
-    $('form-busqueda').submit(function () {
+    $('#form-busqueda').submit(function () {
 
         $.ajax({
-            url: '@Url.Action("Home", "BuscarArticulo")',
-            type: "POST",
+            url: '/Home/BuscarArticulo',
+            type: "GET",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: {
-                ValorABuscar: $('.ValorABuscar').val(),
-                UserName: $('#username').val(),
-                CommentText: $('#comment').val()
+                ValorABuscar: $("#form-busqueda [name=ValorABuscar]").val(),
+                TipoDeBusqueda: $("#form-busqueda [name=TipoDeBusqueda]:checked").val()
             },
             success: function (result) {
 
-                alert("success " + result.UserName);
+                if (result != null) {
+                    $("#busqueda-realizada").append(
+                        "<ul>"
+                    );
+                    for (var i = 0; i < result.length; i++){
+                        $("#busqueda-realizada").append(
+                            '<li><a href="/Home/Articulo?blogPostId=' + result[i]["ID"] + '">' +
+                            result[i]["Titulo"] + 
+                            '</a></li>'
+                        );
+                    };
+                    $("#busqueda-realizada").append(
+                        "</ul>"
+                    ).fadeIn();
+                    $("#busqueda").fadeOut();
+                } else { };
             },
             error: function (result) {
-                alert("Failed");
+                console.log("Failed");
             }
         });
         return false;
     });
-
-    // PARA SELECCIONAR POR AJAX CADA CAMPO POR SU NOMBRE
-    // $("#form-busqueda [name=ValorABuscar]"); 
 
 });    

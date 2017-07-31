@@ -104,7 +104,7 @@ namespace Runas_Explosivas.Controllers
 
         public JsonResult BuscarArticulo (string TipoDeBusqueda, string ValorABuscar)
         {
-            List<Articulo> ResultadosBusqueda = new List<Models.Articulo>() { };
+            List<Articulo> ResultadosBusqueda = new List<Articulo>() { };
             if (TipoDeBusqueda == "Tag")
             {
                 ResultadosBusqueda = db.Articulos.Where(A => A.Tags.Any(t => t.Nombre == ValorABuscar)).ToList();

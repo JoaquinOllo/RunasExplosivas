@@ -302,7 +302,9 @@ small.subtitulo {
         border-style: none;
     }
 
-    .inverted-light, .inverted-light p {
+    .inverted-light,
+    .inverted-light p,
+    .inverted-light li a {
         background-color: #545454;
         color: #ffffff;
     }
@@ -331,6 +333,7 @@ small.subtitulo {
     hr.inverted {
         border-color: #2B2B2B;
         border-width: 6px;
+        margin-left: 0px;
     }
 
     .fondo-gris {
