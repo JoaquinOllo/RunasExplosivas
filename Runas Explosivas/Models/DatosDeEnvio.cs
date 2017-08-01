@@ -34,8 +34,9 @@ namespace Runas_Explosivas.Models
         [MaxLength(10)]
         public string Departamento { get; set; }
         [Required]
-        [Range(1, 20)]
         public int Telefono { get; set; }
         public string DatosAdicionales { get; set; }
+
+        public DatosDeEnvio() { }
     }
 }

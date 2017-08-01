@@ -49,6 +49,11 @@
                 {
                     <h4>@Usuario.Nombre</h4>
                     <h5>Notificaciones: <span class="badge">42</span></h5>
+                    if (Session["DatosDeEnvio"] == null)
+                    {
+                        <p>Todavía no tenemos tus datos de envío, para cuando hagas tu primera compra en la tienda.</p>
+                        <b><a href="@Url.Action("DatosDeEnvio", "Usuario")">¿Querés completarlos ahora?</a></b>
+                    }
                     <a class="btn btn-lg btn-info btn-block" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
                 }
             </div>

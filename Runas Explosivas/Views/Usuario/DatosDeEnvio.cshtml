@@ -1,0 +1,45 @@
+﻿@using Runas_Explosivas.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Registro";
+    ViewBag.HeaderText = "Registro de datos de envío";
+    ViewBag.HeaderGlyph = "";
+}
+<div class="container-fluid bottom-pad">
+    <div class="main z-depth-1 row">
+        @Html.Partial("~/Views/Shared/_Avisos.cshtml")
+        <h3>Datos de envío para @(((Usuario)Session["Usuario"]).Nombre)</h3>
+
+        <form method="post" action="@Url.Action("RegistroDatosDeEnvio", "Usuario")">
+            <div class="input-group">
+                <label for="inputCiudad">Ciudad, provincia y país</label>
+                <input class="form-control" type="text" name="inputCiudad" placeholder="ciudad" required />
+                <input class="form-control" type="text" name="inputProvincia" placeholder="provincia" required />
+                <input class="form-control" type="text" name="inputPais" placeholder="pais" required />
+            </div>
+            <div class="input-group">
+                <label for="inputCiudad">Dirección</label>
+                <input class="form-control" type="text" name="inputCalle" placeholder="calle" required />
+                <input class="form-control" type="number" name="inputNumero" placeholder="número" required />
+                <input class="form-control" type="number" name="inputDepartamento" placeholder="departamento (opcional)" />
+            </div>
+            <div class="input-group">
+                <label for="inputCiudad">Teléfono</label>
+                <input class="form-control" type="number" name="inputTel" placeholder="teléfono con código de área" required />
+            </div>
+            <div class="input-group">
+                <label for="inputCiudad"><a href="https://www.correoargentino.com.ar/formularios/cpa" target="_blank">Zip Code</a></label>
+                <input class="form-control" type="text" name="inputZipCode" required />
+            </div>
+            <div class="input-group">
+                <label for="inputDatosAdicionales">Datos adicionales</label>
+                <textarea class="form-control" rows="5" name="inputDatosAdicionales"></textarea>
+                <p class="help-block">
+                    Acá va cualquier indicación adicional necesaria para el envío de un producto,
+                    incluida la aclaración del nombre de quien deba recibirlo en caso de que la orden sea un regalo para un tercero.
+                </p>
+            </div>
+            <button class="btn btn-primary z-depth-1" type="submit">Agregar datos de envío</button>
+        </form>
+    </div>
+</div>

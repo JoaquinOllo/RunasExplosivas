@@ -244,6 +244,7 @@
     <Content Include="Views\Admin\Editorial.cshtml" />
     <Content Include="Views\Admin\Moderacion.cshtml" />
     <Content Include="Views\Shared\_Avisos.cshtml" />
+    <Content Include="Views\Usuario\DatosDeEnvio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
