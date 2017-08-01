@@ -758,6 +758,6 @@ HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
         padding-top: 10px;
     }
 
-    .busqueda-realizada {
+    .oculto {
         display: none;
     }

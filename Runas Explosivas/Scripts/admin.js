@@ -51,7 +51,7 @@
         }
     });
 
-    // ENVÍO DE FORMULARIO DE BÚSQUEDA DE AJAX
+    // ENVÍO DE FORMULARIO DE BÚSQUEDA POR AJAX
 
     $('.busqueda-articulos-admin').submit(function () {
         var formBusqueda = $(this);
@@ -69,12 +69,39 @@
                     for (var i = 0; i < result.length; i++) {
                         $(formBusqueda).next().children(".form-group").append(
                             '<div class="radio"><input type="radio" name="blogpostID"'
-                            + 'value="' + result[i]["ID"] + '">' + '<a href="/Home/Articulo?blogPostId=' + result[i]["ID"] + '">'
+                            + 'value="' + result[i]["ID"] + '">' + '<a href="/Home/Articulo?blogPostId=' + result[i]["ID"] + '" target="_blank">'
                             + result[i]["Titulo"] + '</a></div >'
                         );
                     };
                     $(formBusqueda).fadeOut(100).next().fadeIn(300);
                 } else { };
+            }
+        });
+        return false;
+    });
+
+    // SELECCIÓN DE ARTÍCULO PARA EDITAR
+
+    $("#form-seleccion-art-editar").submit(function () {
+        $.ajax({
+            url: '/Admin/ArticuloIndividual',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: {
+                artID: $("[name=blogpostID]:checked", this).val()
+            },
+            success: function (result) {
+                if (result != null) {
+                    $("#edicion-articulos [name=articuloAModificarID]").val(result["ID"]);        
+                    $("#edicion-articulos [name=inputTitulo]").val(result["Titulo"]);
+                    $("#edicion-articulos [name=inputLink]").val(result["Link"]);
+                    $("#edicion-articulos [name=inputTexto]").val(result["Texto"]);
+                    $("#edicion-articulos [name=inputImagen]").val(result["Imagen"]);
+                    $("#edicion-articulos [name=inputAutores]").val(result["Autores"]);
+                    $("#edicion-articulos [name=inputTags]").val(result["Tags"]);
+                };
+                $("#form-seleccion-art-editar").fadeOut(100).next().fadeIn(300);
             }
         });
         return false;

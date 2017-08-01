@@ -273,15 +273,13 @@ namespace Runas_Explosivas.Controllers
 
                 ArticuloAModificar.Titulo = inputTitulo;
                 ArticuloAModificar.Texto = inputTexto;
-                ArticuloAModificar.Fecha = DateTime.Now;
                 ArticuloAModificar.Autores = ListaAutores;
                 ArticuloAModificar.Tags = ListaTags;
                 ArticuloAModificar.Imagen = inputImagen != null && inputImagen.ContentLength > 0 ? NombreArchivo : "";
 
 
-                if (inputLink != "") { ArticuloAModificar.Link = inputLink; }
+                if (inputLink != "") { ArticuloAModificar.Link = inputLink; } else { ArticuloAModificar.Link = null; }
 
-                db.Articulos.Add(ArticuloAModificar);
                 db.SaveChanges();
                 TempData["Reporte"] = "El artículo fue editado exitosamente!";
                 TempData["TipoDeReporte"] = "success";
@@ -298,8 +296,8 @@ namespace Runas_Explosivas.Controllers
             if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
             {
                 /* DIVIDIMOS EL STRING RECIBIDO DESDE EL FORMULARIO EN UNA LISTA, 
-                 * CONSULTAMOS LA LISTA DE TAGS PARA ENCONTRARLOS, O LOS CREAMOS, 
-                 * Y LOS AGREGAMOS A UNA LISTA PROVISORIA */
+                 * CONSULTAMOS LA LISTA DE CATEGORÍAS PARA ENCONTRARLAS, O LAS CREAMOS, 
+                 * Y LAS AGREGAMOS A UNA LISTA PROVISORIA */
 
                 List<Categoria> ListaCategorias = new List<Categoria>();
                 foreach (string Categoria in inputCategorias.Split(' '))
@@ -387,6 +385,26 @@ namespace Runas_Explosivas.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        /* ACCIÓN QUE DEVUELVE ARTÍCULOS INDIVIDUALES POR AJAX */
+
+        public JsonResult ArticuloIndividual(int artID)
+        {
+            Articulo ResultadoBusqueda = db.Articulos.First(A => A.ID == artID);
+
+            var resultadoFinal = new
+            {
+                ID = ResultadoBusqueda.ID,
+                Titulo = ResultadoBusqueda.Titulo,
+                Link = ResultadoBusqueda.Link,
+                Texto = ResultadoBusqueda.Texto,
+                Imagen = ResultadoBusqueda.Imagen,
+                Autores = string.Join(" ", ResultadoBusqueda.Autores.Select(A => A.Mail)),
+                Tags = string.Join(" ", ResultadoBusqueda.Tags.Select(A => A.Nombre))
+            };
+
+            return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
         }
     }
 }
