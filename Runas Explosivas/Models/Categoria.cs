@@ -15,7 +15,7 @@ namespace Runas_Explosivas.Models
         public string Nombre { get; set; }
         public bool Prioridad { get; set; }
 
-        public Categoria(string newnombre, bool newprioridad, string newcolor)
+        public Categoria(string newnombre, bool newprioridad = false, string newcolor = null)
         {
             Nombre = newnombre;
             Prioridad = newprioridad;
