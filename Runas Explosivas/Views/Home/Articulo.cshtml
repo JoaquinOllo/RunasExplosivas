@@ -5,6 +5,7 @@
 
 
 <div id="display-articulos" class="main">
+    @Html.Partial("~/Views/Shared/_Avisos.cshtml")
     <p class="articulo-info alineado-derecho">@ViewBag.Articulo.Fecha.ToString(@"dd\/MM\/yyyy")</p>   
     <h2>@ViewBag.Articulo.Titulo</h2>
     <div class="row">

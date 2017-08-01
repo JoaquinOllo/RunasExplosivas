@@ -11,21 +11,21 @@
 }
 
 <!-- DISPLAY ARTÍCULOS.PRINCIPAL -->
-
 <div class="main z-depth-1 row">
+    @Html.Partial("~/Views/Shared/_Avisos.cshtml")
     <div id="display-articulos">
         <div class="row articulo" data-id="@ViewBag.Articulos[0].ID" id="destacado">
             <h3>
                 @Html.ActionLink(
-                linkText: (string)ViewBag.Articulos[0].Titulo,
-                actionName: "Articulo",
-                controllerName: "Home",
-                routeValues: new
-                {
-                    blogPostId = (int)ViewBag.Articulos[0].ID
-                },
-                htmlAttributes: null
-                )
+            linkText: (string)ViewBag.Articulos[0].Titulo,
+            actionName: "Articulo",
+            controllerName: "Home",
+            routeValues: new
+            {
+                blogPostId = (int)ViewBag.Articulos[0].ID
+            },
+            htmlAttributes: null
+            )
                 @ViewBag.Articulos[0].AllGlyphHTML()
             </h3>
             <div class="col-md-10">
@@ -44,21 +44,21 @@
                     <div class="col-md-6 articulo" data-id="@articulo.ID">
                         <h4>
                             @Html.ActionLink(
-                            linkText: (string)articulo.Titulo,
-                            actionName: "Articulo",
-                            controllerName: "Home",
-                            routeValues: new
-                            {
-                                blogPostId = (int)articulo.ID
-                            },
-                            htmlAttributes: null
-                            )
-                        @articulo.AllGlyphHTML()
-                    </h4>
-                    <p class="hidden-xs">@articulo.GetPreviewText(200)</p>
-                </div> <!-- fin de row -->
+                        linkText: (string)articulo.Titulo,
+                        actionName: "Articulo",
+                        controllerName: "Home",
+                        routeValues: new
+                        {
+                            blogPostId = (int)articulo.ID
+                        },
+                        htmlAttributes: null
+                        )
+                            @articulo.AllGlyphHTML()
+                        </h4>
+                        <p class="hidden-xs">@articulo.GetPreviewText(200)</p>
+                    </div> <!-- fin de row -->
                 }
             }
         </div>
     </div> <!-- fin de display articulos -->
-</div> <!-- fin de row main-->
+</div>

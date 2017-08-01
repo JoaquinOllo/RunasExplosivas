@@ -74,66 +74,6 @@ function activarBoton(boton) {
     });
 }
 
-/* FUNCION IN DE PYTHON */
-
-/**
- * / Función In de Python, para rastrear en un array un objeto
- * @param {any} obj Objeto a buscar en el array
- * @param {Array} list Array en el que se busca el objeto
- * @returns {boolean} true si el objeto está en la lista, false si no es así
- */
-function isInArray(obj, list) {
-    for (var i = 0; i < list.length; i++) {
-        if (list[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/* CLASE Y CARGA MANUAL DE Y ARTÍCULOS DE TIENDA */
-
-/**
- * / Clase usada por todos los artículos de la tienda
- * @param {Number} ID Identificador único numérico (int)
- * @param {String} titulo Título del artículo
- * @param {String} autor Autor del artículo. Vacío si el texto no tiene autor
- * @param {Tag} tags Lista de objetos de clase Tag
- * @param {string} tipoProducto Digital, Hardcover, Softcover, etc.
- * @param {Date} fecha Fecha de publicación
- * @param {string} texto Texto descriptivo
- * @param {string} imagen Imagen descriptiva del producto
- * @param {Float32Array} precio En caso de precio 0, producto de descarga gratuita
- * @param {Number} stock Cantidad de productos disponibles. No se usa si el producto es digital
- */
-var ArticuloTienda = class ArticuloTienda {
-    constructor(ID, titulo, autor="", tags, tipoProducto, fecha, texto, imagen, precio, stock) {
-        this.ID = ID;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.tags = tags;
-        this.tipoProducto = tipoProducto;
-        this.fecha = fecha; /*REVISAR, SACAR DE PARÁMETRO DEL CONSTRUCTOR Y BUSCAR CÓMO OBTENER FECHA*/
-        this.texto = texto;
-        this.imagen = imagen;
-        this.precio = precio;
-        this.stock = stock;
-    }
-}
-
-var producto1 = new ArticuloTienda();
-var producto2 = new ArticuloTienda();
-var producto3 = new ArticuloTienda();
-var producto4 = new ArticuloTienda();
-var producto5 = new ArticuloTienda();
-var producto6 = new ArticuloTienda();
-var producto7 = new ArticuloTienda();
-var producto8 = new ArticuloTienda();
-var producto9 = new ArticuloTienda();
-
-var articulos = [producto1, producto2, producto3, producto4, producto5, producto6, producto7, producto8, producto9];
-
-
 /* DOCUMENT READY PROGRAMAR DEBAJO */
 
 $(document).ready(function () {
@@ -211,52 +151,6 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
 	});
 
-
-/* FUNCIONES DE PÁGINA DE ADMINISTRACIÓN */
-
-    // DISPLAY DE SECCIONES DEL NAVBAR
-
-    $(".boton-display").click(function () {
-        if (!$(this).hasClass("active")) {
-            var display = $(this).data("display");
-            $(".main").children().slideUp("fast", function () {
-                $(display).slideDown(300);
-            });
-            $(this).toggleClass("active");
-        } else {
-            $(".main").children().slideUp("fast");
-            $(this).toggleClass("active");
-        }
-    });
-
-    // AGREGADO Y RESETEO DINÁMICO DE TAGS Y AUTORES A LOS FORMULARIOS DE ADMINPAGE
-
-    var AutorPorDefecto = $(".inputAutores").val();
-
-    $(".boton-agregar-contenido").click(function () {
-        var formularioIndividual = $(this).prev();
-        var formularioGlobal = $(formularioIndividual).parentsUntil("form", ".form-group").prev().children("input");
-        var separador = $(formularioGlobal).val() == ""? "": " ";
-        if ($(formularioIndividual).val() != "") {
-            $(formularioGlobal).val($(formularioGlobal).val() + separador + $(formularioIndividual).val().toLowerCase());
-            $(formularioIndividual).val("");
-        }
-    });
-
-    $(".boton-reset-contenido").click(function () {
-        var formulario = $(this).prev(".form-group").prev(".form-group").children("input");
-        $(formulario).val("");
-    });
-
-    $(".boton-reset-autores").click(function () {
-        var formulario = $(this).parent(".btn-group").prev(".form-group").prev(".form-group").children("input");
-        if ($(this).data("autor") != "default") {
-            $(formulario).val($(this).data("autor"));
-        } else {
-            $(formulario).val(AutorPorDefecto);
-        }
-    });
-
     // ENVÍO DE FORMULARIO DE BÚSQUEDA DE AJAX
 
     $('#form-busqueda').submit(function () {
@@ -288,9 +182,6 @@ $(document).ready(function () {
                     ).fadeIn();
                     $("#busqueda").fadeOut();
                 } else { };
-            },
-            error: function (result) {
-                console.log("Failed");
             }
         });
         return false;

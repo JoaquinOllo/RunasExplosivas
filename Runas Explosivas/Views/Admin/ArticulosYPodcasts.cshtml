@@ -1,0 +1,130 @@
+﻿@using Runas_Explosivas.Models;
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Administración";
+    ViewBag.HeaderText = ".admin";
+    ViewBag.HeaderGlyph = "glyphicon glyphicon-tower";
+}
+
+<h2>Creación, edición y eliminación de artículos</h2>
+
+@*SECCIÓN DE CREACIÓN DE ARTÍCULOS*@
+
+<h3>Crear artículo</h3>
+
+<form method="post" action="@Url.Action("CrearArticulo", "Admin")" enctype="multipart/form-data">
+
+    @* TITULO *@
+
+    <div class="form-group">
+        <label for="inputTitulo">Título</label>
+        <input type="text" class="form-control" name="inputTitulo" placeholder="Acá va el título">
+    </div>
+
+    @* AUTORES *@
+
+    <div class="form-group">
+        <label for="inputAutores">Autor o autores</label>
+        <input type="text" class="form-control inputAutores" name="inputAutores" value="@(((Usuario)Session["Usuario"]).Mail)" readonly>
+        <p class="help-block">Acá se muestra la lista completa de autores que se va a enviar. </p>
+    </div>
+    <div class="form-group">
+        <div class="input-group" style="width: 60%">
+            <input type="text" class="form-control" placeholder="ingresá un único autor, por su mail" />
+            <div class="input-group-addon inverted-secondary boton-agregar-contenido"><a><span class="glyphicon glyphicon-plus-sign"></span></a></div>
+        </div>
+        <p><small><b>Listado de autores posibles con su mail</b></small></p>
+        <ul>
+            @foreach (Usuario Autor in ViewBag.Autores)
+    {
+                <li><small>@Autor.Nombre: @Autor.Mail</small></li>
+            }
+        </ul>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-default boton-reset-autores" type="button" data-autor="default">Resetear los autores</button>
+        <button class="btn btn-default boton-reset-autores" type="button" data-autor="runasexplosivas@gmail.com"><small>Runas Explosivas como autor</small></button>
+    </div>
+
+    @* TAGS *@
+
+    <div class="form-group">
+        <label for="inputTags">Tags</label>
+        <input type="text" class="form-control" name="inputTags" placeholder="Acá va la lista de tags completa a enviar. Completá el campo debajo mío y presiona el +" readonly />
+    </div>
+    <div class="form-group">
+        <div class="input-group" style="width: 60%">
+            <input type="text" class="form-control" placeholder="ingresá un único tag, no de a varios" />
+            <div class="input-group-addon inverted-secondary boton-agregar-contenido"><a><span class="glyphicon glyphicon-plus-sign"></span></a></div>
+        </div>
+    </div>
+    <button class="btn btn-default boton-reset-contenido" type="button">Resetear los tags</button>
+
+    @* LINK *@
+
+    <div class="form-group">
+        <label for="inputLink">Link</label>
+        <input type="text" class="form-control" name="inputLink" placeholder="Si el artículo es un podcast, agregá acá el link al EMBED de youtube" />
+    </div>
+
+    @* IMAGEN *@
+
+    <div class="form-group">
+        <label for="inputImagen">Imagen</label>
+        <input type="file" class="form-control" name="inputImagen" />
+        <p class="help-block">El aspect-ratio de la imagen debe ser de 23:12, y para que quepa correctamente en el carrusel, la misma debe tener al menos 920 píxeles de ancho.</p>
+    </div>
+
+    @* TEXTO *@
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label for="inputTexto">Contenido del artículo. Seguí scrolleando para saber cómo agregar subtítulos y links</label>
+            <textarea class="form-control" name="inputTexto" placeholder="Acá va el texto" rows="10" cols="6"></textarea>
+        </div>
+    </div>
+    <button class="btn btn-primary z-depth-1" type="submit">Crear artículo!</button>
+</form>
+
+<hr class="z-depth-1 inverted" />
+
+@*SECCIÓN DE ELIMINACIÓN DE ARTÍCULOS*@
+
+<h3>Eliminar Artículo</h3>
+<p>Lo primero es buscar el artículo que querés eliminar: </p>
+
+@*FORMULARIO DE BÚSQUEDA DE ARTÍCULO A ELIMINAR*@
+
+<form class="busqueda-articulos-admin">
+
+    <div class="form-group">
+        <label for="ValorABuscar">Buscar artículos:</label>
+        <input type="text" class="form-control" name="ValorABuscar">
+    </div>
+    <h5>Buscar por...</h5>
+    <div class="form-group">
+        <div class="radio">
+            <label><input type="radio" name="TipoDeBusqueda" value="Titulo" checked>título</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="TipoDeBusqueda" value="Autor">autor</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="TipoDeBusqueda" value="Tag">tags</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-info" type="submit" value="Buscar">
+    </div>
+</form>
+
+<!-- LISTADO DE ARTÍCULOS ENCONTRADOS PARA ELIMINAR EN FORMULARIO -->
+
+<form class="busqueda-realizada" method="post" action="@Url.Action("EliminarArticulo", "Admin")">
+    <div class="form-group">
+
+    </div>
+    <button class="btn btn-info z-depth-1" type="submit">Eliminar artículo</button>
+
+</form>

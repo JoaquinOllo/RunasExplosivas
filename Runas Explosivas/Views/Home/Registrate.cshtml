@@ -5,32 +5,35 @@
     ViewBag.HeaderText = "Tu lugar de referencia sobre juegos de rol en Argentina";
     ViewBag.HeaderGlyph = "";
 }
-<form id="form-registro">
-    <h4>Usuario nuevo</h4>
-    <div class="form-group">
-        <label for="Mail" class="sr-only">Dirección de email</label>
-        <input type="email" id="Mail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
-    </div>
-    <div class="form-group">
-        <label for="Password" class="sr-only">Contraseña</label>
-        <input type="password" id="Password" class="form-control" placeholder="*******" required>
-    </div>
-    <div class="form-group">
-        <label for="Password" class="sr-only">Repetir contraseña</label>
-        <input type="password" id="Password" class="form-control" placeholder="*******" required>
-    </div>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value=""> I'm not a robot
-        </label>
-    </div>
-    <div class="form-group">
-        <label for="NombreCompleto" class="sr-only">Nombre Completo</label>
-        <input type="text" id="NombreCompleto" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="NombreCompleto" class="sr-only">Querés contarnos algo sobre vos?</label>
-        <text type="text" id="NombreCompleto" class="form-control">
-    </div>
-    <button class="btn btn-lg boton-lateral btn-primary btn-block" type="submit">Registrate!</button>
-</form>
+<div class="main z-depth-1 row">
+    @Html.Partial("~/Views/Shared/_Avisos.cshtml")
+    <form id="form-registro">
+        <h4>Usuario nuevo</h4>
+        <div class="form-group">
+            <label for="Mail" class="sr-only">Dirección de email</label>
+            <input type="email" id="Mail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="sr-only">Contraseña</label>
+            <input type="password" id="Password" class="form-control" placeholder="*******" required>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="sr-only">Repetir contraseña</label>
+            <input type="password" id="Password" class="form-control" placeholder="*******" required>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value=""> I'm not a robot
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="NombreCompleto" class="sr-only">Nombre Completo</label>
+            <input type="text" id="NombreCompleto" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="NombreCompleto" class="sr-only">Querés contarnos algo sobre vos?</label>
+            <text type="text" id="NombreCompleto" class="form-control">
+        </div>
+        <button class="btn btn-lg boton-lateral btn-primary btn-block" type="submit">Registrate!</button>
+    </form>
+</div>

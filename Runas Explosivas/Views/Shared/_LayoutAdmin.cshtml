@@ -1,0 +1,63 @@
+﻿@using Runas_Explosivas.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="z-depth-1 inverted" id="page-header">
+        @if ((Usuario)Session["Usuario"] != null)
+        {
+            <div id="usuario-conectado" class="secondary-color"><span class="glyphicon glyphicon-user"></span>@(((Usuario)Session["Usuario"]).Nombre)</div>
+        }
+        <h1 class="fuenteRE">Runas Explosivas <small class="subtitulo">@ViewBag.HeaderText </small><span class="@ViewBag.HeaderGlyph"></span></h1>
+        <div class="avisos">
+            <small></small>
+        </div>
+    </div>
+
+    <div class="container-fluid bottom-pad">
+        <div class="main z-depth-1 row">
+            @Html.Partial("~/Views/Shared/_Avisos.cshtml")
+            @RenderBody()
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom inverted-secondary z-depth-2" id="admin-navbar">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-admin" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand fuenteRE black-font" id="logoRE" href="@Url.Action("Index", "Home")">R.E.</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-admin">
+                <ul class="nav navbar-nav black-font">
+                    <li><a href="@Url.Action("ArticulosYPodcasts", "Admin")">Artículos/Podcasts</a></li>
+                    <li><a href="@Url.Action("Editorial", "Admin")">Editorial</a></li>
+                    <li><a href="@Url.Action("Moderacion", "Admin")">Moderación</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/general.js"></script>
+    <script src="~/Scripts/admin.js"></script>
+</body>
+</html>

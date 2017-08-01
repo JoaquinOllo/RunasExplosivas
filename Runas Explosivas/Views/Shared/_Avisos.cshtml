@@ -1,0 +1,7 @@
+﻿@if (TempData["Reporte"] != null)
+{
+    <div class="alert alert-@((string)TempData["TipoDeReporte"])">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>@((string)TempData["Reporte"])</strong>
+    </div>
+}

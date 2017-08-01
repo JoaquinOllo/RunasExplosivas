@@ -4,6 +4,7 @@
     Usuario Usuario = (Usuario)Session["Usuario"];
 }
 <div class="container-fluid bottom-pad">
+
     @RenderBody()
 
 
@@ -29,7 +30,7 @@
 
             <div class="barra-lateral-widget" id="usuario">
                 @if (Session["Usuario"] == null)
-                { 
+                {
                     <form id="form-inicio-sesion" method="post" action="@Url.Action("Login","Usuario")">
                         <h4>Iniciar sesión</h4>
                         <div class="form-group">
@@ -43,7 +44,8 @@
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
                     </form>
                     <a class="btn btn-lg btn-info btn-block" id="boton-registro" href="@Url.Action("Index", "Usuario")">Registrate!</a>
-                } else
+                }
+                else
                 {
                     <h4>@Usuario.Nombre</h4>
                     <h5>Notificaciones: <span class="badge">42</span></h5>
@@ -122,7 +124,7 @@
             <button id="boton-usuario" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#usuario" type="submit">
                 <span class="glyphicon glyphicon-user"></span>
             </button>
-        } 
+        }
         @if (ViewBag.BtnCarrito != null && ViewBag.BtnCarrito)
         {
             <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>

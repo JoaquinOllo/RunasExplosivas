@@ -12,31 +12,89 @@ namespace Runas_Explosivas.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+
+            RunasContext db = new RunasContext();
+
+        /* ACCIONES QUE DEVUELVEN LAS VISTAS */
+
         public ActionResult Index()
         {
             if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
             {
-                using (RunasContext db = new Models.RunasContext())
-                {
-                    List<Usuario> Autores = db.Usuarios.Where(u => u.IsAdmin || u.IsColaborador).ToList();
-                    //List<Tag> Tags = db.Tags.ToList();
-                    //List<Categoria> Categorias = db.Categorias.ToList();
+                List<Usuario> Autores = db.Usuarios.Where(u => u.IsAdmin || u.IsColaborador).ToList();
 
-                    ViewBag.Autores = Autores;
-                    //ViewBag.Tags = Tags;
-                    //ViewBag.Categorias = Categorias;
-                }
-                    return View();
+                ViewBag.Autores = Autores;
+                return View();
             } else
             {
                 return RedirectToAction("Index", "Home");
             }
-            
         }
+
+        public ActionResult AdmUsuarios()
+        {
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
+            {
+                List<Usuario> Autores = db.Usuarios.Where(u => u.IsAdmin || u.IsColaborador).ToList();
+
+                ViewBag.Autores = Autores;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult ArticulosYPodcasts()
+        {
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
+            {
+                List<Usuario> Autores = db.Usuarios.Where(u => u.IsAdmin || u.IsColaborador).ToList();
+
+                ViewBag.Autores = Autores;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult Editorial()
+        {
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
+            {
+                List<Usuario> Autores = db.Usuarios.Where(u => u.IsAdmin || u.IsColaborador).ToList();
+
+                ViewBag.Autores = Autores;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult Moderacion()
+        {
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
+            {
+                List<Usuario> Autores = db.Usuarios.Where(u => u.IsAdmin || u.IsColaborador).ToList();
+
+                ViewBag.Autores = Autores;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
 
         public ActionResult CrearArticulo(string inputTitulo, string inputAutores, string inputTags, string inputTexto, HttpPostedFileBase inputImagen, string inputLink = null)
         {
-            using (RunasContext db = new Models.RunasContext())
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
             {
                 /* DIVIDIMOS EL STRING RECIBIDO DESDE EL FORMULARIO EN UNA LISTA, 
                  * CONSULTAMOS LA LISTA DE TAGS PARA ENCONTRARLOS, O LOS CREAMOS, 
@@ -48,7 +106,8 @@ namespace Runas_Explosivas.Controllers
                     if (db.Tags.Any(t => t.Nombre == Tag))
                     {
                         ListaTags.Add(db.Tags.First(t => t.Nombre == Tag));
-                    } else
+                    }
+                    else
                     {
                         Tag NuevoTag = new Models.Tag(Tag);
                         db.Tags.Add(NuevoTag);
@@ -115,7 +174,31 @@ namespace Runas_Explosivas.Controllers
                 db.Articulos.Add(NuevoArticulo);
                 db.SaveChanges();
                 NuevoArticulo = db.Articulos.AsQueryable().OrderByDescending(A => A.Fecha).FirstOrDefault(A => A.Titulo == inputTitulo);
+                TempData["Reporte"] = "El artículo fue subido exitosamente!";
+                TempData["TipoDeReporte"] = "success";
                 return RedirectToAction("Articulo", "Home", new { blogpostID = NuevoArticulo.ID });
+            } else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult EliminarArticulo (int blogpostID)
+        {
+            if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
+            {
+                var ArticuloAEliminar = new Articulo { ID = blogpostID };
+                db.Articulos.Attach(ArticuloAEliminar);
+                db.Articulos.Remove(ArticuloAEliminar);
+                db.SaveChanges();
+
+                TempData["Reporte"] = $"El artículo \"{ArticuloAEliminar.Titulo}\"  fue eliminado exitosamente : (";
+                TempData["TipoDeReporte"] = "success";
+
+                return RedirectToAction("Index", "Admin");
+            } else
+            {
+                return RedirectToAction("Index", "Home");
             }
         }
     }

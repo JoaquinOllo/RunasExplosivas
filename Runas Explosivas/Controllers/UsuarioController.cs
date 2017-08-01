@@ -55,7 +55,6 @@ namespace Runas_Explosivas.Controllers
                     TempData["Reporte"] = $"Has sido registrado exitosamente. Bienvenido, {UsuarioNuevo.Nombre}! Te debería llegar un mail en breve. Ya podés comentar nuestros artículos y realizar compras.";
                     TempData["TipoDeReporte"] = "success";
                     Session["Usuario"] = db.Usuarios.FirstOrDefault(u => u.Mail == UsuarioNuevo.Mail);
-                    Session["BotonUsuario"] = "borde-azul";
                 }
                 else
                 {

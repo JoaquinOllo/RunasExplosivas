@@ -7,6 +7,7 @@
 
 <div class="container-fluid bottom-pad">
     <div class="main z-depth-1 row">
+        @Html.Partial("~/Views/Shared/_Avisos.cshtml")
         <form id="form-registro" action="@Url.Action("RegistroUsuarioNuevo", "Home")" method="post">
             <h2>Usuario nuevo</h2>
             <div class="form-group">
