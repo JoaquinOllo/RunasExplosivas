@@ -74,6 +74,24 @@ function activarBoton(boton) {
     });
 }
 
+/**
+ * Función que devuelve posición del objeto respecto del ViewPort
+ * @param {any} $e
+ */
+function getViewportOffset($e) {
+    var $window = $(window),
+        scrollLeft = $window.scrollLeft(),
+        scrollTop = $window.scrollTop(),
+        offset = $e.offset(),
+        rect1 = { x1: scrollLeft, y1: scrollTop, x2: scrollLeft + $window.width(), y2: scrollTop + $window.height() },
+        rect2 = { x1: offset.left, y1: offset.top, x2: offset.left + $e.width(), y2: offset.top + $e.height() };
+    return {
+        left: offset.left - scrollLeft,
+        top: offset.top - scrollTop,
+        insideViewport: rect1.x1 < rect2.x2 && rect1.x2 > rect2.x1 && rect1.y1 < rect2.y2 && rect1.y2 > rect2.y1
+    };
+};
+
 /* DOCUMENT READY PROGRAMAR DEBAJO */
 
 $(document).ready(function () {
@@ -116,10 +134,16 @@ $(document).ready(function () {
         $(this).children(".descripcion-producto").toggleClass("fondo-gris").fadeTo(200, 0.3);
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
         $(this).find(".categorias-producto").fadeTo(400, 0.3);
-    });
+        });
 
-    $(".btn-agregar-carrito").on("click", function () {
+    /* EVENT LISTENER PARA AGREGAR PRODUCTOS AL CARRITO */
 
+    $(".btn-agregar-carrito").click(function () {
+        //$("#boton-compras").offset();
+        $("body").append(
+            '<span class="icono-producto glyphicon glyphicon-gift z-depth-3" style="top:'
+            + $(this).offset()["top"] + '; left:' + $(this).offset()["left"] +';"></span>'
+        );
     });
 
 

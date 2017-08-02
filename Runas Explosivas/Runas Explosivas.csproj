@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201707181804029_CategoriaSinDescripcion.Designer.cs">
       <DependentUpon>201707181804029_CategoriaSinDescripcion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708012307353_IDaCompra.cs" />
+    <Compile Include="Migrations\201708012307353_IDaCompra.Designer.cs">
+      <DependentUpon>201708012307353_IDaCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -279,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707181804029_CategoriaSinDescripcion.resx">
       <DependentUpon>201707181804029_CategoriaSinDescripcion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708012307353_IDaCompra.resx">
+      <DependentUpon>201708012307353_IDaCompra.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

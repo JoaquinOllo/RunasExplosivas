@@ -10,10 +10,13 @@ namespace Runas_Explosivas.Models
     public class Compra
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        [Required]
         public Usuario Comprador { get; set; }
-        [Key]
+        [Required]
         public Producto Producto { get; set; }
-        [Key]
+        [Required]
         public DateTime Fecha { get; set; }
         [Required]
         public int CantidadDeProducto { get; set; }
