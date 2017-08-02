@@ -181,12 +181,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
-    <Compile Include="Models\CarritoDeCompras.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\ComentarioEnArticulo.cs" />
     <Compile Include="Models\Compra.cs" />
     <Compile Include="Models\DatosDeEnvio.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\ProductoEnCarrito.cs" />
     <Compile Include="Models\Resenha.cs" />
     <Compile Include="Models\RunasContext.cs" />
     <Compile Include="Models\Tag.cs" />

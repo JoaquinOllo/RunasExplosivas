@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Usuario Usuario = (Usuario)Session["Usuario"];
+    List<ProductoEnCarrito> Carrito = (List<ProductoEnCarrito>)Session["Carrito"];
 }
 <div class="container-fluid bottom-pad">
 
@@ -23,8 +24,27 @@
             <!-- WIDGET DE CARRITO DE COMPRAS -->
 
             <div class="barra-lateral-widget" id="carrito-compras">
-                <h5>Carrito de compras</h5>
-                @*@if (Session["Carrito"])*@
+                <h4>Carrito de compras</h4>
+                <ul id="lista-carrito">
+                    @if (Carrito != null && Carrito.Count() > 0)
+                    {
+                        foreach (ProductoEnCarrito Producto in Carrito)
+                        {
+                            <li data-product="@Producto.Producto.ID">
+                                @(Producto.Producto.Titulo.Substring(0, 8))...<b class="light-gray">x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
+                                <button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li>Todavía no agregaste nada al carrito</li>
+                    }
+                </ul>
+                <button class="btn btn-block btn-primary" id="boton-checkout">Confirmar compra</button>
+                <button class="btn btn-block btn-default" id="boton-vaciar-carrito">Vaciar</button>
             </div>
 
             <!-- WIDGET DE USUARIO-->
@@ -57,33 +77,6 @@
                     }
                     <a class="btn btn-info btn-block margin-top" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
                 }
-            </div>
-
-            <!-- WIDGET DE REGISTRO DE USUARIO NUEVO -->
-
-            <div class="barra-lateral-widget" id="registro">
-                <form id="form-registro">
-                    <h4>Usuario nuevo</h4>
-                    <div class="form-group">
-                        <label for="inputEmail" class="sr-only">Dirección de email</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="amoelrol@dand.com" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputContraseña" class="sr-only">Contraseña</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="*******" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputContraseña" class="sr-only">Repetir contraseña</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="*******" required>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value=""> I'm not a robot
-                        </label>
-                    </div>
-                    <button class="btn btn-lg boton-lateral btn-primary btn-block" type="submit">Registrate!</button>
-                </form>
-
             </div>
 
             <!-- WIDGET DE BÚSQUEDA-->

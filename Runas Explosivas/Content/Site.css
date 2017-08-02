@@ -6,20 +6,20 @@ body {
     font-family: Verdana, Geneva, sans-serif;
 }
 
-a {
+a:not(.btn){
     color: #000000;
     transition: font-size 0.3s;
 }
 
-    a:hover {
-        color: #000000;
-        text-decoration: none;
-        font-size: 103%;
-    }
+a:hover:not(.btn) {
+    color: #000000;
+    text-decoration: none;
+    font-size: 103%;
+}
 
-    a:active {
-        text-decoration: none;
-    }
+a:active:not(.btn) {
+    text-decoration: none;
+}
 
 .bottom-pad { /* Agrega padding al body para que la navbar inferior no tape el contenido de la página */
     padding-bottom: 50px;
@@ -291,18 +291,18 @@ small.subtitulo {
         color: #D6D6D6;
     }
 
-    .secondary-color,
+    .secondary-color, /* VERSIÓN MÁS CLARA DEL COLOR SECUNDARIO */
     .secondary-color > span {
         color: #ffce6f;
     }
 
     .inverted-secondary { /* cambia color de fondo y de fuente para header, navbar y otros elementos */
-        background-color: #ef6c00;
-        color: #000000;
+        background-color: #ef6c00; /* VERSIÓN CON FONDO DE COLOR SECUNDARIO FUERTE*/
+        color: #000000; /* COLOR NEGRO PARA FUENTE */
         border-style: none;
     }
 
-.inverted-light,
+.inverted-light, /* VERSIÓN CON GRIS OSCURO DE COLOR DE FONDO, Y BLANCO DE COLOR DE FUENTE */
 .inverted-light p,
 .inverted-light li a,
 .inverted-light a {
@@ -310,19 +310,23 @@ small.subtitulo {
     color: #ffffff;
 }
 
-    .inverted-extra-light {
+    .inverted-extra-light { /* VERSIÓN CON GRIS CLARO DE COLOR DE FONDO */
         background-color: #a0a0a0;
         border-style: none;
     }
 
-    .dark-gray {
+    .dark-gray { /*GRIS OSCURO COMO COLOR DE FUENTE */
         color: #545454;
     }
 
-    .black-font,
+.light-gray { /* GRIS CLARO DE COLOR DE FUENTE */
+    color: #a0a0a0;
+}
+
+    .black-font, /*Color de fuente negro para fondos claros*/
     .black-font > li > a,
     .black-font > a,
-    .black-font > li > a > span { /*Color de fuente negro para fondos claros*/
+    .black-font > li > a > span { 
         color: #000000 !important;
         border-color: #000000;
     }
@@ -429,6 +433,19 @@ small.subtitulo {
         #barra-lateral-widget-default {
             display: none;
         }
+    }
+
+    /* CSS DE SECCIONES DE BARRA LATERAL */
+
+    #lista-carrito{
+        list-style:none;
+        padding-left: 15px;
+        font-size: 12px;
+    }
+
+    .boton-quitar-de-carrito{
+        margin-left: 5px;
+        border-radius: 15px;
     }
 
     /* CSS de BOTONES DE BARRA LATERAL */
@@ -577,7 +594,6 @@ small.subtitulo {
     /* CSS DE ANIMACIONES DE TIENDA */
 
 #signo-atencion-carrito {
-    /*color: #2B2B2B;*/
     color: #42d4f4;
     z-index: 50;
     position: fixed;
@@ -685,7 +701,7 @@ HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
 
     /* NUEVOS COLORES PARA BOTONES */
 
-    .btn-primary {
+    .btn-primary { 
         background-color: #ef6c00;
         color: #000000;
         border-color: #d84a02;

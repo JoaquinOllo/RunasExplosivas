@@ -101,7 +101,7 @@
                 </ul>
             </div>
             <p class="descripcion-producto opaco">@ViewBag.Productos[i].GetPreviewText(250)</p>
-            <button type="button" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
+            <button type="button" data-product="@ViewBag.Productos[i].ID" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
             <div class="producto-footer inverted-light">
                 <p>$@ViewBag.Productos[i].Precio</p>
             </div>

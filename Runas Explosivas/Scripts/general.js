@@ -138,10 +138,37 @@ $(document).ready(function () {
 
     /* EVENT LISTENER PARA AGREGAR PRODUCTOS AL CARRITO */
 
-    $("#signo-atencion-carrito").css({ "top": getViewportOffset($("#boton-compras"))["top"]-45, "left": getViewportOffset($("#boton-compras"))["left"]-5 });
+    $("#signo-atencion-carrito").css({ "top": getViewportOffset($("#boton-compras"))["top"]-45, "left": getViewportOffset($("#boton-compras"))["left"]+5 });
 
+    if ($("#lista-carrito").has("li[data-product]").length == 0) {
+        $("#boton-checkout").add("#boton-vaciar-carrito").hide();
+    }
 
     $(".btn-agregar-carrito").click(function () {
+        var botonPresionado = $(this);
+        $.ajax({
+            url: '/Editorial/AgregarACarrito',
+            type: "GET",
+            dataType: "json",
+            context: botonPresionado,
+            contentType: "application/json; charset=utf-8",
+            data: {
+                prodID: $(botonPresionado).data("product")
+            },
+            success: function (result) {
+                $("#lista-carrito").empty();
+                for (var i = 0; i < result.length; i++)
+                {
+                    $("#lista-carrito").append(
+                        '<li data-product="' + result[i]["ID"] + '">' + result[i]["Titulo"].substring(0, 8) + '...'
+                        + ' <b class="light-gray">x' + result[i]["Cantidad"] + ': $' + result[i]["Precio"] + '</b>'
+                        + '<button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">'
+                        + '<span class="glyphicon glyphicon-minus"></span></button></li>'
+                    )
+                }
+                $("#boton-checkout").add("#boton-vaciar-carrito").show();
+            }
+        });
         $("#signo-atencion-carrito").show();
         for (var i = 0; i < 4; i++) {
             if (i == 3)
@@ -150,6 +177,19 @@ $(document).ready(function () {
             }
             $("#signo-atencion-carrito").animate({ "top": "-=3px" }, 300).animate({ "top": "+=3px" }, 300);
         }
+    });
+
+    $("#boton-vaciar-carrito").click(function () {
+        $.ajax({
+            url: '/Editorial/VaciarCarrito',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            complete: function () {
+                $("#lista-carrito").empty().append('<li>Todavía no agregaste nada al carrito</li>');
+                $("#boton-checkout").add("#boton-vaciar-carrito").hide();
+            }
+        });
     });
 
 

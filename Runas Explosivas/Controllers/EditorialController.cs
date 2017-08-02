@@ -34,24 +34,63 @@ namespace Runas_Explosivas.Controllers
         /// Método a usar por Ajax que agrega productos al carrito de compras del usuario y los pasa a la Sesión.
         /// </summary>
         /// <param name="prodID">ID del producto</param>
-        public void AgregarACarrito (int prodID)
+        public ActionResult AgregarACarrito (int prodID)
         {
             Producto ProductoAAgregar = db.Productos.FirstOrDefault(pr => pr.ID == prodID);
 
-            if (((List<CarritoDeCompras>)Session["Carrito"]) != null && ((List<CarritoDeCompras>)Session["Carrito"]).Any(CdC => CdC.Producto.ID == prodID))
+            if (Session["Carrito"] != null && ((List<ProductoEnCarrito>)Session["Carrito"]).Any(CdC => CdC.Producto.ID == prodID))
             {
-                ((List<CarritoDeCompras>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID).Cantidad += 1;
-            } else if (((List<CarritoDeCompras>)Session["Carrito"]) != null)
+                ((List<ProductoEnCarrito>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID).Cantidad += 1;
+            } else if (((List<ProductoEnCarrito>)Session["Carrito"]) != null)
             {
-                CarritoDeCompras NuevoProducto = new CarritoDeCompras(ProductoAAgregar);
-                ((List<CarritoDeCompras>)Session["Carrito"]).Add(NuevoProducto);
+                ProductoEnCarrito NuevoProducto = new ProductoEnCarrito(ProductoAAgregar);
+                ((List<ProductoEnCarrito>)Session["Carrito"]).Add(NuevoProducto);
             } else
             {
-                CarritoDeCompras NuevoProducto = new CarritoDeCompras(ProductoAAgregar);
-                List<CarritoDeCompras> NuevoCarrito = new List<CarritoDeCompras>();
+                ProductoEnCarrito NuevoProducto = new ProductoEnCarrito(ProductoAAgregar);
+                List<ProductoEnCarrito> NuevoCarrito = new List<ProductoEnCarrito>();
                 NuevoCarrito.Add(NuevoProducto);
                 Session["Carrito"] = NuevoCarrito;
             }
+            return RedirectToAction("GetCarrito", "Editorial");
+        }
+
+        public ActionResult EliminarDeCarrito(int prodID)
+        {
+            ProductoEnCarrito ProductoAEliminar = ((List<ProductoEnCarrito>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID);
+
+            if (Session["Carrito"] != null && ((List<ProductoEnCarrito>)Session["Carrito"]).Any(CdC => CdC.Producto == ProductoAEliminar.Producto))
+            {
+                ProductoAEliminar.Cantidad -= 1;
+                if (ProductoAEliminar.Cantidad == 0)
+                {
+                    ((List<ProductoEnCarrito>)Session["Carrito"]).Remove(ProductoAEliminar);
+                }
+            }
+
+            return RedirectToAction("GetCarrito", "Editorial");
+        }
+
+        public JsonResult GetCarrito ()
+        {
+            if (Session["Carrito"] != null)
+            {
+                var CarritoFinal = ((List<ProductoEnCarrito>)Session["Carrito"]).Select(C => new {
+                    ID = C.Producto.ID,
+                    Titulo = C.Producto.Titulo,
+                    Cantidad = C.Cantidad,
+                    Precio = C.Producto.Precio * C.Cantidad});
+                    return Json(CarritoFinal, JsonRequestBehavior.AllowGet);
+            } else
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult VaciarCarrito()
+        {
+            Session["Carrito"] = null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }
