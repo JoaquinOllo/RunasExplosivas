@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
+    <Compile Include="Models\CarritoDeCompras.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\ComentarioEnArticulo.cs" />
     <Compile Include="Models\Compra.cs" />

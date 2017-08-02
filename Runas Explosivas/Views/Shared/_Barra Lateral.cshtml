@@ -133,7 +133,8 @@
         }
         @if (ViewBag.BtnCarrito != null && ViewBag.BtnCarrito)
         {
-            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+            <span class="glyphicon glyphicon-arrow-down" id="signo-atencion-carrito"></span>
+            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-toggle="tooltip" title="carrito vacío" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
         }
         @if (ViewBag.BtnBuscar != null && ViewBag.BtnBuscar)
         {

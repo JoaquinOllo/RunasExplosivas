@@ -576,15 +576,15 @@ small.subtitulo {
 
     /* CSS DE ANIMACIONES DE TIENDA */
 
-    .icono-producto{
-        border-radius: 25px;
-        background-color: #ff9d3f ;
-        color: #2B2B2B;
-        z-index: 20;
-        position: fixed;
-        padding: 10px;
-        font-size: 20px;
-    }
+#signo-atencion-carrito {
+    /*color: #2B2B2B;*/
+    color: #42d4f4;
+    z-index: 50;
+    position: fixed;
+    font-size: 35px;
+    display: none;
+    transition: font-size linear 1s;
+}
 
 
     /* SHADOWS FOR MATERIAL DESIGN 

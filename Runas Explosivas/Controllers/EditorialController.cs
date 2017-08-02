@@ -29,5 +29,29 @@ namespace Runas_Explosivas.Controllers
             ViewBag.Title = "Product: " + Producto.Titulo;
             return View();
         }
+
+        /// <summary>
+        /// Método a usar por Ajax que agrega productos al carrito de compras del usuario y los pasa a la Sesión.
+        /// </summary>
+        /// <param name="prodID">ID del producto</param>
+        public void AgregarACarrito (int prodID)
+        {
+            Producto ProductoAAgregar = db.Productos.FirstOrDefault(pr => pr.ID == prodID);
+
+            if (((List<CarritoDeCompras>)Session["Carrito"]) != null && ((List<CarritoDeCompras>)Session["Carrito"]).Any(CdC => CdC.Producto.ID == prodID))
+            {
+                ((List<CarritoDeCompras>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID).Cantidad += 1;
+            } else if (((List<CarritoDeCompras>)Session["Carrito"]) != null)
+            {
+                CarritoDeCompras NuevoProducto = new CarritoDeCompras(ProductoAAgregar);
+                ((List<CarritoDeCompras>)Session["Carrito"]).Add(NuevoProducto);
+            } else
+            {
+                CarritoDeCompras NuevoProducto = new CarritoDeCompras(ProductoAAgregar);
+                List<CarritoDeCompras> NuevoCarrito = new List<CarritoDeCompras>();
+                NuevoCarrito.Add(NuevoProducto);
+                Session["Carrito"] = NuevoCarrito;
+            }
+        }
     }
 }
