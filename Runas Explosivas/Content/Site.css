@@ -410,6 +410,7 @@ small.subtitulo {
         border-radius: 5px 0 0 15px;
         position: fixed;
         z-index: 20;
+        overflow-x: auto;
         transition: width 0.5s ease, box-shadow 1s ease;
     }
 

@@ -134,26 +134,34 @@ $(document).ready(function () {
                 TipoDeBusqueda: $("#form-busqueda [name=TipoDeBusqueda]:checked").val()
             },
             success: function (result) {
-
-                if (result != null) {
-                    $("#busqueda-realizada").append(
-                        "<ul>"
-                    );
+                $("#busqueda-realizada ul").add("#busqueda-realizada p").empty();
+                if (result.length > 0) {
                     for (var i = 0; i < result.length; i++){
-                        $("#busqueda-realizada").append(
+                        $("#busqueda-realizada ul").append(
                             '<li><a href="/Home/Articulo?blogPostId=' + result[i]["ID"] + '">' +
                             result[i]["Titulo"] + 
                             '</a></li>'
                         );
                     };
-                    $("#busqueda-realizada").append(
-                        "</ul>"
-                    ).fadeIn();
-                    $("#busqueda").fadeOut();
-                } else { };
+                } else {
+                    $("#busqueda-realizada h4").after(
+                        "<p>Ningún artículo coincide con los términos de la búsqueda. ¿Querés probar con otra palabra clave?</p>"
+                    );
+                };
+                $("#busqueda").fadeOut("fast", function () {
+                    $("#busqueda-realizada").fadeIn();
+                });
             }
         });
         return false;
+    });
+
+    // BOTÓN DE NUEVA BÚSQUEDA 
+
+    $("#busqueda-realizada").on("click", "button", function () {
+        $("#busqueda-realizada").fadeOut("fast", function () {
+            $("#busqueda").fadeIn().find("input[name='ValorABuscar']").val("");
+        });
     });
 
 });    

@@ -115,9 +115,17 @@ namespace Runas_Explosivas.Controllers
             {
                 ResultadosBusqueda = db.Articulos.Where(A => A.Titulo.Contains(ValorABuscar)).ToList();
             }
-            var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo }).Take(20);
 
+            //if (ResultadosBusqueda.Count == 0)
+            //{
+            //    var resultadoFinal = new { success = false };
+            //    return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
+            //}
+            //else
+            //{
+            var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo }).Take(10);
             return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
-        }
+        //}
+    }
     }
 }
