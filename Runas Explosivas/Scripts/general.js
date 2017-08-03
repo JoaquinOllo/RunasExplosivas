@@ -12,6 +12,11 @@ function isBarraExpandida(){
 	}
 }
 
+/* Método que extiende Jquery para comprobar si un selector no devuelve nada */
+$.fn.exists = function () {
+    return this.length !== 0;
+}
+
 /**
  * / Función que maneja expansión y contracción de barra lateral, mostrando contenido de manera optativa, y eliminándolo al contraerla
  * @param {any} text Únicos parámetros reconocidos son "expandir" o "contraer".
@@ -74,24 +79,6 @@ function activarBoton(boton) {
     });
 }
 
-/**
- * Función que devuelve posición del objeto respecto del ViewPort
- * @param {any} $e 
- */
-function getViewportOffset($e) {
-    var $window = $(window),
-        scrollLeft = $window.scrollLeft(),
-        scrollTop = $window.scrollTop(),
-        offset = $e.offset()
-        //rect1 = { x1: scrollLeft, y1: scrollTop, x2: scrollLeft + $window.width(), y2: scrollTop + $window.height() },
-        //rect2 = { x1: offset.left, y1: offset.top, x2: offset.left + $e.width(), y2: offset.top + $e.height() };
-    return {
-        left: offset.left - scrollLeft,
-        top: offset.top - scrollTop
-        //insideViewport: rect1.x1 < rect2.x2 && rect1.x2 > rect2.x1 && rect1.y1 < rect2.y2 && rect1.y2 > rect2.y1
-    };
-};
-
 /* DOCUMENT READY PROGRAMAR DEBAJO */
 
 $(document).ready(function () {
@@ -105,94 +92,6 @@ $(document).ready(function () {
             manipularBarra("contraer");
         }
     });
-
-    /* LLAMADO A EVENT LISTENER PARA SCROLLDOWN DE BOTON-SCROLLDOWN DE EDITORIAL */
-
-
-    $("#boton-scrolldown").on("click", function () {
-        var posicionDeTienda = $("#display-tienda").offset().top;
-        $("html, body").animate({ scrollTop: (posicionDeTienda - 15) }, 450);
-        $("#boton-scrolldown").fadeOut("slow");
-    });
-
-    $(window).on("scroll", function () {
-        if ($(window).width > 768) {
-            var posicionDeTienda = $("#display-tienda").offset().top - 15;
-            if (window.pageYOffset === 0 && $("#boton-scrolldown").css("display") === "none") {
-                $("#boton-scrolldown").fadeIn("slow");
-            }
-        }
-    });
-
-    /* FUNCIÓN PARA CAMBIO DE OPACIDAD EN PRODUCTOS DE EDITORIAL AL HACER HOVER */
-
-    $(".producto").hover(function () {
-        $(this).children(".descripcion-producto").toggleClass("fondo-gris").fadeTo(200, 0.95);
-        $(this).children(".btn-agregar-carrito").toggleClass("opaco");
-        $(this).find(".categorias-producto").fadeTo(300, 0.95);
-    }, function () {
-        $(this).children(".descripcion-producto").toggleClass("fondo-gris").fadeTo(200, 0.3);
-        $(this).children(".btn-agregar-carrito").toggleClass("opaco");
-        $(this).find(".categorias-producto").fadeTo(400, 0.3);
-        });
-
-    /* EVENT LISTENER PARA AGREGAR PRODUCTOS AL CARRITO */
-
-    $("#signo-atencion-carrito").css({ "top": getViewportOffset($("#boton-compras"))["top"]-45, "left": getViewportOffset($("#boton-compras"))["left"]+5 });
-
-    if ($("#lista-carrito").has("li[data-product]").length == 0) {
-        $("#boton-checkout").add("#boton-vaciar-carrito").hide();
-    }
-
-    $(".btn-agregar-carrito").click(function () {
-        var botonPresionado = $(this);
-        $.ajax({
-            url: '/Editorial/AgregarACarrito',
-            type: "GET",
-            dataType: "json",
-            context: botonPresionado,
-            contentType: "application/json; charset=utf-8",
-            data: {
-                prodID: $(botonPresionado).data("product")
-            },
-            success: function (result) {
-                $("#lista-carrito").empty();
-                for (var i = 0; i < result.length; i++)
-                {
-                    $("#lista-carrito").append(
-                        '<li data-product="' + result[i]["ID"] + '">' + result[i]["Titulo"].substring(0, 8) + '...'
-                        + ' <b class="light-gray">x' + result[i]["Cantidad"] + ': $' + result[i]["Precio"] + '</b>'
-                        + '<button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">'
-                        + '<span class="glyphicon glyphicon-minus"></span></button></li>'
-                    )
-                }
-                $("#boton-checkout").add("#boton-vaciar-carrito").show();
-            }
-        });
-        $("#signo-atencion-carrito").show();
-        for (var i = 0; i < 4; i++) {
-            if (i == 3)
-            {
-                $("#signo-atencion-carrito").fadeOut();
-            }
-            $("#signo-atencion-carrito").animate({ "top": "-=3px" }, 300).animate({ "top": "+=3px" }, 300);
-        }
-    });
-
-    $("#boton-vaciar-carrito").click(function () {
-        $.ajax({
-            url: '/Editorial/VaciarCarrito',
-            type: "GET",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            complete: function () {
-                $("#lista-carrito").empty().append('<li>Todavía no agregaste nada al carrito</li>');
-                $("#boton-checkout").add("#boton-vaciar-carrito").hide();
-            }
-        });
-    });
-
-
 
 /* EVENT LISTENER PARA CLICK DE LOS BOTONES INFERIORES */
 

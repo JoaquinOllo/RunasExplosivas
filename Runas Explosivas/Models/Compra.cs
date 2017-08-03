@@ -15,18 +15,19 @@ namespace Runas_Explosivas.Models
         [Required]
         public Usuario Comprador { get; set; }
         [Required]
-        public Producto Producto { get; set; }
+        public virtual ICollection<ProductoEnCarrito> Productos { get; set; }
+        public DatosDeEnvio DatosDeEnvio { get; set; }
         [Required]
         public DateTime Fecha { get; set; }
         [Required]
-        public int CantidadDeProducto { get; set; }
-        [Required]
         public bool MailEnviado { get; set; }
         [Required]
+        public bool CompraAbonada { get; set; }
         public bool OrdenEnViaje { get; set; }
-        [Required]
         public bool OrdenRecibida { get; set; }
         public string NotasAdmin { get; set; }
         public DateTime FechaEntregaEstimada { get; set; }
+
+        public Compra() { }
     }
 }

@@ -4,6 +4,13 @@
     Usuario Usuario = (Usuario)Session["Usuario"];
     List<ProductoEnCarrito> Carrito = (List<ProductoEnCarrito>)Session["Carrito"];
 }
+@if (ViewBag.Title == "Editorial")
+{
+    @section scripts{
+        <script src="~/Scripts/Editorial.js"></script>
+    }
+}
+
 <div class="container-fluid bottom-pad">
 
     @RenderBody()
@@ -43,7 +50,7 @@
                         <li>Todavía no agregaste nada al carrito</li>
                     }
                 </ul>
-                <button class="btn btn-block btn-primary" id="boton-checkout">Confirmar compra</button>
+                <a href="@Url.Action("Checkout", "Editorial")" class="btn btn-block btn-primary" id="boton-checkout">Confirmar compra</a>
                 <button class="btn btn-block btn-default" id="boton-vaciar-carrito">Vaciar</button>
             </div>
 
@@ -75,7 +82,7 @@
                         <p>Todavía no tenemos tus datos de envío, para cuando hagas tu primera compra en la tienda.</p>
                         <b><a class="secondary-color" href="@Url.Action("DatosDeEnvio", "Usuario")">¿Querés completarlos ahora?</a></b>
                     }
-                    <a class="btn btn-info btn-block margin-top" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
+                    <a class="btn btn-info btn-block margin-top" id="boton-cierre-sesion" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
                 }
             </div>
 
@@ -127,7 +134,7 @@
         @if (ViewBag.BtnCarrito != null && ViewBag.BtnCarrito)
         {
             <span class="glyphicon glyphicon-arrow-down" id="signo-atencion-carrito"></span>
-            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-toggle="tooltip" title="carrito vacío" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
         }
         @if (ViewBag.BtnBuscar != null && ViewBag.BtnBuscar)
         {

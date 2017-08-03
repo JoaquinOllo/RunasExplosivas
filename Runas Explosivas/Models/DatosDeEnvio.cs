@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Runas_Explosivas.Models
 {
+    [Table("TablaDatosDeEnvio")]
     public class DatosDeEnvio
     {
         [Key]

@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201708012307353_IDaCompra.Designer.cs">
       <DependentUpon>201708012307353_IDaCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708030433183_NuevaClaseCompra.cs" />
+    <Compile Include="Migrations\201708030433183_NuevaClaseCompra.Designer.cs">
+      <DependentUpon>201708030433183_NuevaClaseCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -209,6 +213,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Editorial.js" />
     <Content Include="Scripts\general.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -250,6 +255,7 @@
     <Content Include="Views\Admin\Moderacion.cshtml" />
     <Content Include="Views\Shared\_Avisos.cshtml" />
     <Content Include="Views\Usuario\DatosDeEnvio.cshtml" />
+    <Content Include="Views\Editorial\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -287,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708012307353_IDaCompra.resx">
       <DependentUpon>201708012307353_IDaCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708030433183_NuevaClaseCompra.resx">
+      <DependentUpon>201708030433183_NuevaClaseCompra.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

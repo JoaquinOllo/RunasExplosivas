@@ -30,6 +30,19 @@ namespace Runas_Explosivas.Controllers
             return View();
         }
 
+        public ActionResult Checkout ()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return View();
+            } else
+            {
+                TempData["Reporte"] = "Debes conectarte con tu cuenta de usuario registrarte antes de proceder con la confirmación de la compra";
+                TempData["TipoDeReporte"] = "danger";
+                return RedirectToAction("Index", "Editorial");
+            }
+        }
+
         /// <summary>
         /// Método a usar por Ajax que agrega productos al carrito de compras del usuario y los pasa a la Sesión.
         /// </summary>

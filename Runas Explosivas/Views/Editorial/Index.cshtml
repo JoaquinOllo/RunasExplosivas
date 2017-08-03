@@ -9,7 +9,9 @@
         ViewBag.HeaderText = ".editorial ";
         ViewBag.HeaderGlyph = "glyphicon glyphicon-book";
 }
-
+@*@section scripts{
+    <script src="~/Scripts/Editorial.js"></script>
+}*@
 
 <!-- DISPLAY TIENDA.DESTACADO 
     en el carousel se muestran los productos destacados-->
@@ -100,7 +102,7 @@
                     @foreach (String Categoria in ViewBag.Productos[i].AllCategorias()){<li>@Categoria</li>}
                 </ul>
             </div>
-            <p class="descripcion-producto opaco">@ViewBag.Productos[i].GetPreviewText(250)</p>
+            <p class="descripcion-producto opaco">@ViewBag.Productos[i].GetPreviewText(150)</p>
             <button type="button" data-product="@ViewBag.Productos[i].ID" class="btn-agregar-carrito btn btn-lg btn-info opaco"><span class="glyphicon glyphicon-plus"></span></button>
             <div class="producto-footer inverted-light">
                 <p>$@ViewBag.Productos[i].Precio</p>
