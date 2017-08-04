@@ -448,12 +448,12 @@ small.subtitulo {
         padding-top: 5px;
     }
 
-    .barra-lateral-widget {
+    .barra-lateral-widget:not([main-section]) {
         display: none;
     }
 
-    @media only screen and (max-width: 768px) {
-        #barra-lateral-widget-default {
+    @media only screen and (max-width: 769px) {
+        .barra-lateral-widget {
             display: none;
         }
     }

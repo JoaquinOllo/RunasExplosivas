@@ -22,15 +22,9 @@
         <span class="icono-expandir-barra glyphicon glyphicon-plus visible-xs visible-sm" id="boton-expandir-barra"></span>
         <div id="barra-lateral-contenido">
 
-            <!-- WIDGET DEFAULT-->
-
-            <div id="barra-lateral-widget-default">
-                widget default
-            </div>
-
             <!-- WIDGET DE CARRITO DE COMPRAS -->
 
-            <div class="barra-lateral-widget" id="carrito-compras">
+            <div class="barra-lateral-widget" id="carrito-compras" @ViewBag.BtnCarrito>
                 <h4>Carrito de compras</h4>
                 <ul class="lista-carrito-barra-lateral" id="lista-carrito" data-format="..." data-titulocompleto="false">
                     @if (Carrito != null && Carrito.Count() > 0)
@@ -56,7 +50,7 @@
 
             <!-- WIDGET DE USUARIO-->
 
-            <div class="barra-lateral-widget" id="usuario">
+            <div class="barra-lateral-widget" id="usuario" @ViewBag.BtnUsuario>
                 @if (Session["Usuario"] == null)
                 {
                     <form id="form-inicio-sesion" method="post" action="@Url.Action("Login","Usuario")">
@@ -88,7 +82,7 @@
 
             <!-- WIDGET DE BÚSQUEDA-->
 
-            <div class="barra-lateral-widget" id="busqueda">
+            <div class="barra-lateral-widget" id="busqueda" @ViewBag.BtnBuscar>
                 <form id="form-busqueda">
 
                     <div class="form-group">
@@ -126,20 +120,20 @@
     <!-- BOTONERA DE LOGIN Y BÚSQUEDA -->
 
     <div id="botonera">
-        @if (ViewBag.BtnUsuario != null && ViewBag.BtnUsuario)
+        @if (ViewBag.BtnUsuario != null && ViewBag.BtnUsuario != "")
         {
-            <button id="boton-usuario" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#usuario" type="submit">
+            <button id="boton-usuario" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#usuario" @ViewBag.BtnUsuario type="submit">
                 <span class="glyphicon glyphicon-user"></span>
             </button>
         }
-        @if (ViewBag.BtnCarrito != null && ViewBag.BtnCarrito)
+        @if (ViewBag.BtnCarrito != null && ViewBag.BtnCarrito != "")
         {
             <span class="glyphicon glyphicon-arrow-down" id="signo-atencion-carrito"></span>
-            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+            <button id="boton-compras" class="btn @ViewBag.Btn btn-primary boton-lateral z-depth-3" @ViewBag.BtnCarrito data-target="#carrito-compras" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
         }
-        @if (ViewBag.BtnBuscar != null && ViewBag.BtnBuscar)
+        @if (ViewBag.BtnBuscar != null && ViewBag.BtnBuscar != "")
         {
-            <button id="boton-busqueda" class="btn @ViewBag.Btn btn-info boton-lateral z-depth-3" data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            <button id="boton-busqueda" class="btn @ViewBag.Btn btn-info boton-lateral z-depth-3" @ViewBag.BtnBuscar data-target="#busqueda" type="submit"><span class="glyphicon glyphicon-search"></span></button>
         }
     </div>
 </div> <!-- fin de container-fluid -->

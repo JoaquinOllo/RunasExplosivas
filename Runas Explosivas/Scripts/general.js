@@ -26,9 +26,12 @@ function manipularBarra(text, mostrarDefault=true){
 	$("#barra-lateral").toggleClass("col-xs-1").toggleClass("col-xs-7", "active");
     $("#boton-expandir-barra").toggleClass("glyphicon-plus").toggleClass("glyphicon-minus");
     if (text === "expandir" && mostrarDefault) {
-        $("#barra-lateral-widget-default").fadeIn();
+        var MainSection = $(".boton-lateral[main-section]").data("target");
+        $(MainSection).fadeIn();
+        $(".boton-lateral[main-section]").toggleClass("active");
 	} else if (text === "contraer") {
         $("#barra-lateral-contenido").children().fadeOut();
+        $(".boton-lateral").removeClass("active");
 	}
 }
 
@@ -82,6 +85,10 @@ function activarBoton(boton) {
 /* DOCUMENT READY PROGRAMAR DEBAJO */
 
 $(document).ready(function () {
+
+    if (isBarraExpandida()) {
+        $(".boton-lateral[main-section]").addClass("active");
+    }
 
     /* LLAMADO A FUNCIÓN DE EXPANDIR BARRA AL PRESIONAR BOTON + O - */
 

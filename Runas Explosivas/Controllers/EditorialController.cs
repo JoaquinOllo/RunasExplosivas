@@ -151,7 +151,7 @@ namespace Runas_Explosivas.Controllers
                     FechaEntregaEstimada = new DateTime(2005, 1, 1)
                 };
 
-                if (!((ICollection<ProductoEnCarro>)Session["Carrito"]).All(Pr => Pr.Producto.Categorias.Any(C => C.Nombre == "digital")))
+                if (((ICollection<ProductoEnCarro>)Session["Carrito"]).Any(Pr => Pr.Producto.Categorias.Any(C => C.Nombre != "digital")))
                 {
                     NuevaCompra.DatosDeEnvio = DatosDeEnvio;
                 }
