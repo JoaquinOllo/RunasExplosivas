@@ -1,0 +1,51 @@
+﻿@using Runas_Explosivas.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Estado de Compras";
+    ViewBag.HeaderText = "Estado de compras realizadas";
+    ViewBag.HeaderGlyph = "";
+    List<Compra> Compras = ((Usuario)Session["Usuario"]).Compras.OrderByDescending(C => C.Fecha).ToList();
+}
+
+
+<div class="container-fluid bottom-pad">
+    <div class="main z-depth-1 row">
+        @Html.Partial("~/Views/Shared/_Avisos.cshtml")
+        <h3>Compras realizadas</h3>
+        @if (Compras.Count > 0)
+        {
+            foreach (Compra Compra in Compras)
+            {
+                <div class="col-md-6">
+                    <p class="articulo-info">Compra ID = @Compra.ID</p>
+                    <p class="articulo-info alineado-derecho">@Compra.Fecha.ToString(@"dd\/MM\/yyyy")</p>
+                    <ul class="lista-carrito-checkout">
+                        @foreach (ProductoEnCarro Producto in Compra.Productos)
+                    {
+                            <li data-product="@Producto.Producto.ID">
+                                @Producto.Producto.Titulo  <b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
+                            </li>
+                        }
+                    </ul>
+                    @if (Compra.OrdenRecibida)
+                    {
+                        <p>La orden ya fue recibida. Por cualquier problema con el producto, contactanos por la página de contacto </p>
+                    } else if (Compra.OrdenEnViaje)
+                    {
+                        <p>La orden está en viaje, y su entrega estimada es para el @Compra.FechaEntregaEstimada.ToString(@"dd\/MM\/yyyy")</p>
+                    } else if (Compra.CompraAbonada)
+                    {
+                        <p>La orden fue abonada, pero todavía no está en viaje o no fuiste habilitado a descargar el producto.</p>
+                    } else if (Compra.MailEnviado)
+                    {
+                        <p>El administrador ya se puso en contacto, pero todavía no abonaste la compra.</p>
+                    } else
+                    {
+                        <p>Todavía no pudimos ponernos en contacto, pero deberías recibi un email en breve con los detalles de pago.</p>
+                    }
+                    <p>Precio total: $@Compra.PrecioTotal</p>
+                </div>
+            }
+        }
+    </div>
+</div>

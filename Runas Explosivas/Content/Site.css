@@ -529,7 +529,8 @@ small.subtitulo {
         }
 
         .carousel-indicators {
-            bottom: -3px;
+            bottom: -12px;
+            opacity: 0.2;
         }
     }
 
@@ -846,4 +847,12 @@ HOVER Y FOCUS SON Z-DEPTH + 1; FOCUS EN CUALQUIER VARIANTE ES Z-DEPTH - 1*/
 
     .oculto {
         display: none;
+    }
+
+    label{
+        padding-top: 5px;
+    }
+
+    .form-group p {
+        padding-top: 7px;
     }

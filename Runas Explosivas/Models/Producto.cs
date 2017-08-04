@@ -69,6 +69,8 @@ namespace Runas_Explosivas.Models
         }
 
         public virtual ICollection<Categoria> Categorias { get; set; }
+        public virtual ICollection<ProductoEnCarro> ProductosEnCarro { get; set; }
+
 
         public float Precio { get; set; }
 
@@ -128,7 +130,7 @@ namespace Runas_Explosivas.Models
             {
                 if (!string.IsNullOrWhiteSpace(Imagen))
                 {
-                    return "../Content/Images/Tienda/" + Imagen;
+                    return "~/Content/Images/Tienda/" + Imagen;
                 }
                 else
                 {

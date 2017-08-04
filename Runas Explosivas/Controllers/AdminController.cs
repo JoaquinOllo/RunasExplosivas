@@ -206,6 +206,13 @@ namespace Runas_Explosivas.Controllers
         {
             if (((Usuario)Session["Usuario"]) != null && ((Usuario)Session["Usuario"]).IsAdmin)
             {
+                var ArticuloAEliminar = db.Articulos.First(A => A.ID == articuloAModificarID);
+                DateTime FechaOriginal = ArticuloAEliminar.Fecha;
+
+                db.Articulos.Attach(ArticuloAEliminar);
+                db.Articulos.Remove(ArticuloAEliminar);
+                db.SaveChanges();
+
                 /* DIVIDIMOS EL STRING RECIBIDO DESDE EL FORMULARIO EN UNA LISTA, 
                  * CONSULTAMOS LA LISTA DE TAGS PARA ENCONTRARLOS, O LOS CREAMOS, 
                  * Y LOS AGREGAMOS A UNA LISTA PROVISORIA */
@@ -269,21 +276,25 @@ namespace Runas_Explosivas.Controllers
                 /* CREACIÓN DEL NUEVO ARTÍCULO, CON LAS LISTAS DE TAGS Y AUTORES CREADAS ANTERIORMENTE
                  * Y LOS PARÁMETROS PASADOS A LA ACCIÓN */
 
-                Articulo ArticuloAModificar = db.Articulos.FirstOrDefault(A => A.ID == articuloAModificarID);
+                Articulo NuevoArticulo = new Articulo()
+                {
+                    Titulo = inputTitulo,
+                    Texto = inputTexto,
+                    Fecha = FechaOriginal,
+                    Autores = ListaAutores,
+                    Tags = ListaTags,
+                    Imagen = inputImagen != null && inputImagen.ContentLength > 0 ? NombreArchivo : ""
+                };
 
-                ArticuloAModificar.Titulo = inputTitulo;
-                ArticuloAModificar.Texto = inputTexto;
-                ArticuloAModificar.Autores = ListaAutores;
-                ArticuloAModificar.Tags = ListaTags;
-                ArticuloAModificar.Imagen = inputImagen != null && inputImagen.ContentLength > 0 ? NombreArchivo : "";
+                if (inputLink != "") { NuevoArticulo.Link = inputLink; }
 
-
-                if (inputLink != "") { ArticuloAModificar.Link = inputLink; } else { ArticuloAModificar.Link = null; }
-
+                db.Articulos.Add(NuevoArticulo);
                 db.SaveChanges();
+                NuevoArticulo = db.Articulos.AsQueryable().OrderByDescending(A => A.Fecha).FirstOrDefault(A => A.Titulo == inputTitulo);
                 TempData["Reporte"] = "El artículo fue editado exitosamente!";
                 TempData["TipoDeReporte"] = "success";
-                return RedirectToAction("Articulo", "Home", new { blogpostID = articuloAModificarID });
+
+                return RedirectToAction("Articulo", "Home", new { blogpostID = NuevoArticulo.ID });
             }
             else
             {

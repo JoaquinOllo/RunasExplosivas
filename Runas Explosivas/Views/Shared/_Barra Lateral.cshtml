@@ -76,7 +76,11 @@
                         <p>Todavía no tenemos tus datos de envío, para cuando hagas tu primera compra en la tienda.</p>
                         <b><a class="secondary-color" href="@Url.Action("DatosDeEnvio", "Usuario")">¿Querés completarlos ahora?</a></b>
                     }
-                    <a class="btn btn-info btn-block margin-top" id="boton-cierre-sesion" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
+                    if (((Usuario)Session["Usuario"]).Compras.Count > 0)
+                    {
+                        <a class="btn btn-info btn-block margin-top" href="@Url.Action("MisCompras", "Usuario")">Estado de Compras</a>
+                    }
+                    <a class="btn btn-default btn-block margin-top" id="boton-cierre-sesion" href="@Url.Action("CerrarSesion", "Usuario")">Cerrar sesión</a>
                 }
             </div>
 

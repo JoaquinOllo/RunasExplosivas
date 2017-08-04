@@ -36,6 +36,15 @@ namespace Runas_Explosivas.Models
                 return Productos.Sum(C => C.Cantidad * C.Producto.Precio);
             }
         }
+        public bool EsDigital
+        {
+            get
+            {
+                return Productos.Select(PeC => PeC.Producto).Any(
+                    P => P.Categorias.Any(C => C.Nombre != "digital"))
+                    ? false : true;
+            }
+        }
         public Compra() { }
     }
 }

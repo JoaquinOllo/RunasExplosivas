@@ -17,6 +17,7 @@ namespace Runas_Explosivas.Models
         public Producto Producto { get; set; }
         [Required]
         public int Cantidad { get; set; }
+        public virtual ICollection<Compra> Compras { get; set; }
 
         public ProductoEnCarro(Producto inputProducto, int inputCantidad = 1)
         {

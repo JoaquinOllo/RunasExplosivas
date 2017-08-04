@@ -28,10 +28,22 @@ namespace Runas_Explosivas.Controllers
             }
         }
 
+        public ActionResult MisCompras()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         // GET: Usuario
         public ActionResult Login(string inputEmail, string inputPassword)
         {
-            Usuario UsuarioConectado = db.Usuarios.AsQueryable().Include(U => U.Compras).SingleOrDefault(us => us.Mail == inputEmail && us.Password == inputPassword);
+            Usuario UsuarioConectado = db.Usuarios.AsQueryable().Include("Compras.Productos.Producto").SingleOrDefault(us => us.Mail == inputEmail && us.Password == inputPassword);
             DatosDeEnvio UsuarioConectadoDatosEnvio = db.TablaDatosDeEnvio.FirstOrDefault(DE => DE.Usuario.Mail == inputEmail);
 
             if (UsuarioConectado == default(Usuario))
