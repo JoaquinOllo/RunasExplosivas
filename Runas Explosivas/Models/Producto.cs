@@ -128,7 +128,7 @@ namespace Runas_Explosivas.Models
             {
                 if (!string.IsNullOrWhiteSpace(Imagen))
                 {
-                    return "~\\Content\\Images\\Tienda\\" + Imagen;
+                    return "~/Content/Images/Tienda/" + Imagen;
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using Runas_Explosivas.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -123,8 +124,8 @@ namespace Runas_Explosivas.Controllers
                 {
                     while (true)
                     {
-                        ProductoEnCarro ConsultaProductoABD = db.ProductosEnCarro.FirstOrDefault(
-                                            PR => PR.Cantidad == ProductoEnCarrito.Cantidad 
+                        ProductoEnCarro ConsultaProductoABD = db.ProductosEnCarro.AsQueryable().Include(P => P.Producto).FirstOrDefault(
+                                            PR => PR.Cantidad == ProductoEnCarrito.Cantidad
                                             && PR.Producto.ID == ProductoEnCarrito.Producto.ID);
                         if (ConsultaProductoABD != default(ProductoEnCarro))
                         {
@@ -147,6 +148,7 @@ namespace Runas_Explosivas.Controllers
                     Fecha = DateTime.Now,
                     MailEnviado = false,
                     CompraAbonada = false,
+                    FechaEntregaEstimada = new DateTime(2005, 1, 1)
                 };
 
                 if (!((ICollection<ProductoEnCarro>)Session["Carrito"]).All(Pr => Pr.Producto.Categorias.Any(C => C.Nombre == "digital")))

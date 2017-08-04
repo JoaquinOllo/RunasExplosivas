@@ -4,7 +4,7 @@
     ViewBag.Title = "Editorial: Checkout";
     ViewBag.HeaderText = ".editorial";
     ViewBag.HeaderGlyph = "glyphicon glyphicon-book";
-    List<ProductoEnCarrito> Carrito = (List<ProductoEnCarrito>)Session["Carrito"];
+    List<ProductoEnCarro> Carrito = (List<ProductoEnCarro>)Session["Carrito"];
     float PrecioTotal = Carrito.Sum(C => C.Cantidad * C.Producto.Precio);
     Usuario Usuario = (Usuario)Session["Usuario"];
     DatosDeEnvio DatosDeEnvio = (DatosDeEnvio)Session["DatosDeEnvio"];
@@ -21,7 +21,7 @@
             <ul class="lista-carrito-checkout" id="lista-carrito" data-format="   " data-titulocompleto="true">
                 @if (Carrito != null && Carrito.Count() > 0)
             {
-                foreach (ProductoEnCarrito Producto in Carrito)
+                foreach (ProductoEnCarro Producto in Carrito)
                 {
                         <li data-product="@Producto.Producto.ID">
                             @Producto.Producto.Titulo  <b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
