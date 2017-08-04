@@ -13,17 +13,26 @@ function getViewportOffset($e) {
     };
 };
 
-function vaciarYCompletarCarrito(result) {
+function vaciarYCompletarCarrito(result, separador, titulocompleto = true) {
     $("#lista-carrito").empty();
+    var Titulo = "";
+    var PrecioTotal = 0;
     for (var i = 0; i < result.length; i++) {
+        Titulo = titulocompleto ? result[i]["Titulo"] : result[i]["Titulo"].substring(0, 8);
+        PrecioTotal += result[i]["Precio"] * result[i]["Cantidad"];
         $("#lista-carrito").append(
-            '<li data-product="' + result[i]["ID"] + '">' + result[i]["Titulo"].substring(0, 8) + '...'
-            + ' <b class="light-gray">x' + result[i]["Cantidad"] + ': $' + result[i]["Precio"] + '</b>'
+            '<li data-product="' + result[i]["ID"] + '">' + Titulo + separador
+            + ' <b>x' + result[i]["Cantidad"] + ': $' + result[i]["Precio"] + '</b>'
             + '<button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">'
             + '<span class="glyphicon glyphicon-minus"></span></button></li>'
         )
     }
     $("#boton-checkout").add("#boton-vaciar-carrito").show();
+    if ($("#precio-total").exists()) {
+        $("#precio-total").empty().text(
+            'Precio total: $' + PrecioTotal
+        );
+    }
 }
 
 $(document).ready(function () {
@@ -59,14 +68,14 @@ $(document).ready(function () {
 
     /* EVENT LISTENER PARA AGREGAR PRODUCTOS AL CARRITO */
 
-    $("#signo-atencion-carrito").css({ "top": getViewportOffset($("#boton-compras"))["top"] - 45, "left": getViewportOffset($("#boton-compras"))["left"] + 5 });
-
     if ($("#lista-carrito").has("li[data-product]").length == 0) {
         $("#boton-checkout").add("#boton-vaciar-carrito").hide();
     }
 
     $(".btn-agregar-carrito").click(function () {
         var botonPresionado = $(this);
+        var separador = $("#lista-carrito").data("format");
+        var titulocompleto = $("#lista-carrito").data("titulocompleto");
         $.ajax({
             url: '/Editorial/AgregarACarrito',
             type: "GET",
@@ -76,7 +85,9 @@ $(document).ready(function () {
             data: {
                 prodID: $(botonPresionado).data("product")
             },
-            success: vaciarYCompletarCarrito (result)
+            success: function (result) {
+                vaciarYCompletarCarrito(result, separador, titulocompleto);
+            }
             //{
             //    $("#lista-carrito").empty();
             //    for (var i = 0; i < result.length; i++) {
@@ -90,6 +101,7 @@ $(document).ready(function () {
             //    $("#boton-checkout").add("#boton-vaciar-carrito").show();
             //}
         });
+        $("#signo-atencion-carrito").css({ "top": getViewportOffset($("#boton-compras"))["top"] - 45, "left": getViewportOffset($("#boton-compras"))["left"] + 5 });
         $("#signo-atencion-carrito").show();
         for (var i = 0; i < 4; i++) {
             if (i == 3) {
@@ -118,6 +130,8 @@ $(document).ready(function () {
 
     $("#lista-carrito").on("click", ".boton-quitar-de-carrito" ,function () {
         var botonPresionado = $(this);
+        var separador = $("#lista-carrito").data("format");
+        var titulocompleto = $("#lista-carrito").data("titulocompleto");
         $.ajax({
             url: '/Editorial/EliminarDeCarrito',
             type: "GET",
@@ -126,7 +140,7 @@ $(document).ready(function () {
             data: {
                 prodID: $(botonPresionado).parent().data("product")
             },
-            success: function (result) { vaciarYCompletarCarrito(result) }
+            success: function (result) { vaciarYCompletarCarrito(result, separador, titulocompleto) }
         });
     });
 
@@ -134,7 +148,7 @@ $(document).ready(function () {
         if (!$("#boton-cierre-sesion").exists()) {
             event.preventDefault();
             $(this).data("toggle", "tooltip").attr("data-original-title", "Debes estar conectado para confirmar la compra").tooltip("show");
-            $("#signo-atencion-carrito").css({ "top": getViewportOffset($("#boton-usuario"))["top"] - 45, "left": getViewportOffset($("#boton-usuario"))["left"] + 5 });
+            $("#signo-atencion-carrito").stop().css({ "top": getViewportOffset($("#boton-usuario"))["top"] - 45, "left": getViewportOffset($("#boton-usuario"))["left"] + 5 });
             $("#signo-atencion-carrito").show();
             for (var i = 0; i < 4; i++) {
                 if (i == 3) {

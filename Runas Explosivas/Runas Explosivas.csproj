@@ -183,6 +183,14 @@
     <Compile Include="Migrations\201708030433183_NuevaClaseCompra.Designer.cs">
       <DependentUpon>201708030433183_NuevaClaseCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708032229061_FormaDePagoAComprasAgregada.cs" />
+    <Compile Include="Migrations\201708032229061_FormaDePagoAComprasAgregada.Designer.cs">
+      <DependentUpon>201708032229061_FormaDePagoAComprasAgregada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708040131460_PKIDAgregadaAProductoEnCarrito.cs" />
+    <Compile Include="Migrations\201708040131460_PKIDAgregadaAProductoEnCarrito.Designer.cs">
+      <DependentUpon>201708040131460_PKIDAgregadaAProductoEnCarrito.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -190,7 +198,7 @@
     <Compile Include="Models\Compra.cs" />
     <Compile Include="Models\DatosDeEnvio.cs" />
     <Compile Include="Models\Producto.cs" />
-    <Compile Include="Models\ProductoEnCarrito.cs" />
+    <Compile Include="Models\ProductoEnCarro.cs" />
     <Compile Include="Models\Resenha.cs" />
     <Compile Include="Models\RunasContext.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -296,6 +304,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708030433183_NuevaClaseCompra.resx">
       <DependentUpon>201708030433183_NuevaClaseCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708032229061_FormaDePagoAComprasAgregada.resx">
+      <DependentUpon>201708032229061_FormaDePagoAComprasAgregada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708040131460_PKIDAgregadaAProductoEnCarrito.resx">
+      <DependentUpon>201708040131460_PKIDAgregadaAProductoEnCarrito.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

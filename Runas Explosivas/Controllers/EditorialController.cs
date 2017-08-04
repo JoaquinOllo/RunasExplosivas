@@ -51,17 +51,17 @@ namespace Runas_Explosivas.Controllers
         {
             Producto ProductoAAgregar = db.Productos.FirstOrDefault(pr => pr.ID == prodID);
 
-            if (Session["Carrito"] != null && ((List<ProductoEnCarrito>)Session["Carrito"]).Any(CdC => CdC.Producto.ID == prodID))
+            if (Session["Carrito"] != null && ((List<ProductoEnCarro>)Session["Carrito"]).Any(CdC => CdC.Producto.ID == prodID))
             {
-                ((List<ProductoEnCarrito>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID).Cantidad += 1;
-            } else if (((List<ProductoEnCarrito>)Session["Carrito"]) != null)
+                ((List<ProductoEnCarro>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID).Cantidad += 1;
+            } else if (((List<ProductoEnCarro>)Session["Carrito"]) != null)
             {
-                ProductoEnCarrito NuevoProducto = new ProductoEnCarrito(ProductoAAgregar);
-                ((List<ProductoEnCarrito>)Session["Carrito"]).Add(NuevoProducto);
+                ProductoEnCarro NuevoProducto = new ProductoEnCarro(ProductoAAgregar);
+                ((List<ProductoEnCarro>)Session["Carrito"]).Add(NuevoProducto);
             } else
             {
-                ProductoEnCarrito NuevoProducto = new ProductoEnCarrito(ProductoAAgregar);
-                List<ProductoEnCarrito> NuevoCarrito = new List<ProductoEnCarrito>();
+                ProductoEnCarro NuevoProducto = new ProductoEnCarro(ProductoAAgregar);
+                List<ProductoEnCarro> NuevoCarrito = new List<ProductoEnCarro>();
                 NuevoCarrito.Add(NuevoProducto);
                 Session["Carrito"] = NuevoCarrito;
             }
@@ -70,14 +70,14 @@ namespace Runas_Explosivas.Controllers
 
         public ActionResult EliminarDeCarrito(int prodID)
         {
-            ProductoEnCarrito ProductoAEliminar = ((List<ProductoEnCarrito>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID);
+            ProductoEnCarro ProductoAEliminar = ((List<ProductoEnCarro>)Session["Carrito"]).First(CdC => CdC.Producto.ID == prodID);
 
-            if (Session["Carrito"] != null && ((List<ProductoEnCarrito>)Session["Carrito"]).Any(CdC => CdC.Producto == ProductoAEliminar.Producto))
+            if (Session["Carrito"] != null && ((List<ProductoEnCarro>)Session["Carrito"]).Any(CdC => CdC.Producto == ProductoAEliminar.Producto))
             {
                 ProductoAEliminar.Cantidad -= 1;
                 if (ProductoAEliminar.Cantidad == 0)
                 {
-                    ((List<ProductoEnCarrito>)Session["Carrito"]).Remove(ProductoAEliminar);
+                    ((List<ProductoEnCarro>)Session["Carrito"]).Remove(ProductoAEliminar);
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Runas_Explosivas.Controllers
         {
             if (Session["Carrito"] != null)
             {
-                var CarritoFinal = ((List<ProductoEnCarrito>)Session["Carrito"]).Select(C => new {
+                var CarritoFinal = ((List<ProductoEnCarro>)Session["Carrito"]).Select(C => new {
                     ID = C.Producto.ID,
                     Titulo = C.Producto.Titulo,
                     Cantidad = C.Cantidad,
@@ -104,6 +104,67 @@ namespace Runas_Explosivas.Controllers
         {
             Session["Carrito"] = null;
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RegistrarCompra(string inputFormaDePago)
+        {
+            if (Session["Usuario"]!= null & Session["Carrito"] != null)
+            {
+                /* EXTRAEMOS DATOS DE LA SESSION PARA EVITAR CONFLICTOS DE CONTEXTOS */
+                string UsuarioMail = ((Usuario)Session["Usuario"]).Mail;
+                int DatosDeEnvioID = ((DatosDeEnvio)Session["DatosDeEnvio"]).ID;
+                DatosDeEnvio DatosDeEnvio = db.TablaDatosDeEnvio.First(DE => DE.ID == DatosDeEnvioID);
+
+                /* CREAMOS UNA COLECCIÓN DE PRODUCTOSENCARRITO NUEVA, PARA PASAR LOS PRODUCTOS 
+                 * DE LA SESIÓN A UNA VARIABLE DISTINTA, DE VUELTA PARA EVITAR CONFLICTOS DE CONTEXTOS */ 
+
+                ICollection<ProductoEnCarro> ProductosComprados = new List<ProductoEnCarro>() { };
+                foreach (ProductoEnCarro ProductoEnCarrito in (ICollection<ProductoEnCarro>)Session["Carrito"])
+                {
+                    while (true)
+                    {
+                        ProductoEnCarro ConsultaProductoABD = db.ProductosEnCarro.FirstOrDefault(
+                                            PR => PR.Cantidad == ProductoEnCarrito.Cantidad 
+                                            && PR.Producto.ID == ProductoEnCarrito.Producto.ID);
+                        if (ConsultaProductoABD != default(ProductoEnCarro))
+                        {
+                            ProductosComprados.Add(ConsultaProductoABD);
+                            break;
+                        } else
+                        {
+                            Producto Producto = db.Productos.First(P => P.ID == ProductoEnCarrito.Producto.ID);
+                            ProductoEnCarro ProductoNuevo = new ProductoEnCarro(Producto, ProductoEnCarrito.Cantidad);
+                            db.ProductosEnCarro.Add(ProductoNuevo);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+
+                Compra NuevaCompra = new Compra()
+                {
+                    Comprador = db.Usuarios.First(U => U.Mail == UsuarioMail),
+                    Productos = ProductosComprados,
+                    Fecha = DateTime.Now,
+                    MailEnviado = false,
+                    CompraAbonada = false,
+                };
+
+                if (!((ICollection<ProductoEnCarro>)Session["Carrito"]).All(Pr => Pr.Producto.Categorias.Any(C => C.Nombre == "digital")))
+                {
+                    NuevaCompra.DatosDeEnvio = DatosDeEnvio;
+                }
+                if (NuevaCompra.PrecioTotal > 0)
+                {
+                    NuevaCompra.FormaDePago = inputFormaDePago;
+                }
+                db.Compras.Add(NuevaCompra);
+                db.SaveChanges();
+                TempData["Reporte"] = "Tu compra fue registrada con éxito! Nos pondremos en contacto en breve, revisa tu bandeja de entrada! " +
+                    "Puedes revisar el estado de tu orden desde el botón de Usuario de la barra lateral. Muchas gracias!";
+                TempData["TipoDeReporte"] = "success";
+            }
+
+            return RedirectToAction("Index", "Editorial");
         }
     }
 }

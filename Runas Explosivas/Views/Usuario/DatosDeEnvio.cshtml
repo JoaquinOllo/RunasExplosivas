@@ -4,12 +4,27 @@
     ViewBag.Title = "Registro";
     ViewBag.HeaderText = "Registro de datos de envío";
     ViewBag.HeaderGlyph = "";
+    DatosDeEnvio DatosDeEnvio = (DatosDeEnvio)Session["DatosDeEnvio"];
 }
 <div class="container-fluid bottom-pad">
     <div class="main z-depth-1 row">
         @Html.Partial("~/Views/Shared/_Avisos.cshtml")
         <h3>Datos de envío para @(((Usuario)Session["Usuario"]).Nombre)</h3>
-
+        @if (DatosDeEnvio != null)
+        {
+            <p>Ya tenemos datos de envío cargados a tu nombre. Si querés cambiarlos, volvé a completar el formulario debajo.</p>
+            <ul class="lista-sin-estilo">
+                <li><b>Ciudad:</b> @DatosDeEnvio.Ciudad</li>
+                <li><b>Provincia:</b> @DatosDeEnvio.Provincia</li>
+                <li><b>País:</b> @DatosDeEnvio.Pais</li>
+                <li><b>Calle:</b> @DatosDeEnvio.Calle</li>
+                <li><b>Número:</b> @DatosDeEnvio.Numero</li>
+                <li><b>Departamento:</b> @DatosDeEnvio.Departamento</li>
+                <li><b>Zipcode:</b> @DatosDeEnvio.ZipCode</li>
+                <li><b>Teléfono:</b> @DatosDeEnvio.Telefono</li>
+                <li><b>Datos adicionales:</b> @DatosDeEnvio.DatosAdicionales</li>
+            </ul>
+        }
         <form method="post" action="@Url.Action("RegistroDatosDeEnvio", "Usuario")">
             <div class="input-group">
                 <label for="inputCiudad">Ciudad, provincia y país</label>

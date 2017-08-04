@@ -2,9 +2,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Usuario Usuario = (Usuario)Session["Usuario"];
-    List<ProductoEnCarrito> Carrito = (List<ProductoEnCarrito>)Session["Carrito"];
+    List<ProductoEnCarro> Carrito = (List<ProductoEnCarro>)Session["Carrito"];
 }
-@if (ViewBag.Title == "Editorial")
+@if (ViewBag.Title.Contains("Editorial"))
 {
     @section scripts{
         <script src="~/Scripts/Editorial.js"></script>
@@ -32,13 +32,13 @@
 
             <div class="barra-lateral-widget" id="carrito-compras">
                 <h4>Carrito de compras</h4>
-                <ul id="lista-carrito">
+                <ul class="lista-carrito-barra-lateral" id="lista-carrito" data-format="..." data-titulocompleto="false">
                     @if (Carrito != null && Carrito.Count() > 0)
                     {
-                        foreach (ProductoEnCarrito Producto in Carrito)
+                        foreach (ProductoEnCarro Producto in Carrito)
                         {
                             <li data-product="@Producto.Producto.ID">
-                                @(Producto.Producto.Titulo.Substring(0, 8))...<b class="light-gray">x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
+                                @(Producto.Producto.Titulo.Substring(0, 8))...<b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
                                 <button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </button>

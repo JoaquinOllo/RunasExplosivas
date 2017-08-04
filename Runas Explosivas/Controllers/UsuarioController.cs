@@ -79,12 +79,20 @@ namespace Runas_Explosivas.Controllers
 
         public ActionResult RegistroDatosDeEnvio (string inputCiudad, string inputProvincia, 
             string inputPais, string inputZipCode, string inputCalle, string inputNumero, 
-            int inputTel, string inputDatosAdicionales, string inputDepartamento = null)
+            string inputTel, string inputDatosAdicionales, string inputDepartamento = null)
         {
             if (Session["Usuario"] != null)
             {
                 string UsuarioMail = ((Usuario)Session["Usuario"]).Mail;
                 Usuario Usuario = db.Usuarios.FirstOrDefault( U => U.Mail == UsuarioMail);
+                DatosDeEnvio DatosDeEnvioRegistrados = db.TablaDatosDeEnvio.FirstOrDefault(D => D.Usuario.Mail == UsuarioMail);
+
+                if (DatosDeEnvioRegistrados != default(DatosDeEnvio))
+                {
+                    db.TablaDatosDeEnvio.Attach(DatosDeEnvioRegistrados);
+                    db.TablaDatosDeEnvio.Remove(DatosDeEnvioRegistrados);
+                    db.SaveChanges();
+                }
 
                 DatosDeEnvio DatosDeEnvioUC = new DatosDeEnvio()
                 {
@@ -96,7 +104,7 @@ namespace Runas_Explosivas.Controllers
                     Calle = inputCalle,
                     Numero = inputNumero,
                     Departamento = inputDepartamento,
-                    Telefono = inputTel,
+                    Telefono = (int)Int64.Parse(inputTel),
                     DatosAdicionales = inputDatosAdicionales
                 };
 
@@ -105,13 +113,9 @@ namespace Runas_Explosivas.Controllers
 
                 TempData["Reporte"] = "Tus datos de envío fueron guardados correctamente. Ya podés hacer tu primera compra!";
                 TempData["TipoDeReporte"] = "success";
-                Session["DatosDeEnvio"] = db.TablaDatosDeEnvio.Where(DE => DE.Usuario.Mail == UsuarioMail);
-                return RedirectToAction("Index", "Home");
+                Session["DatosDeEnvio"] = db.TablaDatosDeEnvio.First(DE => DE.Usuario.Mail == UsuarioMail);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CerrarSesion()

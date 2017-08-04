@@ -15,7 +15,7 @@ namespace Runas_Explosivas.Models
         [Required]
         public Usuario Comprador { get; set; }
         [Required]
-        public virtual ICollection<ProductoEnCarrito> Productos { get; set; }
+        public virtual ICollection<ProductoEnCarro> Productos { get; set; }
         public DatosDeEnvio DatosDeEnvio { get; set; }
         [Required]
         public DateTime Fecha { get; set; }
@@ -23,11 +23,19 @@ namespace Runas_Explosivas.Models
         public bool MailEnviado { get; set; }
         [Required]
         public bool CompraAbonada { get; set; }
+        public string FormaDePago { get; set; }
         public bool OrdenEnViaje { get; set; }
         public bool OrdenRecibida { get; set; }
         public string NotasAdmin { get; set; }
         public DateTime FechaEntregaEstimada { get; set; }
 
+        public float PrecioTotal
+        {
+            get
+            {
+                return Productos.Sum(C => C.Cantidad * C.Producto.Precio);
+            }
+        }
         public Compra() { }
     }
 }

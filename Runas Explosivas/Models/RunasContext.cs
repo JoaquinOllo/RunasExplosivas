@@ -19,6 +19,6 @@ namespace Runas_Explosivas.Models
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<DatosDeEnvio> TablaDatosDeEnvio { get; set; }
-        public DbSet<ProductoEnCarrito> ProductosEnCarrito { get; set; }
+        public DbSet<ProductoEnCarro> ProductosEnCarro { get; set; }
     }
 }

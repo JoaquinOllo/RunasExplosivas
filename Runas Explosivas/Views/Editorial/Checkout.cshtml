@@ -1,12 +1,81 @@
-﻿@{
+﻿@using Runas_Explosivas.Models;
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Editorial: Checkout";
     ViewBag.HeaderText = ".editorial";
     ViewBag.HeaderGlyph = "glyphicon glyphicon-book";
+    List<ProductoEnCarrito> Carrito = (List<ProductoEnCarrito>)Session["Carrito"];
+    float PrecioTotal = Carrito.Sum(C => C.Cantidad * C.Producto.Precio);
+    Usuario Usuario = (Usuario)Session["Usuario"];
+    DatosDeEnvio DatosDeEnvio = (DatosDeEnvio)Session["DatosDeEnvio"];
+}
+@section scripts{
+    <script src="~/Scripts/Editorial.js"></script>
 }
 
 <div class="container-fluid">
     <div class="main z-depth-1 row">
         @Html.Partial("~/Views/Shared/_Avisos.cshtml")
-    </div>
+        <div class="col-sm-6">
+            <h3>Carrito de compras</h3>
+            <ul class="lista-carrito-checkout" id="lista-carrito" data-format="   " data-titulocompleto="true">
+                @if (Carrito != null && Carrito.Count() > 0)
+            {
+                foreach (ProductoEnCarrito Producto in Carrito)
+                {
+                        <li data-product="@Producto.Producto.ID">
+                            @Producto.Producto.Titulo  <b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
+                            <button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        </li>
+                }
+            }
+            </ul>
+            <h4 id="precio-total">Precio total: $@PrecioTotal</h4>
+        </div>
+        <div class="col-sm-6">
+            <h3>Datos de Envío</h3>
+            @if (!Carrito.All(Pr => Pr.Producto.Categorias.Any(C => C.Nombre == "digital")) && DatosDeEnvio != null)
+            {
+                <p>Estos son los datos de envío que tenés cargados. ¿Querés modificarlos, o enviar el pedido a esta dirección?</p>
+                <ul class="lista-sin-estilo">
+                    <li><b>Pedido a nombre de: </b> @Usuario.Nombre</li>
+                    <li><b>Ciudad:</b> @DatosDeEnvio.Ciudad</li>
+                    <li><b>Provincia:</b> @DatosDeEnvio.Provincia</li>
+                    <li><b>País:</b> @DatosDeEnvio.Pais</li>
+                    <li><b>Calle:</b> @DatosDeEnvio.Calle</li>
+                    <li><b>Número:</b> @DatosDeEnvio.Numero</li>
+                    <li><b>Departamento:</b> @DatosDeEnvio.Departamento</li>
+                    <li><b>Zipcode:</b> @DatosDeEnvio.ZipCode</li>
+                    <li><b>Teléfono:</b> @DatosDeEnvio.Telefono</li>
+                    <li><b>Datos adicionales:</b> @DatosDeEnvio.DatosAdicionales</li>
+                </ul>
+                <a href="@Url.Action("DatosDeEnvio", "Usuario")" class="btn btn-default btn-sm">Cambiar datos de envío</a>
+            }
+            else if (DatosDeEnvio == null)
+            {
+                <p>Todavía no tenemos tus datos de envío, como dirección, localidad y teléfono. ¿Querés tomarte unos minutos completándolos?</p>
+                <a href="@Url.Action("DatosDeEnvio", "Usuario")" class="btn btn-default btn-sm">Cargar datos de envío</a>
+            } else
+            {
+                <p>Ya que todos los productos de la orden son digitales, no necesitamos tus datos de envío.</p>
+            }
+        </div>
+        <form method="post" action="@Url.Action("RegistrarCompra", "Editorial")">
+            <div class="col-sm-6">
+                @if (PrecioTotal > 0)
+                {
+                    <label for="inputFormaDePago">Elige la forma de pago</label>
+                    <div class="form-group">
+                        <label><input type="radio" name="inputFormaDePago" value="MercadoPago" /> MercadoPago</label>
+                        <label><input type="radio" name="inputFormaDePago" value="Transferencia" /> Transferencia</label>
+                        <label><input type="radio" name="inputFormaDePago" value="PayPal" /> PayPal</label>
+                        <p class="help-block">Luego de registrar la compra, nos comunicaremos contigo para pasarte los datos de pago.</p>
+                    </div>
+                }
+                <button class="btn btn-lg btn-primary" type="submit">Confirmar compra</button>
+            </div>
+        </form>
+</div>
 </div>

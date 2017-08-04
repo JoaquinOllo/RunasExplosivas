@@ -21,6 +21,10 @@ a:active:not(.btn) {
     text-decoration: none;
 }
 
+.lista-sin-estilo{
+    list-style:none;
+}
+
 .bottom-pad { /* Agrega padding al body para que la navbar inferior no tape el contenido de la página */
     padding-bottom: 50px;
 }
@@ -456,16 +460,27 @@ small.subtitulo {
 
     /* CSS DE SECCIONES DE BARRA LATERAL */
 
-    #lista-carrito{
-        list-style:none;
+    .lista-carrito-barra-lateral {
+        list-style: none;
         padding-left: 5px;
         font-size: 11px;
         text-align: end;
     }
 
-        #lista-carrito li {
+        .lista-carrito-barra-lateral li {
             padding-bottom: 5px;
         }
+
+.lista-carrito-checkout {
+    list-style: none;
+    font-size: 16px;
+    text-align: end;
+}
+
+    .lista-carrito-checkout li {
+        padding-bottom: 5px;
+    }
+
 
     .boton-quitar-de-carrito{
         margin-left: 3px;
@@ -627,6 +642,14 @@ small.subtitulo {
     transition: font-size linear 1s;
 }
 
+/* CSS DE CHECKOUT DE EDITORIAL */
+
+#precio-total {
+    font-size: 22px;
+    padding: 10px;
+    background-color: #ebebeb;
+    border-radius: 10px;
+}
 
     /* SHADOWS FOR MATERIAL DESIGN 
 
