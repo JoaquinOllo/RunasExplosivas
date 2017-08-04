@@ -130,9 +130,9 @@ $(document).ready(function () {
     // ENVÍO DE FORMULARIO DE BÚSQUEDA DE AJAX
 
     $('#form-busqueda').submit(function () {
-
+        var UrlAjax = $("#boton-compras").exists() ? '/Editorial/BuscarProducto'  : '/Home/BuscarArticulo';
         $.ajax({
-            url: '/Home/BuscarArticulo',
+            url: UrlAjax,
             type: "GET",
             dataType: "json",
             contentType: "application/json; charset=utf-8",

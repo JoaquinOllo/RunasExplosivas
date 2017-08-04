@@ -50,29 +50,16 @@ namespace Runas_Explosivas.Controllers
             if (Articulo.SearchTag("blog"))
             {
                 ViewBag.Title = "Blog";
-                ViewBag.Btn = "btn-lg";
-                ViewBag.BtnUsuario = true;
-                ViewBag.BtnBuscar = true;
-                ViewBag.BtnCarrito = false;
                 ViewBag.HeaderText = ".blog ";
                 ViewBag.HeaderGlyph = "glyphicon glyphicon-pencil";
             } else if (Articulo.SearchTag("podcast"))
             {
-                    ViewBag.Title = "Podcast";
-                    ViewBag.Btn = "btn-lg";
-                    ViewBag.BtnUsuario = true;
-                    ViewBag.BtnBuscar = true;
-                    ViewBag.BtnCarrito = false;
-                    ViewBag.HeaderText = ".podcast ";
-                    ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
+                ViewBag.Title = "Podcast";
+                ViewBag.HeaderText = ".podcast ";
+                ViewBag.HeaderGlyph = "glyphicon glyphicon-headphones";
             }
             ViewBag.Title = ViewBag.Title + ": " + Articulo.Titulo;
         return View();
-        }
-
-        public ActionResult Registate()
-        {
-            return View();
         }
 
         public ActionResult Mensaje(string nombre, string email, string mensaje, string SendTo)
@@ -118,6 +105,6 @@ namespace Runas_Explosivas.Controllers
 
             var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo }).Take(10);
             return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
-    }
+        }
     }
 }

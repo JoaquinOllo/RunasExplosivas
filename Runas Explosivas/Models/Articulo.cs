@@ -33,8 +33,9 @@ namespace Runas_Explosivas.Models
             {
                 if (!string.IsNullOrWhiteSpace(Imagen))
                 {
-                    return "~\\Content\\Images\\Articulos\\" + Imagen;
-                } else
+                    return "../Content/Images/Tienda/" + Imagen;
+                }
+                else
                 {
                     return null;
                 }

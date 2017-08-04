@@ -84,26 +84,51 @@
 
             <div class="barra-lateral-widget" id="busqueda" @ViewBag.BtnBuscar>
                 <form id="form-busqueda">
+                    @if (ViewBag.Title.Contains("Editorial"))
+                    {
+                        <div class="form-group">
+                            <label for="ValorABuscar">Buscar productos:</label>
+                            <input type="text" class="form-control" name="ValorABuscar">
+                        </div>
+                        <h5>Buscar por...</h5>
+                        <div class="form-group">
+                            <div class="radio">
+                                <label><input type="radio" name="TipoDeBusqueda" value="Titulo" checked>título</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="TipoDeBusqueda" value="Autor">autor</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="TipoDeBusqueda" value="Categoría">categoría</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-info" type="submit" value="Buscar">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label for="ValorABuscar">Buscar artículos:</label>
+                            <input type="text" class="form-control" name="ValorABuscar">
+                        </div>
+                        <h5>Buscar por...</h5>
+                        <div class="form-group">
+                            <div class="radio">
+                                <label><input type="radio" name="TipoDeBusqueda" value="Titulo" checked>título</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="TipoDeBusqueda" value="Autor">autor</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="TipoDeBusqueda" value="Tag">tags</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-info" type="submit" value="Buscar">
+                        </div>
+                    }
 
-                    <div class="form-group">
-                        <label for="ValorABuscar">Buscar artículos:</label>
-                        <input type="text" class="form-control" name="ValorABuscar">
-                    </div>
-                    <h5>Buscar por...</h5>
-                    <div class="form-group">
-                        <div class="radio">
-                            <label><input type="radio" name="TipoDeBusqueda" value="Titulo" checked>título</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="TipoDeBusqueda" value="Autor">autor</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="TipoDeBusqueda" value="Tag">tags</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input class="btn btn-info" type="submit" value="Buscar">
-                    </div>
                 </form>
             </div>
 

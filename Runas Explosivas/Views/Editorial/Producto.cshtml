@@ -1,11 +1,10 @@
 ﻿@using Runas_Explosivas.Models;
 @{
     Layout = "~/Views/Shared/_Barra Lateral.cshtml";
-    ViewBag.Title = "";
     ViewBag.Btn = "";
-    ViewBag.BtnUsuario = true;
-    ViewBag.BtnBuscar = true;
-    ViewBag.BtnCarrito = true;
+    ViewBag.BtnUsuario = " ";
+    ViewBag.BtnBuscar = " ";
+    ViewBag.BtnCarrito = "main-section=true";
     ViewBag.HeaderText = ".editorial ";
     ViewBag.HeaderGlyph = "glyphicon glyphicon-book";
 }
@@ -35,7 +34,7 @@
             <p class="articulo-info">$@ViewBag.Producto.Precio</p>
         </div>
         <div class="col-xs-3">
-            <a class="alineado-derecho" href="#"><span class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Clic para agregar al carrito :D"></span></a>
+            <a class="alineado-derecho btn-agregar-carrito" data-product="@ViewBag.Producto.ID"><span class="glyphicon glyphicon-plus-sign"></span></a>
         </div>
     </div>
     <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" data-placement="right" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>

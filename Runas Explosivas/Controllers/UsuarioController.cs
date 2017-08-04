@@ -1,6 +1,7 @@
 ﻿using Runas_Explosivas.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace Runas_Explosivas.Controllers
         // GET: Usuario
         public ActionResult Login(string inputEmail, string inputPassword)
         {
-            Usuario UsuarioConectado = db.Usuarios.SingleOrDefault(us => us.Mail == inputEmail && us.Password == inputPassword);
+            Usuario UsuarioConectado = db.Usuarios.AsQueryable().Include(U => U.Compras).SingleOrDefault(us => us.Mail == inputEmail && us.Password == inputPassword);
             DatosDeEnvio UsuarioConectadoDatosEnvio = db.TablaDatosDeEnvio.FirstOrDefault(DE => DE.Usuario.Mail == inputEmail);
 
             if (UsuarioConectado == default(Usuario))
@@ -65,7 +66,7 @@ namespace Runas_Explosivas.Controllers
                 db.Usuarios.Add(UsuarioNuevo);
                 db.SaveChanges();
 
-                TempData["Reporte"] = $"Has sido registrado exitosamente. Bienvenido, {UsuarioNuevo.Nombre}! Te debería llegar un mail en breve. Ya podés comentar nuestros artículos y realizar compras.";
+                TempData["Reporte"] = $"Has sido registrado exitosamente. Bienvenido, {UsuarioNuevo.Nombre}! Ya podés comentar nuestros artículos y realizar compras.";
                 TempData["TipoDeReporte"] = "success";
                 Session["Usuario"] = db.Usuarios.FirstOrDefault(u => u.Mail == UsuarioNuevo.Mail);
             }

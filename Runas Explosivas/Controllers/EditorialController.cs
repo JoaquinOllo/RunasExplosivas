@@ -27,7 +27,7 @@ namespace Runas_Explosivas.Controllers
             ViewBag.Producto = Producto;
             ViewBag.Resenhas = Resenhas;
 
-            ViewBag.Title = "Product: " + Producto.Titulo;
+            ViewBag.Title = "Editorial: " + Producto.Titulo;
             return View();
         }
 
@@ -167,6 +167,26 @@ namespace Runas_Explosivas.Controllers
             }
 
             return RedirectToAction("Index", "Editorial");
+        }
+
+        public JsonResult BuscarProducto(string TipoDeBusqueda, string ValorABuscar)
+        {
+            List<Producto> ResultadosBusqueda = new List<Producto>() { };
+            if (TipoDeBusqueda == "Categoría")
+            {
+                ResultadosBusqueda = db.Productos.Where(p => p.Categorias.Any(c => c.Nombre == ValorABuscar)).ToList();
+            }
+            else if (TipoDeBusqueda == "Autor")
+            {
+                ResultadosBusqueda = db.Productos.Where(p => p.Autores.Any(au => au.Nombre.Contains(ValorABuscar))).ToList();
+            }
+            else
+            {
+                ResultadosBusqueda = db.Productos.Where(p => p.Titulo.Contains(ValorABuscar)).ToList();
+            }
+
+            var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo, Precio = a.Precio }).Take(10);
+            return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
         }
     }
 }

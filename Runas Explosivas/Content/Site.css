@@ -462,7 +462,7 @@ small.subtitulo {
 
     .lista-carrito-barra-lateral {
         list-style: none;
-        padding-left: 5px;
+        padding-left: 1px;
         font-size: 11px;
         text-align: end;
     }
@@ -486,6 +486,10 @@ small.subtitulo {
         margin-left: 3px;
         border-radius: 15px;
         font-size: 10px;
+    }
+
+    #busqueda-realizada ul{
+        padding-left: 8px;
     }
 
     /* CSS de BOTONES DE BARRA LATERAL */
@@ -539,7 +543,7 @@ small.subtitulo {
         padding: 0px;
     }
 
-    .btn-agregar-carrito {
+    .btn-agregar-carrito:not(a) {
         position: absolute;
         bottom: 10px;
         right: 10px;
