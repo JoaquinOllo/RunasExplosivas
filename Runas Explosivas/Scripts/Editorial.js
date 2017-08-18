@@ -61,7 +61,10 @@ $(document).ready(function () {
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
         $(this).find(".categorias-producto").fadeTo(300, 0.95);
     }, function () {
-        $(this).children(".descripcion-producto").toggleClass("fondo-gris").fadeTo(0, 0.3);
+        $(this).children(".descripcion-producto").fadeTo(0, 0.3).queue(function (next) {
+            $(this).toggleClass("fondo-gris");
+            next();
+        });
         $(this).children(".btn-agregar-carrito").toggleClass("opaco");
         $(this).find(".categorias-producto").fadeTo(400, 0.3);
     });

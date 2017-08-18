@@ -42,6 +42,14 @@ namespace Runas_Explosivas.Models
             }
         }
 
+        public string LinkYouTubeEmbed
+        {
+            get
+            {
+                return Link.Replace("watch?v=", "embed/");
+            }
+        }
+
 
         /// <summary>
         /// Método que devuelve un fragmento del largo especificado del texto descriptivo del artículo.
