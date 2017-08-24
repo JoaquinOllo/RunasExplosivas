@@ -168,7 +168,7 @@ small.subtitulo {
         text-indent: 30px;
         padding-bottom: 10px;
         padding-top: 10px;
-        white-space: pre-line;
+        white-space: pre-wrap;
     }
 
     .alineado-derecho {
@@ -367,7 +367,7 @@ small.subtitulo {
 
     #separador-header {
         margin-top: 0px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     hr {

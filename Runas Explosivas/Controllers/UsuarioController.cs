@@ -136,5 +136,28 @@ namespace Runas_Explosivas.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult PostearComentario(int blogPostID, string textoComentario, int respuestaA = -1)
+        {
+            if (Session["Usuario"] != null)
+            {
+                Usuario usuario = db.Usuarios.First(u => u.Mail == ((Usuario)Session["Usuario"]).Mail);
+                Articulo ArticuloComentado = db.Articulos.First(A => A.ID == blogPostID);
+
+                ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo()
+                {
+                    Autor = usuario,
+                    Fecha = DateTime.Now,
+                    Texto = textoComentario,
+                    ArticuloComentado = ArticuloComentado,
+                    RespuestaA = respuestaA > -1 ? db.ComentariosEnArticulos.First(CA => CA.ID == respuestaA) : null
+                };
+
+                TempData["Reporte"] = "Tu comentario fue publicado exitosamente!";
+                TempData["TipoDeReporte"] = "success";
+                return RedirectToAction("Articulo", "Home", new { blogpostID = blogPostID });
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

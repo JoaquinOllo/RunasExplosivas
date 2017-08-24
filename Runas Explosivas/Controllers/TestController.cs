@@ -18,5 +18,13 @@ namespace Runas_Explosivas.Controllers
                 return Json(((Usuario)Session["Usuario"]).Compras, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult PruebaRV(int ArtID)
+        {
+            using (RunasContext db = new Models.RunasContext())
+            {
+                return RedirectToAction("Articulo", "Home", new { blogpostID = ArtID });
+            }
+        }
     }
 }

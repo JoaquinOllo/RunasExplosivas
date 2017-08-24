@@ -115,10 +115,16 @@ $(document).ready(function () {
     });
 
 /* BOTON PARA MOSTRAR U OCULTAR COMENTARIOS */
-
       
       $("#boton-comentarios").tooltip("show").on("click", function () {
           $("#lista-comentarios").slideToggle("fast");
+      });
+
+/* BOTON PARA AGREGAR COMENTARIOS A ARTÍCULOS */
+
+      $("#lista-comentarios").on("click", ".boton-agregar-comentarios", function (event) {
+          event.preventDefault();
+
       });
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 

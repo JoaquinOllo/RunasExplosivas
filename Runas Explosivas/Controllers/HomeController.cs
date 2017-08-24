@@ -43,7 +43,7 @@ namespace Runas_Explosivas.Controllers
         public ActionResult Articulo(int blogpostID)
         {
             Articulo Articulo = db.Articulos.Include("Tags").Include("Autores").AsQueryable().Single(a => a.ID == blogpostID);
-            List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("Autor").Where(cm => cm.ArticuloComentado.ID == blogpostID).OrderByDescending(cm => cm.Fecha).ToList();
+            List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("Autor").Where(cm => cm.ArticuloComentado.ID == blogpostID).OrderBy(cm => cm.Fecha).ToList();
             ViewBag.Articulo = Articulo;
             ViewBag.Comentarios = Comentarios;
 

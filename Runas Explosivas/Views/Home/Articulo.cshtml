@@ -27,31 +27,38 @@
         </div>
     }
     <hr class="inverted z-depth-1" id="separador-header">
-    <div class="cuerpo-articulo">
-        @ViewBag.Articulo.Texto
-        @if (!String.IsNullOrWhiteSpace(ViewBag.Articulo.Imagen))
+    <div class="cuerpo-articulo">@ViewBag.Articulo.Texto</div>
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Articulo.Imagen))
         {
             <img class="img-responsive img-rounded" src="@Url.Content(ViewBag.Articulo.ImagenFullPath)" />
         }
-    </div>
     <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" data-placement="right" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>
     <hr class="inverted z-depth-1" id="separador-footer">
-    <div class="well-sm inverted-extra-light" id="lista-comentarios">
+    <div class="well-sm inverted-extra-light" id="lista-comentarios" data-ID="@ViewBag.Articulo.ID">
         <ul>
-            @if (ViewBag.Comentarios != null)
+            @if (ViewBag.Comentarios.Count > 0)
             {
                 foreach (ComentarioEnArticulo Comentario in ViewBag.Comentarios)
                 {
-                    <li class="comentario comentario-nested-@Comentario.NivelDeDerivacion">
-                        <h4>@Comentario.Autor.Nombre <span><small><i class="dark-gray">@Comentario.Fecha.ToString(@"dd\/MM\/yyyy HH:mm")</i></small></span></h4>
+                    <li class="comentario comentario-nested-@Comentario.NivelDeDerivacion" data-ID="@Comentario.ID">
+                        <h4>@Comentario.Autor.Nombre 
+                        <span><small><i class="dark-gray">@Comentario.Fecha.ToString(@"dd\/MM\/yyyy HH:mm ")</i>
+                            @if ((Usuario)Session["Usuario"] != null)
+                            {
+                                <a href="#" class="boton-agregar-comentario" data-toggle="tooltip" data-placement="top" title="Responder a este comentario"><span class="fa fa-reply"></span></a>
+                            }
+                            </small></span></h4>
                         <p>@Comentario.Texto</p>
                     </li>
                 }
-            }
-            @if (ViewBag.Comentarios.Count == 0)
+            } else
             {
                 <li class="comentario">No hay comentarios por el momento. ¿Querés ser el primero?</li>
             }
         </ul>
+        @if ((Usuario)Session["Usuario"] != null)
+        {
+            <button class="btn btn-info btn-lg boton-agregar-comentario" type="submit">Comentar artículo</button>
+        }
     </div>
 </div> <!-- fin de display articulos -->
