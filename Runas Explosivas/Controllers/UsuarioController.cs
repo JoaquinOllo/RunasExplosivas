@@ -141,7 +141,8 @@ namespace Runas_Explosivas.Controllers
         {
             if (Session["Usuario"] != null)
             {
-                Usuario usuario = db.Usuarios.First(u => u.Mail == ((Usuario)Session["Usuario"]).Mail);
+                string UsuarioMail = ((Usuario)Session["Usuario"]).Mail;
+                Usuario usuario = db.Usuarios.First(u => u.Mail == UsuarioMail);
                 Articulo ArticuloComentado = db.Articulos.First(A => A.ID == blogPostID);
 
                 ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo()
@@ -152,6 +153,8 @@ namespace Runas_Explosivas.Controllers
                     ArticuloComentado = ArticuloComentado,
                     RespuestaA = respuestaA > -1 ? db.ComentariosEnArticulos.First(CA => CA.ID == respuestaA) : null
                 };
+                db.ComentariosEnArticulos.Add(NuevoComentario);
+                db.SaveChanges();
 
                 TempData["Reporte"] = "Tu comentario fue publicado exitosamente!";
                 TempData["TipoDeReporte"] = "success";

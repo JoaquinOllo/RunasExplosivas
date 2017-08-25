@@ -44,5 +44,44 @@ namespace Runas_Explosivas.Models
                 }
             }
         }
+
+        /// <summary>
+        /// Propiedad que devuelve la fecha del comentario primero al que responde este comentario, para facilitar el ordenamiento.
+        /// </summary>
+        public DateTime GetRootDate
+        {
+            get
+            {
+                if (RespuestaA != null)
+                {
+                    return RespuestaA.GetRootDate;
+                }
+                else
+                {
+                    return Fecha;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cuando un Comentario tiene nivel de derivación mayor que 0 (responde a otro comentario), se le cambia la fecha
+        /// para poder ordenarlo apropiadamente al mostrarlo en la página. Cuando esto sucede, la fecha original es alojada
+        /// en esta propiedad.
+        /// </summary>
+        [NotMapped]
+        public DateTime FechaOriginal { get; set; }
+
+
+        /// <summary>
+        /// Propiedad que devuelve Fecha si el nivel de derivación del comentario es 0, o FechaOriginal si el comentario
+        /// responde a otro comentario.
+        /// </summary>
+        public DateTime GetTrueFecha
+        {
+            get
+            {
+                return NivelDeDerivacion > 0 ? FechaOriginal : Fecha;
+            }
+        }
     }
 }

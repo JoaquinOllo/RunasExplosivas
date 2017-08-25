@@ -122,9 +122,22 @@ $(document).ready(function () {
 
 /* BOTON PARA AGREGAR COMENTARIOS A ARTÍCULOS */
 
-      $("#lista-comentarios").on("click", ".boton-agregar-comentarios", function (event) {
-          event.preventDefault();
+      $("#lista-comentarios").on("click", ".boton-agregar-comentario", function (event) {
+          if ($(this).attr("type") != "submit" && $("#lista-comentarios").has("textarea").length == 0) {
+              event.preventDefault();
+              $(".boton-agregar-comentario").last().before(
+                  '<textarea class="form-control" name="textoComentario" placeholder="Dejanos tu comentario" rows="5" cols="6"></textarea>')
+                  .attr("type", "submit").text("Confirmar comentario");
+          } else if ($(this).is("a")) {
+              event.preventDefault();
+          };
 
+          if ($(this).is("a")) {
+              $("#lista-comentarios").find(".boton-agregar-comentario").removeClass("resaltado");
+              $(this).addClass("resaltado");
+              var respuestaAID = $(this).closest("li").data("id");
+              $("input[name='respuestaA']").val(respuestaAID);
+          };
       });
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 

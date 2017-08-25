@@ -34,15 +34,21 @@
         }
     <button class="btn btn-lg btn-primary z-depth-2" data-toggle="tooltip" data-placement="right" title="Querés ver los comentarios?" id="boton-comentarios" type="button"><span class="glyphicon glyphicon-comment"></span></button>
     <hr class="inverted z-depth-1" id="separador-footer">
-    <div class="well-sm inverted-extra-light" id="lista-comentarios" data-ID="@ViewBag.Articulo.ID">
+
+    @* LISTA DE COMENTARIOS *@
+
+    <div class="well-sm inverted-extra-light" id="lista-comentarios">
+        <form method="post" action="@Url.Action("PostearComentario", "Usuario")">
+            <input type="number" name="blogPostID" value="@ViewBag.Articulo.ID" readonly class="hidden" />
+            <input type="number" name="respuestaA" value="-1" readonly class="hidden" />
         <ul>
             @if (ViewBag.Comentarios.Count > 0)
             {
                 foreach (ComentarioEnArticulo Comentario in ViewBag.Comentarios)
                 {
-                    <li class="comentario comentario-nested-@Comentario.NivelDeDerivacion" data-ID="@Comentario.ID">
+                    <li class="comentario comentario-nested-@Comentario.NivelDeDerivacion" data-id="@Comentario.ID">
                         <h4>@Comentario.Autor.Nombre 
-                        <span><small><i class="dark-gray">@Comentario.Fecha.ToString(@"dd\/MM\/yyyy HH:mm ")</i>
+                        <span><small><i class="dark-gray">@Comentario.GetTrueFecha.ToString(@"dd\/MM\/yyyy HH:mm ")</i>
                             @if ((Usuario)Session["Usuario"] != null)
                             {
                                 <a href="#" class="boton-agregar-comentario" data-toggle="tooltip" data-placement="top" title="Responder a este comentario"><span class="fa fa-reply"></span></a>
@@ -58,7 +64,8 @@
         </ul>
         @if ((Usuario)Session["Usuario"] != null)
         {
-            <button class="btn btn-info btn-lg boton-agregar-comentario" type="submit">Comentar artículo</button>
+            <button class="btn btn-info btn-lg boton-agregar-comentario" data-ID="-1" type="button">Comentar artículo</button>
         }
+        </form>
     </div>
 </div> <!-- fin de display articulos -->

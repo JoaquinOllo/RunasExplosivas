@@ -6,7 +6,7 @@ body {
     font-family: Verdana, Geneva, sans-serif;
 }
 
-a:not(.btn){
+a:not(.btn) {
     color: #000000;
     transition: font-size 0.3s;
 }
@@ -257,6 +257,16 @@ small.subtitulo {
         padding: 2px 2px 2px 28px;
     }
 
+    .boton-agregar-comentario{
+        transition: all linear 1s;
+    }
+
+    .resaltado {
+        font-size: 120%;
+        color: #ef6c00 !important;
+        text-shadow: 2px 1px 1px;
+    }
+
     /* CSS DE BOTON DE COMENTARIOS, PARA ANIMAR SU MOVIMIENTO */
 
     #boton-comentarios {
@@ -352,10 +362,6 @@ small.subtitulo {
 
     .fondo-gris {
         background-color: #383838 !important;
-    }
-
-    .borde-azul {
-        border: 2px solid #7c5fb5 !important;
     }
 
     /* CSS DE HR QUE SEPARA HEADER Y FOOTER */
