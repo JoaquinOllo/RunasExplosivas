@@ -228,7 +228,7 @@ small.subtitulo {
         display: none;
     }
 
-        #lista-comentarios > ul {
+        #lista-comentarios form > ul {
             padding-left: 10px;
         }
 

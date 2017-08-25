@@ -19,7 +19,7 @@ function vaciarYCompletarCarrito(result, separador, titulocompleto = true) {
     var PrecioTotal = 0;
     for (var i = 0; i < result.length; i++) {
         Titulo = titulocompleto ? result[i]["Titulo"] : result[i]["Titulo"].substring(0, 8);
-        PrecioTotal += result[i]["Precio"] * result[i]["Cantidad"];
+        PrecioTotal += result[i]["Precio"];
         $("#lista-carrito").append(
             '<li data-product="' + result[i]["ID"] + '">' + Titulo + separador
             + ' <b>x' + result[i]["Cantidad"] + ': $' + result[i]["Precio"] + '</b>'
