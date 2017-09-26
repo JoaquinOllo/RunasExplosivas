@@ -82,6 +82,21 @@ function activarBoton(boton) {
     });
 }
 
+function toggleRespuestaA(boton) {
+    var ComentariosAResaltar = $(boton).closest(".comentario");
+    $(boton).find("span").toggleClass("glyphicon-eye-close").toggleClass("glyphicon-eye-open").toggleClass("icono-resaltado");
+    var SiguienteComentario = $(boton).data("rtaid");
+    while (true) {
+        var Comentario = $("#lista-comentarios").find('[data-id="' + SiguienteComentario + '"]');
+        SiguienteComentario = Comentario.find(".boton-derivacion").data("rtaid");
+        ComentariosAResaltar = ComentariosAResaltar.add(Comentario);
+        if (SiguienteComentario == null) {
+            break;
+        };
+    };
+    ComentariosAResaltar.toggleClass("comentario-resaltado");
+};
+
 /* DOCUMENT READY PROGRAMAR DEBAJO */
 
 $(document).ready(function () {
@@ -116,8 +131,15 @@ $(document).ready(function () {
 
 /* BOTON PARA MOSTRAR U OCULTAR COMENTARIOS */
       
-      $("#boton-comentarios").tooltip("show").on("click", function () {
+      $("#boton-comentarios").on("click", function () {
           $("#lista-comentarios").slideToggle("fast");
+      });
+
+    /* BOTÓN PARA MOSTRAR A QUIÉN ESTÁ RESPONDIENDO CADA ARTÍCULO */
+
+      $(".boton-derivacion").on("click", function (event) {
+          toggleRespuestaA(this);
+          event.preventDefault();
       });
 
 /* BOTON PARA AGREGAR COMENTARIOS A ARTÍCULOS */

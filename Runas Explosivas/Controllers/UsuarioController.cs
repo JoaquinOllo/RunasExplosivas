@@ -144,15 +144,15 @@ namespace Runas_Explosivas.Controllers
                 string UsuarioMail = ((Usuario)Session["Usuario"]).Mail;
                 Usuario usuario = db.Usuarios.First(u => u.Mail == UsuarioMail);
                 Articulo ArticuloComentado = db.Articulos.First(A => A.ID == blogPostID);
+                ComentarioEnArticulo CrespuestaA = db.ComentariosEnArticulos.Include("RespuestaA.RespuestaA.RespuestaA.RespuestaA").FirstOrDefault(CA => CA.ID == respuestaA);
 
-                ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo()
-                {
-                    Autor = usuario,
-                    Fecha = DateTime.Now,
-                    Texto = textoComentario,
-                    ArticuloComentado = ArticuloComentado,
-                    RespuestaA = respuestaA > -1 ? db.ComentariosEnArticulos.First(CA => CA.ID == respuestaA) : null
-                };
+                ComentarioEnArticulo NuevoComentario = new ComentarioEnArticulo(
+                    usuario,
+                    DateTime.Now,
+                    textoComentario,
+                    ArticuloComentado,
+                    CrespuestaA
+                );
                 db.ComentariosEnArticulos.Add(NuevoComentario);
                 db.SaveChanges();
 

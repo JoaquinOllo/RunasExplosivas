@@ -151,5 +151,22 @@ namespace Runas_Explosivas.Models
             }
             return false;
         }
+
+        public string OrdenComentInternal { get; set; }
+
+
+        public List<int> OrdenComentarios
+        {
+            get
+            {
+                List<int> _OrdenComentarios = new List<int>();
+
+                foreach (string Index in OrdenComentInternal.Split(';'))
+                {
+                    _OrdenComentarios.Add(int.Parse(Index));
+                }
+                return _OrdenComentarios;
+            }
+        }
     }
 }

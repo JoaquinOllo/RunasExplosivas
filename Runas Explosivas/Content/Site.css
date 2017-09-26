@@ -235,7 +235,20 @@ small.subtitulo {
     .comentario {
         list-style-type: none;
         margin: 0;
+        -webkit-transition : border 500ms ease-out;
+        -moz-transition : border 500ms ease-out;
+        -o-transition : border 500ms ease-out;
+        transition : border 500ms ease-out;
     }
+
+icono-resaltado {
+    font-size: 1.4em !important;
+    color: #FFF072 !important;
+}
+
+.comentario-resaltado {
+    border-left-color: #FFF072 !important;
+}
 
     .comentario-nested-0 {
         border-left: 5px solid #545454;

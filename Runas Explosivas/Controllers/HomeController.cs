@@ -44,16 +44,7 @@ namespace Runas_Explosivas.Controllers
         {
             Articulo Articulo = db.Articulos.Include("Tags").Include("Autores").AsQueryable().Single(a => a.ID == blogpostID);
             List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("Autor").Include("RespuestaA")
-                .Where(cm => cm.ArticuloComentado.ID == blogpostID).ToList();
-            foreach (ComentarioEnArticulo Comentario in Comentarios)
-            {
-                if (Comentario.NivelDeDerivacion != 0)
-                {
-                    Comentario.FechaOriginal = Comentario.Fecha;
-                    Comentario.Fecha = Comentario.GetRootDate;
-                }
-            }
-            Comentarios = Comentarios.OrderBy(C => C.Fecha).ThenBy(C => C.RespuestaA != null ? C.RespuestaA.ID : 0 ).ToList();
+                .Where(cm => cm.ArticuloComentado.ID == blogpostID).OrderBy(C => C.Fecha).ToList();
 
             ViewBag.Articulo = Articulo;
             ViewBag.Comentarios = Comentarios;
@@ -116,6 +107,44 @@ namespace Runas_Explosivas.Controllers
 
             var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo }).Take(10);
             return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
+        }
+
+        public void OrdenarComentarios (int ArtID)
+        {
+            Articulo Articulo = db.Articulos.First(A => A.ID == ArtID);
+            List<ComentarioEnArticulo> ComentariosAOrdenar = db.ComentariosEnArticulos
+                .Include("ArticuloComentado").Where(C => C.ArticuloComentado.ID == ArtID).ToList();
+
+            List<int> OrdenComentarios = new List<int>();
+
+            DateTime FechaMinima1 = DateTime.MaxValue, 
+                FechaMinima2 = FechaMinima1, 
+                FechaMinima3 = FechaMinima1, 
+                FechaMinima4 = FechaMinima1;
+
+            int MarcadorID1 = 0, 
+                MarcadorID2 = 0, 
+                MarcadorID3 = 0, 
+                MarcadorID4 = 0;
+
+            while (true)
+            {
+                MarcadorID1 = ComentariosAOrdenar.Select(C => C.Fecha).IndexOfMinDate(FechaMinima1);
+                FechaMinima1 = ComentariosAOrdenar.AsEnumerable().First(C => C.ID == MarcadorID1).Fecha;
+                if (MarcadorID1 >= 0)
+                {
+                    OrdenComentarios.Add(MarcadorID1);
+                    FechaMinima2 = FechaMinima1;
+                    while (true)
+                    {
+                        MarcadorID2 = ComentariosAOrdenar.Where(C => C.RespuestaA.ID == MarcadorID1)
+                            .Select(C => C.Fecha).IndexOfMinDate(FechaMinima2);
+                    }
+                } else
+                {
+                    break;
+                }
+            }
         }
     }
 }

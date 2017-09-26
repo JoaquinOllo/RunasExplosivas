@@ -163,12 +163,21 @@
     <Compile Include="Migrations\201708040735519_ProductoModificada.Designer.cs">
       <DependentUpon>201708040735519_ProductoModificada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708290351475_OrdenComentariosEnArticulo.cs" />
+    <Compile Include="Migrations\201708290351475_OrdenComentariosEnArticulo.Designer.cs">
+      <DependentUpon>201708290351475_OrdenComentariosEnArticulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709010535528_DerivacionEnDB.cs" />
+    <Compile Include="Migrations\201709010535528_DerivacionEnDB.Designer.cs">
+      <DependentUpon>201709010535528_DerivacionEnDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\ComentarioEnArticulo.cs" />
     <Compile Include="Models\Compra.cs" />
     <Compile Include="Models\DatosDeEnvio.cs" />
+    <Compile Include="Models\LinqExtension.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\ProductoEnCarro.cs" />
     <Compile Include="Models\Resenha.cs" />
@@ -263,6 +272,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708040735519_ProductoModificada.resx">
       <DependentUpon>201708040735519_ProductoModificada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708290351475_OrdenComentariosEnArticulo.resx">
+      <DependentUpon>201708290351475_OrdenComentariosEnArticulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709010535528_DerivacionEnDB.resx">
+      <DependentUpon>201709010535528_DerivacionEnDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
