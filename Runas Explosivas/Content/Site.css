@@ -241,9 +241,21 @@ small.subtitulo {
         transition : border 500ms ease-out;
     }
 
-icono-resaltado {
-    font-size: 1.4em !important;
-    color: #FFF072 !important;
+.locked {
+    font-size: 1.5em;
+    text-shadow: 2.5px 2px #FFF072;
+}
+
+.locked:hover{
+    font-size: 1.5em !important;
+}
+
+.boton-derivacion {
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+.boton-derivacion:hover {
+    font-size: initial;
 }
 
 .comentario-resaltado {
