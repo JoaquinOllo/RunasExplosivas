@@ -53,6 +53,16 @@
                         <p>Todavía no pudimos ponernos en contacto, pero deberías recibi un email en breve con los detalles de pago.</p>
                     }
                     <p>Precio total: $@Compra.PrecioTotal</p>
+                    <p class="articulo-info">Ante cualquier duda, @Html.ActionLink(
+                                linkText: "contactate con nosotros",
+                                actionName: "Contacto",
+                                controllerName: "Home",
+                                routeValues: new
+                                {
+                                    prodID = (int)Compra.ID
+                                },
+                                htmlAttributes: null
+                                ), tu pregunta no molesta!</p>
                 </div>
             }
         }

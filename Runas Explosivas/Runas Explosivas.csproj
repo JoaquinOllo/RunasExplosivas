@@ -177,7 +177,6 @@
     <Compile Include="Models\ComentarioEnArticulo.cs" />
     <Compile Include="Models\Compra.cs" />
     <Compile Include="Models\DatosDeEnvio.cs" />
-    <Compile Include="Models\LinqExtension.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\ProductoEnCarro.cs" />
     <Compile Include="Models\Resenha.cs" />

@@ -35,9 +35,15 @@ namespace Runas_Explosivas.Controllers
             return View();
         }
 
-        public ActionResult Contacto()
+        public ActionResult Contacto(int prodID = -1)
         {
+            if (prodID != -1 && (Usuario)Session["usuario"] != null)
+            {
+                ViewBag.ConsultaCompra = true;
+                ViewBag.ConsultaCompraID = prodID;
+            }
             return View();
+            
         }
 
         public ActionResult Articulo(int blogpostID)
@@ -107,44 +113,6 @@ namespace Runas_Explosivas.Controllers
 
             var resultadoFinal = ResultadosBusqueda.Select(a => new { ID = a.ID, Titulo = a.Titulo }).Take(10);
             return Json(resultadoFinal, JsonRequestBehavior.AllowGet);
-        }
-
-        public void OrdenarComentarios (int ArtID)
-        {
-            Articulo Articulo = db.Articulos.First(A => A.ID == ArtID);
-            List<ComentarioEnArticulo> ComentariosAOrdenar = db.ComentariosEnArticulos
-                .Include("ArticuloComentado").Where(C => C.ArticuloComentado.ID == ArtID).ToList();
-
-            List<int> OrdenComentarios = new List<int>();
-
-            DateTime FechaMinima1 = DateTime.MaxValue, 
-                FechaMinima2 = FechaMinima1, 
-                FechaMinima3 = FechaMinima1, 
-                FechaMinima4 = FechaMinima1;
-
-            int MarcadorID1 = 0, 
-                MarcadorID2 = 0, 
-                MarcadorID3 = 0, 
-                MarcadorID4 = 0;
-
-            while (true)
-            {
-                MarcadorID1 = ComentariosAOrdenar.Select(C => C.Fecha).IndexOfMinDate(FechaMinima1);
-                FechaMinima1 = ComentariosAOrdenar.AsEnumerable().First(C => C.ID == MarcadorID1).Fecha;
-                if (MarcadorID1 >= 0)
-                {
-                    OrdenComentarios.Add(MarcadorID1);
-                    FechaMinima2 = FechaMinima1;
-                    while (true)
-                    {
-                        MarcadorID2 = ComentariosAOrdenar.Where(C => C.RespuestaA.ID == MarcadorID1)
-                            .Select(C => C.Fecha).IndexOfMinDate(FechaMinima2);
-                    }
-                } else
-                {
-                    break;
-                }
-            }
         }
     }
 }

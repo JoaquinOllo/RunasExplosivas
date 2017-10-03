@@ -1,12 +1,29 @@
-﻿@{
+﻿@using Runas_Explosivas.Models;
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.HeaderText = ".contacto";
     ViewBag.Title = "Contacto";
+    Usuario Usuario = (Usuario)Session["Usuario"];
 }
 
 <div class="main z-depth-1 row">
     @Html.Partial("~/Views/Shared/_Avisos.cshtml")
-    <h3>Dejanos tu opinión, pedido, consulta...</h3>
+    @if (!ViewBag.ConsultaCompra)
+    {
+        <h3>Dejanos tu opinión, pedido, consulta...</h3>
+    }
+    else
+    {
+        <h3>Contacto por problema o consulta sobre una compra (orden nº @ViewBag.ConsultaCompraID)</h3>
+        <h4>mail: @Usuario.Mail</h4>
+        <p>Si estos datos no son correctos, @Html.ActionLink(
+                                linkText: "haz clic aquí",
+                                actionName: "CerrarSesion",
+                                controllerName: "Usuario",
+                                routeValues: null,
+                                htmlAttributes: null
+                                ) para desconectarte</p>
+    }
     <form action="@Url.Action("Mensaje", "Home")" method="post" id="form-contacto">
         <div class="row">
             <div class="col-md-6">

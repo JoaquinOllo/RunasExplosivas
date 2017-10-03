@@ -26,36 +26,5 @@ namespace Runas_Explosivas.Controllers
                 return RedirectToAction("Articulo", "Home", new { blogpostID = ArtID });
             }
         }
-
-        public DateTime PrimerArticulo()
-        {
-            using (RunasContext db = new Models.RunasContext())
-            {
-                IEnumerable<DateTime> FechasArticulos = db.Articulos.Select(A => A.Fecha);
-                int MenorFechaIndex = FechasArticulos.IndexOfMinDate();
-                DateTime MenorFecha = db.Articulos.AsEnumerable().ElementAt(MenorFechaIndex).Fecha;
-                return MenorFecha;
-            }
-        }
-
-        public string OrdenarComentarios(int ArtID)
-        {
-            using (RunasContext db = new Models.RunasContext())
-            {
-                List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("ArticuloComentado").Include("RespuestaA")
-                    .Where(C => C.ArticuloComentado.ID == ArtID).ToList();
-                return LinqExtension.IterarOrdenarComentarios(ArtID);
-            }
-        }
-
-        public List<DateTime> FiltrarComentarios (int RespuestaAID)
-        {
-            using (RunasContext db = new Models.RunasContext())
-            {
-                List<ComentarioEnArticulo> Comentarios = db.ComentariosEnArticulos.Include("ArticuloComentado").Include("RespuestaA")
-                    .Where(C => C.ArticuloComentado.ID == 15 && C.RespuestaA.ID == 6).ToList();
-                return Comentarios.Select(C => C.Fecha).ToList();
-            }
-        }
     }
 }
