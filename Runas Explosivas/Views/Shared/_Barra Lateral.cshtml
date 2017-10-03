@@ -31,8 +31,17 @@
                     {
                         foreach (ProductoEnCarro Producto in Carrito)
                         {
-                            <li data-product="@Producto.Producto.ID">
-                                @(Producto.Producto.Titulo.Substring(0, 8))...<b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
+                            <li data-product="@Producto.Producto.ID" data-toggle="tooltip" data-placement="top" title="@Producto.Producto.Titulo">
+                                @Html.ActionLink(
+                                linkText: (string)(Producto.Producto.Titulo.Substring(0, 8)),
+                                actionName: "Producto",
+                                controllerName: "Editorial",
+                                routeValues: new
+                                {
+                                    prodID = (int)Producto.Producto.ID
+                                },
+                                htmlAttributes: null
+                                )...<b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
                                 <button class="btn btn-xs btn-default boton-quitar-de-carrito" type="button">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </button>

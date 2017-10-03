@@ -23,7 +23,16 @@
                         @foreach (ProductoEnCarro Producto in Compra.Productos)
                     {
                             <li data-product="@Producto.Producto.ID">
-                                @Producto.Producto.Titulo  <b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
+                                @Html.ActionLink(
+                                linkText: (string)Producto.Producto.Titulo,
+                                actionName: "Producto",
+                                controllerName: "Editorial",
+                                routeValues: new
+                                {
+                                    prodID = (int)Producto.Producto.ID
+                                },
+                                htmlAttributes: null
+                                ) <b>x@(Producto.Cantidad): $@(Producto.Producto.Precio * Producto.Cantidad)</b>
                             </li>
                         }
                     </ul>
