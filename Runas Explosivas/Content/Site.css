@@ -254,8 +254,12 @@ small.subtitulo {
     transition: all 0.5s cubic-bezier(.25,.8,.25,1);
 }
 
-.boton-derivacion:hover {
+.boton-derivacion.locked:hover, .boton-agregar-comentario.locked:hover {
     font-size: initial;
+}
+
+.comentario-seleccionado {
+    border-left: 18px solid !important;
 }
 
 .comentario-resaltado {
@@ -282,9 +286,9 @@ small.subtitulo {
         padding: 2px 2px 2px 28px;
     }
 
-    .boton-agregar-comentario{
-        transition: all linear 1s;
-    }
+.boton-agregar-comentario {
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
 
     .resaltado {
         font-size: 120%;

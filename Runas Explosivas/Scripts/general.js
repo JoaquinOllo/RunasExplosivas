@@ -83,18 +83,18 @@ function activarBoton(boton) {
 }
 
 function toggleRespuestaA(boton) {
-        var ComentariosAResaltar = $(boton).closest(".comentario");
-        $(boton).find("span").toggleClass("glyphicon-eye-close").toggleClass("glyphicon-eye-open").parent().toggleClass("locked");
-        var SiguienteComentario = $(boton).data("rtaid");
-        while (true) {
-            var Comentario = $("#lista-comentarios").find('[data-id="' + SiguienteComentario + '"]');
-            SiguienteComentario = Comentario.find(".boton-derivacion").data("rtaid");
-            ComentariosAResaltar = ComentariosAResaltar.add(Comentario);
-            if (SiguienteComentario == null) {
-                break;
-            };
+    var ComentariosAResaltar = $(boton).closest(".comentario");
+    $(boton).find("span").toggleClass("glyphicon-eye-close").toggleClass("glyphicon-eye-open").parent().toggleClass("locked");
+    var SiguienteComentario = $(boton).data("rtaid");
+    while (true) {
+        var Comentario = $("#lista-comentarios").find('[data-id="' + SiguienteComentario + '"]');
+        SiguienteComentario = Comentario.find(".boton-derivacion").data("rtaid");
+        ComentariosAResaltar = $(ComentariosAResaltar).add(Comentario);
+        if (SiguienteComentario == null) {
+            break;
         };
-        ComentariosAResaltar.toggleClass("comentario-resaltado");
+    };
+    ComentariosAResaltar.toggleClass("comentario-resaltado");
 };
 
 /* DOCUMENT READY PROGRAMAR DEBAJO */
@@ -148,23 +148,29 @@ $(document).ready(function () {
 
 /* BOTON PARA AGREGAR COMENTARIOS A ARTÍCULOS */
 
-      $("#lista-comentarios").on("click", ".boton-agregar-comentario", function (event) {
-          if ($(this).attr("type") != "submit" && $("#lista-comentarios").has("textarea").length == 0) {
-              event.preventDefault();
-              $(".boton-agregar-comentario").last().before(
-                  '<textarea class="form-control" name="textoComentario" placeholder="Dejanos tu comentario" rows="5" cols="6"></textarea>')
-                  .attr("type", "submit").text("Confirmar comentario");
-          } else if ($(this).is("a")) {
-              event.preventDefault();
-          };
+    $("#lista-comentarios").on("click", ".boton-agregar-comentario", function (event) {
+        event.preventDefault();
+        if ($(this).hasClass("locked")) {
+            $("textarea[name='textoComentario']").fadeOut().delay(500).remove();
+            $(".boton-agregar-comentario[data-id='-1']").attr("type", "button").text("Comentar artículo");
+            $(".boton-agregar-comentario.locked").removeClass("locked").closest(".comentario")
+                .removeClass("comentario-seleccionado");
+        } else {
+            if ($(this).attr("type") != "submit" && $("textarea[name='textoComentario']").length == 0) {
+                $(".boton-agregar-comentario").last().before(
+                    '<textarea class="form-control" name="textoComentario" placeholder="Dejanos tu comentario" rows="5" cols="6"></textarea>')
+                    .attr("type", "submit").text("Confirmar comentario");
+            };
+            if ($(this).is("a")) {
+                $(".boton-agregar-comentario.locked").removeClass("locked").closest(".comentario")
+                    .removeClass("comentario-seleccionado");
+                $(this).addClass("locked").closest(".comentario").addClass("comentario-seleccionado");
+                var respuestaAID = $(this).closest("li").data("id");
+                $("input[name='respuestaA']").val(respuestaAID);
+            };
+        };
 
-          if ($(this).is("a")) {
-              $("#lista-comentarios").find(".boton-agregar-comentario").removeClass("resaltado");
-              $(this).addClass("resaltado");
-              var respuestaAID = $(this).closest("li").data("id");
-              $("input[name='respuestaA']").val(respuestaAID);
-          };
-      });
+    });
 
 /* ACTIVACIÓN DE TOOLTIP DE BOOTSTRAP */ 
 
