@@ -8,11 +8,10 @@
 
 <div class="main z-depth-1 row">
     @Html.Partial("~/Views/Shared/_Avisos.cshtml")
-    @if (!ViewBag.ConsultaCompra)
+    @if (ViewBag.ConsultaCompra == null || !ViewBag.ConsultaCompra)
     {
         <h3>Dejanos tu opinión, pedido, consulta...</h3>
-    }
-    else
+    } else
     {
         <h3>Contacto por problema o consulta sobre una compra (orden nº @ViewBag.ConsultaCompraID)</h3>
         <h4>mail: @Usuario.Mail</h4>
